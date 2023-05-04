@@ -1,0 +1,76 @@
+<div class="orderList">
+{% for o in orders %}
+    {% ifchanged o.created.date %}
+    {% if o.created.date.day == today.day %}
+    <span class="oDateGroup">امروز</span>
+    {% else %}
+    <span class="oDateGroup">{{ o.created.date }}</span>
+    {% endif %}
+    {% endifchanged %}
+    <div class="oTempsList">
+        <span class="oProsCat">{{ o.table }} میز</span>
+        <span class="oProsCat" style="background-color: sienna;">{{ o.created.time }}</span>
+        <span class="oProsCat" style="background-color: orangered;direction: rtl;">مبلغ سفارش : {{ o.price }} ت </span>
+        <br><br>
+        <span class="nName fLabel" style="font-size: 14px;">: محصولات</span>
+        <br>
+        {% for p in o.prods.all %}
+        <span class="oPros">{{ p.prod.name }}<span class="pNum">{{ p.number }}</span></span>
+        {% endfor %}
+    </div>
+{% endfor %}
+</div>
+<div class="reservesList">
+{% for r in reservations %}
+    {% ifchanged r.date.date %}
+    {% if r.date.day == today.day %}
+    <span class="oDateGroup">امروز</span>
+    {% else %}
+    <span class="oDateGroup">{{ r.date.date }}</span>
+    {% endif %}
+    {% endifchanged %}
+    <div class="oTempsList">
+        <span class="oProsCat">میز {{ r.tNumber }}</span>
+        <span class="oProsCat" style="background-color: orangered;">به نام : {{ r.reservedBy }}</span>
+        <span class="oProsCat" style="background-color: sienna">هزینه : {{ r.cost }} ت</span>
+        <br><br>
+        <span class="reserveDetail"><span class="resDetail">ساعت رزرو :</span>{{ r.date.time }}</span>
+        <span class="reserveDetail resEnd"><span class="resDetail">ساعت پایان :</span>{{ r.endTime }}</span>
+    </div>
+{% endfor %}
+</div>
+<div class="costsList">
+{% for c in costs %}
+    {% ifchanged c.date.date %}
+    {% if c.date.day == today.day %}
+    <span class="oDateGroup">امروز</span>
+    {% else %}
+    <span class="oDateGroup">{{ c.date.date }}</span>
+    {% endif %}
+    {% endifchanged %}
+    <div class="oTempsList">
+        <span class="oProsCat" style="background-color: orangered;">توضیحات : {{ c.caption }}</span>
+        <br><br>
+        <span class="reserveDetail"><span class="resDetail">تاریخ :</span>{{ c.date }}</span>
+        <span class="reserveDetail resEnd" style="direction: rtl;"><span class="resDetail">قیمت :</span>{{ c.price }} ت</span>
+    </div>
+{% endfor %}
+</div>
+<div class="xlsxList">
+{% for x in reports %}
+    <div class="oTempsList">
+        <span class="oProsCat">{{ x.created }} : تاریخ </span>
+        {% if x.type == '1' %}
+        <span class="oProsCat" style="background-color: orangered;">نوع : سفارش</span>
+        {% elif x.type == '2' %}
+        <span class="oProsCat" style="background-color: orangered;">نوع : رزروی</span>
+        {% else %}
+        <span class="oProsCat" style="background-color: orangered;">نوع : هزینه</span>
+        {% endif %}
+        <a href="{{ x.file.url }}"><span class="oProsCat" style="background-color: sienna;cursor: pointer;">دانلود اکسل</span></a>
+        <br><br>
+        <span class="reserveDetail" style="width: 48%"><span class="resDetail">از تاریخ :</span>{{ x.dateFrom }}</span>
+        <span class="reserveDetail" style="width: 48%"><span class="resDetail">تا تاریخ :</span>{{ x.dateTo }}</span>
+    </div>
+{% endfor %}
+</div>

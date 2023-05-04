@@ -1,0 +1,9 @@
+{% for p in payments %}
+<div class="oTempsList">
+    <span class="oProsCat" style="background-color: orangered;">توضیحات : {{ p.type }}</span>
+    <span class="oProsCat" style="background-color: gray;">وضعیت : {{ p.status }}</span>
+    <br><br>
+    <span class="reserveDetail"><span class="resDetail">تاریخ :</span>{{ p.created }}</span>
+    <span class="reserveDetail resEnd" style="direction: rtl;"><span class="resDetail">مبلغ :</span>{{ p.price }} ت</span>
+</div>
+{% endfor %}

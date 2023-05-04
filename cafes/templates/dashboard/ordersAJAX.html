@@ -1,0 +1,21 @@
+{% for o in orders %}
+    {% ifchanged o.created.date %}
+    {% if o.created.date.day == today.day %}
+    <span class="oDateGroup" style="background-color: sienna;">امروز</span>
+    {% else %}
+    <span class="oDateGroup" style="background-color: sienna;">{{ o.created.date }}</span>
+    {% endif %}
+    {% endifchanged %}
+    <div class="oTempsList" data-id="{{ o.id }}">
+        <span class="oProsCat">{{ o.table }} میز</span>
+        <span class="oProsCat" style="background-color: sienna;">{{ o.created.time }}</span>
+        <span class="oProsCat" style="background-color: orangered;direction: rtl;">مبلغ سفارش : {{ o.price }} ت </span>
+        <br><br>
+        <span class="nName fLabel" style="font-size: 14px;">: محصولات</span>
+        <br>
+        {% for p in o.prods.all %}
+        <span class="oPros">{{ p.prod.name }}<span class="pNum" style="display: block;background-color: darkred;">{{ p.number }}</span></span>
+        {% endfor %}
+        <span data-id="{{ o.id }}" class="downBtn fi fi-rr-delete-document"><span class="changeBtn">حذف</span></span>
+    </div>
+{% endfor %}

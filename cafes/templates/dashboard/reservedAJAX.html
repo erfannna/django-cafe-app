@@ -1,0 +1,34 @@
+{% for r in reservations %}
+{% if r.date.day == today.day %}
+    {% ifchanged r.date.date %}
+    {% if first_page == True %}
+    <span id="todayReserved" class="oDateGroup">رزروی های امروز</span>
+    {% endif %}
+    {% endifchanged %}
+    <div class="oTempsList" data-id="{{ r.id }}">
+        <span class="oProsCat">میز {{ r.tNumber }}</span>
+        <span class="oProsCat" style="background-color: orangered;">به نام : {{ r.reservedBy }}</span>
+        <span class="oProsCat" style="background-color: sienna">هزینه : {{ r.cost }} ت</span>
+        <br><br>
+        <span class="reserveDetail"><span class="resDetail">ساعت رزرو :</span>{{ r.date.time }}</span>
+        <span class="reserveDetail resEnd"><span class="resDetail">ساعت پایان :</span>{{ r.endTime }}</span>
+        <span data-id="{{ r.id }}" class="downBtn fi fi-rr-delete-document"><span class="changeBtn">حذف</span></span>
+    </div>
+    {% endif %}
+{% endfor %}
+{% for r in reservations %}
+{% if r.date.day != today.day %}
+    {% ifchanged r.date.date %}
+    <span class="oDateGroup" style="background-color: sienna;">{{ r.date.date }}</span>
+    {% endifchanged %}
+    <div class="oTempsList" data-id="{{ r.id }}">
+        <span class="oProsCat">میز {{ r.tNumber }}</span>
+        <span class="oProsCat" style="background-color: orangered;">به نام : {{ r.reservedBy }}</span>
+        <span class="oProsCat" style="background-color: sienna">هزینه : {{ r.cost }} ت</span>
+        <br><br>
+        <span class="reserveDetail"><span class="resDetail">ساعت رزرو :</span>{{ r.date.time }}</span>
+        <span class="reserveDetail resEnd"><span class="resDetail">ساعت پایان :</span>{{ r.endTime }}</span>
+        <span data-id="{{ r.id }}" class="downBtn fi fi-rr-delete-document"><span class="changeBtn">حذف</span></span>
+    </div>
+{% endif %}
+{% endfor %}

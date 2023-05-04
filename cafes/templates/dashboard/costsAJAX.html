@@ -1,0 +1,16 @@
+{% for c in costs %}
+{% ifchanged c.date.month %}
+{% if c.date.year == today.year and c.date.month == today.month %}
+<span class="oDateGroup">ماه جاری</span>
+{% else %}
+<span class="oDateGroup">{{ c.date }}</span>
+{% endif %}
+{% endifchanged %}
+<div class="oTempsList" data-id="{{ c.id }}">
+    <span class="oProsCat" style="background-color: orangered;">توضیحات : {{ c.caption }}</span>
+    <br><br>
+    <span class="reserveDetail"><span class="resDetail">تاریخ :</span>{{ c.date }}</span>
+    <span class="reserveDetail resEnd" style="direction: rtl;"><span class="resDetail">قیمت :</span>{{ c.price }} ت</span>
+    <span data-id="{{ c.id }}" class="downBtn fi fi-rr-delete-document"><span class="changeBtn">حذف</span></span>
+</div>
+{% endfor %}

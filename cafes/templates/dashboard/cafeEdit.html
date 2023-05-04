@@ -1,0 +1,214 @@
+{% extends "dashboard/base.html" %}
+
+<style>
+    {% block style %}
+    #proEdit {
+        display: flex;
+        margin-top: 20px;
+        border-radius: 10px;
+        background-color: #d8bfd840;
+        flex-direction: row-reverse;
+        justify-content: space-around;
+    }
+    #mForm {
+        width: 330px;
+        margin-bottom: 20px;
+    }
+    .picsName {
+        font-family: Vazir;
+        margin-bottom: 10px;
+        cursor: default;
+    }
+    #photoEdit {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 25px;
+    }
+    .pPBox {
+        position: relative;
+    }
+    .pEdit {
+        position: absolute;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        width: 15px;
+        height: 15px;
+        color: white;
+        background-color: #ff8c77;
+        border-radius: 30px;
+        padding: 5px;
+        text-align: center;
+        font-family: Vazir;
+        font-size: 14px;
+        bottom: 33px;
+        right: 0px;
+        cursor: pointer;
+        transition: .2s;
+    }
+    .changeBtn {
+        display: none;
+    }
+    .pEdit:hover {
+        width: 100px;
+        filter: drop-shadow(0px 0px 6px lightgray);
+    }
+    .pEdit:hover .changeBtn {
+        display: block;
+    }
+    #pPhotoPre {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 30px;
+        background-color: white;
+        border-radius: 50%;
+    }
+    #pBackPre {
+        width: 320px;
+        height: 180px;
+        background-color: white;
+        border-radius: 5px;
+    }
+    .popUpBg {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: grayscale(.5) blur(1px);
+    }
+    #success {
+        position: absolute;
+        left: 35%;
+        top: 50%;
+        background-color: white;
+        text-align: center;
+        padding: 20px;
+        border-radius: 15px;
+        filter: drop-shadow(0px 0px 8px #41414161);
+        font-family: Vazir;
+        cursor: default;
+    }
+    #aClose {
+        margin-left: 15px;
+        float: unset;
+        width: auto;
+        padding: 1px 12px;
+        font-weight: 100;
+        text-align: center;
+        color: white;
+        background-color: grey;
+        font-family: Vazir;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: .2s;
+    }
+    .delBtn:hover {
+        opacity: 70%;
+        border-style: solid;
+        border-width: 2px;
+        border-color: #fcc23b;
+    }
+    @media only screen and (max-width: 430px) {
+        #pageContent {
+            width: 95%;
+        }
+        #proEdit {
+            flex-direction: column;
+        }
+    }
+    {% endblock %}
+</style>
+
+{% block content %}
+
+<div id="pageContent">
+    <h1 id="pTitle">{{ title }}</h1>
+    <div id="proEdit">
+        <form id="mForm" method="post" enctype="multipart/form-data">
+            <span class="nName fLabel">اسم کافه :</span>
+            {{ form.name }}
+            <span class="nName fLabel">درباره کافه :</span>
+            {{ form.bio }}
+            <span class="nName fLabel">لوکیشن کافه :</span>
+            {{ form.map_link }}
+            {{ form.pPhoto }}
+            {{ form.pBackground }}
+            {% csrf_token %}
+            <input id="submit" class="nForm" type="submit" value="ذخیره">
+        </form>
+        <div id="photoEdit">
+            <span class="picsName">تصویر پروفایل</span>
+            <div class="pPBox">
+                {% if request.user.cafe.first.pPhoto %}
+                <img id="pPhotoPre" src="{{ request.user.cafe.first.pPhoto.url }}" alt="">
+                {% else %}
+                <span class="proBox"></span>
+                {% endif %}
+                <span id="pPBtn" class="pEdit fi-rr-edit"><span class="changeBtn">تصویر جدید</span></span>
+            </div>
+            <span class="picsName">کاغذ دیواری پروفایل</span>
+            <div class="pPBox">
+                {% if request.user.cafe.first.pBackground %}
+                <img id="pBackPre" src="{{ request.user.cafe.first.pBackground.url }}" alt="">
+                {% else %}
+                <span class="backBox"></span>
+                {% endif %}
+                <span id="pBBtn" class="pEdit fi-rr-edit" style="bottom: -5px;right: -5px;"><span class="changeBtn">تصویر جدید</span></span>
+            </div>
+        </div>
+    </div>
+    {% if confirmAlert == 'Y' %}
+    <div class="popUpBg">
+        <div id="success">
+           <span>! پروفایل با موفقیت بروز شد</span><br><br>
+           <span id="aClose" class="delBtn">بستن</span>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+{% block domready %}
+
+$(" #cafePhoto ").change(function(input){
+    var file = $("input[id=cafePhoto]").get(0).files[0];
+
+    if(file){
+        var reader = new FileReader();
+
+        reader.onload = function(){
+            $("#pPhotoPre").attr("src", reader.result);
+        }
+        reader.readAsDataURL(file);
+    }
+});
+$(" #cBackPhoto ").change(function(input){
+    var file = $("input[id=cBackPhoto]").get(0).files[0];
+
+    if(file){
+        var reader = new FileReader();
+
+        reader.onload = function(){
+            $("#pBackPre").attr("src", reader.result);
+        }
+        reader.readAsDataURL(file);
+    }
+});
+$(document).on('click', '#pPBtn', function(event) {
+    event.preventDefault();
+    $(" #cafePhoto ").click();
+});
+$(document).on('click', '#pBBtn', function(event) {
+    event.preventDefault();
+    $(" #cBackPhoto ").click();
+});
+$(" #aClose ").click(function(e) {
+    e.preventDefault();
+    $(" .popUpBg ").fadeOut(150);
+    $(" #success ").fadeOut(200);
+});
+
+{% endblock %}

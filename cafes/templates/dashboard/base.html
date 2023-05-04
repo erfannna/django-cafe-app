@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link href="{% static "css/base.css" %}" rel="stylesheet">
+    <title>{{ title }}</title>
+    <style>
+        @font-face {
+            font-family: Shabnam;
+            src: url(/static/webfonts/Shabnam-FD.ttf);
+        }
+        @font-face {
+            font-family: ShabnamLight;
+            src: url(/static/webfonts/Shabnam-Light-FD.ttf);
+        }
+        @font-face {
+            font-family: ShabnamMedium;
+            src: url(/static/webfonts/Shabnam-Medium-FD.ttf);
+        }
+        @font-face {
+            font-family: ShabnamBold;
+            src: url(/static/webfonts/Shabnam-Bold-FD.ttf);
+        }
+        @font-face {
+            font-family: Vazir;
+            src: url(/static/webfonts/Vazir.ttf);
+        }
+        @font-face {
+            font-family: VazirBold;
+            src: url(/static/webfonts/VazirBold.ttf);
+        }
+        #sidebar::-webkit-scrollbar {
+            display: none;
+        }
+        #sidebar {
+            -ms-overflow-style: none;
+        }
+        #{{ section }} {
+            background-color: #ac77ff;
+        }
+        #sidebar {
+            position: fixed;
+            overflow: auto;
+            display: none;
+            width: 220px;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            padding: 15px 0 15px 0;
+            background-color: #ff8c77;
+            filter: drop-shadow(0px 0px 6px gray);
+            z-index: 1;
+        }
+        #sideMenu {
+            display: flex;
+            flex-direction: column;
+        }
+        .menuIcon {
+            position: absolute;
+            display: flex;
+            right: 10px;
+            top: 10px;
+            padding: 5px;
+            border-radius: 5px;
+            z-index: 2;
+            background-color: #ff8c77;
+            align-items: center;
+            justify-content: center;
+        }
+        .menuIcon2 {
+            right: 235px;
+        }
+        #profile {
+            position: relative;
+            display: flex;
+            text-align: right;
+            padding-right: 15px;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-bottom: 10px;
+        }
+        .cPhoto {
+            margin-bottom: 7px;
+            width: 65px;
+            height: 65px;
+            background-color: white;
+            border-radius: 50%;
+        }
+        .cName {
+            font-size: 18px;
+            font-family: VazirBold;
+            font-weight: 600;
+            /*margin-bottom: 10px;*/
+            cursor: default;
+        }
+        .sideSection {
+            margin-top: 10px;
+            margin-bottom: 3px;
+            padding: 7px 13px 7px;
+            text-align: center;
+            font-weight: bold;
+            font-family: Shabnam;
+            font-size: 17px;
+            color: #1b1b1b5e;
+            background-color: #f97e68;
+            filter: drop-shadow(0px 2px 2px #1b1b1b24);
+            cursor: default;
+        }
+         .side_options {
+            padding: 8px;
+            padding-right: 15px;
+            font-family: Vazir;
+            font-size: 15px;
+            text-align: right;
+            text-decoration: none;
+            color: white;
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+            border-bottom-color: #f8ad9f;
+            cursor: pointer;
+            transition: .2s;
+        }
+        .side_options:hover {
+            padding-right: 20px;
+            background-color: #9653ff;
+        }
+        .side_options:active {
+            background-color: #ac77ff;
+        }
+        #pageContent {
+            position: absolute;
+            width: 85%;
+            right: 0;
+            padding: 15px;
+            text-align: right;
+            top: 20px;
+        }
+        #pageContent2 {
+            position: absolute;
+            width: 85%;
+            padding: 15px;
+            text-align: right;
+            top: 440px;
+            right: 0;
+        }
+        #pTitle {
+            margin: 0;
+            font-family: shabnam;
+            font-weight: bold;
+            cursor: default;
+        }
+        #mForm {
+            position: relative;
+            float: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            max-width: 100%;
+            width: 67vmax;
+            margin-top: 20px;
+            padding: 5px 15px 15px 15px;
+            border-radius: 10px;
+            background-color: #d8bfd840;
+        }
+        .nForm {
+            width: 200px;
+            padding: 5px 10px 5px;
+            margin-top: 8px;
+            text-align: right;
+            direction: rtl;
+            font-family: Vazir;
+            border-style: solid;
+            border-width: 2px;
+            border-color: thistle;
+            border-radius: 10px;
+            background-color: #d8bfd840;
+            transition: .2s;
+        }
+        .nForm:focus {
+            border-color: thistle;
+            border-radius: 5px;
+            background-color: #ece2ec40;
+        }
+        .fLabel {
+            direction: rtl;
+            margin-top: 18px;
+            text-align: right;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: Vazir;
+            cursor: default;
+        }
+        .fSelect {
+            width: 100px;
+            padding: 3px 10px;
+        }
+        .fText {
+            width: 300px;
+            font-family: Shabnam;
+        }
+        #submit {
+            margin-top: 30px;
+            float: left;
+            width: auto;
+            padding: 3px 20px;
+            font-weight: 600;
+            color: white;
+            background-color: #ff8c77;
+            border-color: #d8bfd840;
+            cursor: pointer;
+            transition: .2s;
+        }
+        #submit:active {
+            background-color: #ffd268;
+            border-color: #fcc23b;
+        }
+        #submit:hover {
+            background-color: #ffd268;
+            border-color: #fcc23b;
+        }
+        @media only screen and (min-width: 1024px) {
+            #sidebar {
+                display: block;
+            }
+            .menuIcon {
+                display: none;
+            }
+            #pageContent {
+                width: 70%;
+                right: 250px;
+            }
+            #pageContent2 {
+                width: 70%;
+                right: 250px;
+            }
+        }
+
+        {% block style %}
+        {% endblock %}
+    </style>
+</head>
+<body>
+    <div id="sidebar">
+        <div id="profile">
+            {% if request.user.cafe.first.pPhoto %}
+            <img src="{{ request.user.cafe.first.pPhoto.url }}" class="cPhoto" >
+            {% else %}
+            <span class="cPhoto"></span>
+            {% endif %}
+            <strong class="cName">کافه {{ request.user.cafe.first.name }}</strong>
+        </div>
+        <div id="sideMenu">
+            <a href="/dashboard" id="DashB" class="side_options">داشبورد</a>
+            <a class="sideSection">مدیریت سفارشات</a>
+            <a href="/orders" id="lOrders" class="side_options">سفارشات</a>
+            <a href="/reservations" id="lReservations" class="side_options">میزهای رزرو شده</a>
+            <a class="sideSection">محصولات و منوها</a>
+            <a href="/product/list" id="lProducts" class="side_options">محصولات</a>
+            <a href="/menu/new" id="nMenu" class="side_options">منو جدید</a>
+            <a href="/menu/list" id="lMenus" class="side_options">منوها</a>
+            <a class="sideSection">مدیریت کافه</a>
+            <a href="/costs" id="nCost" class="side_options">هزینه ها</a>
+            <a href="/reports" id="fReports" class="side_options">حسابداری</a>
+            <a href="/dashboard/edit" id="cEdit" class="side_options">ویرایش پروفایل</a>
+            <a href="/dashboard/upgrade" id="upgrade" class="side_options">حساب پریمیوم</a>
+        </div>
+    </div>
+    {% block content %}
+    {% endblock %}
+    {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+            <li class="{{ message.tags }}">
+              {{ message|safe }}
+                <a href="#" class="close">x</a>
+            </li>
+          {% endfor %}
+        </ul>
+    {% endif %}
+    <span class="fi-rr-menu-burger menuIcon"></span>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static "jQuery.print.js" %}"></script>
+    <script>
+      const csrftoken = Cookies.get('csrftoken');
+      function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+      }
+      $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          }
+        }
+      });
+
+      $(document).ready(function(){
+        $(" .menuIcon ").click(function(e) {
+            $(this).toggleClass(" menuIcon2 ");
+            $(" .popUpBg ").toggle(50);
+            $(" #sidebar ").toggle(50);
+        });
+        {% block domready %}
+        {% endblock %}
+      });
+    </script>
+</body>
+</html>

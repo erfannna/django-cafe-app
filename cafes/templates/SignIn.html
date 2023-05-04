@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head>
+{% load static %}
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@font-face {
+	font-family: Shabnam;
+	src: url(/static/webfonts/Shabnam-FD.ttf);
+}
+@font-face {
+	font-family: ShabnamLight;
+	src: url(/static/webfonts/Shabnam-Light-FD.ttf);
+}
+@font-face {
+	font-family: ShabnamMedium;
+	src: url(/static/webfonts/Shabnam-Medium-FD.ttf);
+}
+@font-face {
+	font-family: ShabnamBold;
+	src: url(/static/webfonts/Shabnam-Bold-FD.ttf);
+}
+@font-face {
+	font-family: Vazir;
+	src: url(/static/webfonts/Vazir.ttf);
+}
+@font-face {
+	font-family: VazirBold;
+	src: url(/static/webfonts/VazirBold.ttf);
+}
+.mediaViewInfo {
+		--web-view-name: Video watch;
+		--web-view-id: Video_watch;
+		--web-scale-on-resize: true;
+		--web-enable-deep-linking: true;
+}
+:root {
+    --web-view-ids: Video_watch;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: none;
+}
+#Home::-webkit-scrollbar {
+    display: none;
+}
+#Home {
+    -ms-overflow-style: none;
+}
+#Home {
+    position: relative;
+    width: 100%;
+    height: max-content;
+    background-color: rgba(255,255,255,1);
+    overflow: hidden;
+    --web-view-name: Video watch;
+    --web-view-id: Video_watch;
+    --web-scale-on-resize: true;
+    --web-enable-deep-linking: true;
+}
+@keyframes fadein {
+
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+
+}
+#header {
+    fill: rgba(255,255,255,1);
+}
+.header {
+    filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.161));
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 4.05em;
+    left: 0;
+    top: 0;
+}
+.Header {
+    position: fixed;
+    top: .65em;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    font-family: shabnam;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    color: rgba(254,138,192,1);
+}
+#footer {
+    fill: rgba(255,255,255,1);
+}
+.footer {
+    filter: drop-shadow(0px -1px 3px rgba(0, 0, 0, 0.161));
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 2.9em;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-top: 2em;
+}
+#home_icon {
+    fill: Black;
+}
+.home_icon {
+    overflow: visible;
+    position: fixed;
+    left: .75em;
+    bottom: .25em;
+}
+.fi-sr-home {
+    overflow: visible;
+    color: black;
+    font-size: 1.4em;
+    text-align: center;
+}
+.fi-rr-home {
+    overflow: visible;
+    color: black;
+    font-size: 1.4em;
+    text-align: center;
+}
+.New {
+    position: fixed;
+    left: 0em;
+    width: 91.5%;
+    text-align: center;
+}
+.fi-rr-pharmacy {
+    overflow: visible;
+    position: fixed;
+    color: rgba(254,138,192,.8);
+    font-size: 1.8em;
+    text-align: center;
+    justify-content: center;
+    bottom: .35em;
+    transition: font-size .5s;
+    transform: rotate(180deg);
+    transition : transform .2s;
+
+}
+.fi-rr-pharmacy:hover {
+    \\font-size: 2.6em;
+    color: rgba(254,138,192,1);
+}
+.videoIco {
+    overflow: visible;
+    position: fixed;
+    left: 6em;
+    bottom: .3em;
+}
+.fi-rr-play {
+    overflow: visible;
+    color: black;
+    font-size: 1.3em;
+    text-align: center;
+}
+.nrcRoom {
+    overflow: visible;
+    position: fixed;
+    right: 6.05em;
+    bottom: .25em;
+}
+.fi-rr-ferris-wheel {
+    overflow: visible;
+    color: black;
+    font-size: 1.4em;
+    text-align: center;
+}
+#dashboard_icon {
+    fill: rgba(0,0,0,1);
+}
+.dashboard_icon {
+    overflow: visible;
+    position: fixed;
+    right: 1.65em;
+    bottom: .315em;
+    transform: matrix(1,0,0,1,0,0);
+}
+.fi-rr-user {
+    overflow: visible;
+    color: black;
+    font-size: 1.3em;
+    text-align: center;
+}
+.form {
+    display: grid;
+    position: relative;
+    overflow: visible;
+    margin-top: 10em;
+    width: 100%;
+    height: 300px;
+    text-align: center;
+    font-family: 'Exo', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+}
+h4 {
+	font-family: vazir;
+}
+input {
+    position: relative;
+    margin-bottom: 1em;
+    width: 50%;
+    height: max-content;
+    box-size: 50%;
+    padding: 1em;
+    \\ filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.13));
+    color: rgba(254,138,192,1);
+    border-radius: .2em 1em 1em 1em ;
+    text-align: right;
+    font-family: vazir;
+    font-style: normal;
+    font-weight: normal;
+    font-size: .8em;
+    background-color: rgba(254,138,192,.1);
+    transition :  .5s;
+
+}
+input:hover {
+    background-color: white;
+    outline-style: solid;
+    outline-color: rgba(254,138,192,1);
+    outline-width: 1px;
+    color: rgba(254,138,192,1);
+    font-weight: bold;
+}
+input:focus {
+    background-color: white;
+    outline-style: solid;
+    outline-color: rgba(254,138,192,1);
+    outline-width: 1px;
+    color: rgba(254,138,192,1);
+
+}
+.submit {
+    position: relative;
+    margin-top: .5em;
+    margin-bottom: 1.2em;
+    width: 22%;
+    height: max-content;
+    padding: .7em;
+    \\ filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.13));
+    color: rgba(254,138,192,1);
+    border-radius: 1em;
+    text-align: center;
+    font-family: vazir;
+    font-style: normal;
+    font-weight: normal;
+    font-size: .8em;
+    color: white;
+    background-color: rgba(254,73,158,1);
+    cursor: pointer;
+    transition : .5s;
+}
+.submit:hover {
+    background-color: white;
+    outline-style: solid;
+    outline-color: rgba(254,138,192,1);
+    outline-width: 1px;
+    color: rgba(254,138,192,1);
+    font-weight: bold;
+    filter: drop-shadow(0px 0px 6px rgba(0, 0, 0, 0.1));
+}
+.or_via {
+    position: relative;
+    overflow: visible;
+    margin-top: 1.5em;
+    margin-bottom: 0.3em;
+    align-items: center;
+    font-family: vazir;
+    font-style: normal;
+    font-weight: normal;
+    font-size: .85em;
+    color: gray;
+}
+.google {
+    position: relative;
+    width: 2.2em;
+    height: 2.2em;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+
+@media only screen and (min-width: 550px) {
+        #Home {
+            width: 430px;
+            left: 20%;
+            text-align: center;
+            justify-content: center;
+        }
+        .header {
+            width: 430px;
+            left: 20%;
+        }
+        .Header {
+            width: 430px;
+        }
+        .footer {
+            width: 430px;
+            left: 20%;
+        }
+        .New {
+            width: 400px;
+            margin-left: 15%;
+            margin-right: 15%;
+        }
+        .dashboard_icon {
+            left: 385px;
+            margin-left: 20%;
+            margin-right: 20%;
+        }
+        .home_icon {
+            margin-left: 20%;
+            margin-right: 20%;
+        }
+}
+
+@media only screen and (min-width: 1000px) {
+        #Home {
+            width: 430px;
+            left: 33%;
+            text-align: center;
+            justify-content: center;
+        }
+        .header {
+            width: 430px;
+            left: 33%;
+        }
+        .Header {
+            width: 430px;
+        }
+        .footer {
+            width: 430px;
+            left: 33%;
+        }
+        .New {
+            width: 400px;
+            margin-left: 33%;
+            margin-right: 33%;
+        }
+        .dashboard_icon {
+            left: 385px;
+            margin-left: 33%;
+            margin-right: 34%;
+        }
+        .home_icon {
+            margin-left: 33%;
+        }
+        .nrcRoom {
+            margin-left: 30%;
+            margin-right: 33%;
+        }
+        .videoIco {
+            margin-left: 32%;
+            margin-right: 33%;
+        }
+        .new_events {
+            margin-left: 0%;
+            margin-right: 90%;
+        }
+}
+</style>
+<link rel="stylesheet" href="{% static "css/uicons-regular-rounded.css" %}">
+<link rel="stylesheet" href="{% static "css/uicons-solid-rounded.css" %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<title>باریسکا|ورود</title>
+</head>
+<body>
+<div id="Home">
+	<form class="form" method="post">
+		<h4>ورود به پنل کافه</h4><br>
+		{{ form.as_p }}
+		{% csrf_token %}
+		<p><input class="submit" type="submit" value="ورود"></p>
+		<span class="or_via">--- یا با گوگل وارد شوید ---</span>
+		<a href="{% url "social:begin" "google-oauth2" %}">
+			<img class="google" width="3em" height="3em" src="{% static "svg/Google-icon.svg" %}"></img>
+		</a>
+	</form>
+	<svg class="header">
+		<rect id="header" rx="0" ry="0" x="0" y="0" width="100%" height="100%"></rect>
+	</svg>
+	<div class="Header">
+		<span>باریسکا<small style="color: black; font-size: 16px;">.ir</small></span>
+	</div>
+
+</div>
+<script>
+	const csrftoken = Cookies.get('csrftoken');
+    function csrfSafeMethod(method) {
+      // these HTTP methods do not require CSRF protection
+      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+      beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+          xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+      }
+    });
+
+    $(document).ready(function(){
+      {% block domready %}
+
+	  {% endblock %}
+	});
+</script>
+</body>
+</html>

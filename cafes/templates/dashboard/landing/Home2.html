@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>باریسکا|کافه داری دیجیتال</title>
+<style id="applicationStylesheet" type="text/css">
+	@font-face {
+		font-family: Shiraz;
+		src: url(/static/webfonts/Shiraz.TTF);
+	}
+	@font-face {
+		font-family: BANAFSHE;
+		src: url(/static/webfonts/banafshe.ttf);
+	}
+	@font-face {
+		font-family: Dastnevis;
+		src: url(/static/webfonts/DastNevis.otf);
+	}
+	@font-face {
+		font-family: Vazir;
+		src: url(/static/webfonts/Vazir.ttf);
+	}
+	@font-face {
+		font-family: VazirBold;
+		src: url(/static/webfonts/VazirBold.ttf);
+	}
+	@font-face {
+		font-family: Two;
+		src: url(/static/webfonts/MjTwoBold.ttf);
+	}
+	@font-face {
+		font-family: Mitra;
+		src: url(/static/webfonts/Smitrabd.TTF);
+	}
+	@font-face {
+		font-family: Ordibehesht;
+		src: url(/static/webfonts/Ordibehesht.TTF);
+	}
+	.mediaViewInfo {
+		--web-view-name: Home;
+		--web-view-id: Home;
+		--web-scale-to-fit: true;
+		--web-scale-to-fit-type: width;
+		--web-enable-deep-linking: true;
+	}
+	:root {
+		--web-view-ids: Home;
+	}
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		border: none;
+	}
+	#Home {
+		position: absolute;
+		width: 100%;
+		height: 5893px;
+		background-color: rgba(255,255,255,1);
+		overflow: hidden;
+		--web-view-name: Home;
+		--web-view-id: Home;
+		--web-enable-deep-linking: true;
+		cursor: default;
+	}
+	#HeadSec {
+		position: relative;
+		width: 100%;
+		display: flex;
+		padding-top: 90px;
+		right: 0;
+		flex-direction: row-reverse;
+		justify-content: center;
+		align-items: center;
+		flex-wrap: wrap;
+		transform: scale(.8);
+		transform: scale(.55);
+	}
+	#sec1 {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+	}
+	#loginButton {
+		position: absolute;
+		width: 120px;
+		height: 42px;
+		left: 5px;
+		top: 10px;
+		overflow: visible;
+		cursor: pointer;
+		transform: scale(.8);
+	}
+	#Rectangle_7 {
+		fill: rgba(255,170,170,1);
+		stroke: rgba(255,223,223,1);
+		stroke-width: 2px;
+		stroke-linejoin: round;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectangle_7 {
+		filter: drop-shadow(0px 1px 6px rgba(0, 0, 0, 0.051));
+		position: absolute;
+		overflow: visible;
+		width: 138px;
+		height: 60px;
+		left: 0px;
+		top: 0px;
+	}
+	#n___bn {
+		left: 20px;
+		top: 9px;
+		position: absolute;
+		overflow: visible;
+		width: 80px;
+		white-space: nowrap;
+		text-align: right;
+		font-family: Vazir;
+		font-style: normal;
+		font-weight: lighter;
+		font-size: 15px;
+		color: rgba(255,255,255,1);
+	}
+	#Text {
+		position: relative;
+		overflow: visible;
+		text-align: right;
+		font-family: BANAFSHE;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 45px;
+		color: rgba(255,130,74,1);
+	}
+	#headTitle {
+		position: relative;
+		margin-top: 15px;
+		position: relative;
+		overflow: visible;
+		white-space: nowrap;
+		text-align: right;
+		font-family: Ordibehesht;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 72px;
+		color: rgba(255,187,0,1);
+	}
+	#headText {
+		position: relative;
+		overflow: visible;
+		white-space: nowrap;
+		text-align: right;
+		font-family: Mitra;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 40px;
+		color: rgba(70,70,70,1);
+	}
+	#readMore {
+		position: relative;
+		width: 174.844px;
+		margin-top: 30px;
+		overflow: visible;
+	}
+	#headPic {
+		position: relative;
+		width: 48%;
+		overflow: visible;
+	}
+	#Rectangle_8 {
+		fill: rgba(255,229,168,1);
+	}
+	.Rectangle_8 {
+		position: absolute;
+		overflow: visible;
+		width: 174.844px;
+		height: 51.593px;
+		left: 0px;
+		top: 15.765px;
+	}
+	#n__ {
+		left: 25.797px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 122px;
+		white-space: nowrap;
+		text-align: right;
+		font-family: Mitra;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 38px;
+		color: rgba(70,70,70,1);
+	}
+	#sec2 {
+		position: relative;
+		width: 85%;
+		height: 500px;
+		margin-left: auto;
+		margin-right: auto;
+		display: flex;
+		margin-top: 100px;
+		background-color: rgba(20,19,17,1);
+		justify-content: center;
+		border-radius: 2px 100px;
+		transform: scale(.47);
+	}
+	#sec2Pic {
+		position: relative;
+		overflow: visible;
+	}
+	#sec2Topic {
+		right: 7vmax;
+		top: 2.4vmax;
+		position: absolute;
+		overflow: visible;
+		width: 82px;
+		white-space: nowrap;
+		text-align: right;
+		font-family: Dastnevis;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 83px;
+		color: rgba(255,255,255,1);
+		transform: scale(.6);
+	}
+	#sec2Text {
+		position: absolute;
+		top: 14vmax;
+		overflow: visible;
+		transform: scale(.6);
+	}
+	#Text_ {
+		right: 11vmax;
+		top: 7vmax;
+		position: absolute;
+		overflow: visible;
+		text-align: right;
+		font-family: BANAFSHE;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 27px;
+		color: rgba(255,130,74,1);
+		transform: scale(.7);
+	}
+	#sec2Topic_ {
+		right: 27.5vmax;
+		top: 0.5vmax;
+		position: absolute;
+		overflow: visible;
+		white-space: nowrap;
+		text-align: right;
+		font-family: Dastnevis;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 114px;
+		color: rgba(255,255,255,1);
+		transform: scale(.6);
+	}
+	#joinUs {
+		position: absolute;
+		width: 418px;
+		height: 114px;
+		left: 28%;
+		top: 39.5vmax;
+		overflow: visible;
+		transform: scale(.5);
+	}
+	#n________ {
+		left: 90.308px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 406px;
+		white-space: nowrap;
+		text-align: right;
+		font-family: Mitra;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 45px;
+		color: rgba(255,234,177,1);
+	}
+	#Line_3 {
+		fill: transparent;
+		stroke: rgba(225,225,225,1);
+		stroke-width: 0.699999988079071px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Line_3 {
+		overflow: visible;
+		position: absolute;
+		width: 600.772px;
+		height: 0.7px;
+		left: 0px;
+		top: 167.449px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Line_4 {
+		fill: transparent;
+		stroke: rgba(225,225,225,1);
+		stroke-width: 0.699999988079071px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Line_4 {
+		overflow: visible;
+		position: absolute;
+		width: 410.498px;
+		height: 0.7px;
+		left: 288.934px;
+		top: 354.199px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#n_________ {
+		left: 121.061px;
+		top: 187.598px;
+		position: absolute;
+		overflow: visible;
+		width: 376px;
+		white-space: nowrap;
+		text-align: right;
+		font-family: Mitra;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 45px;
+		color: rgba(255,234,177,1);
+	}
+	#n___z {
+		left: 121.061px;
+		top: 375.196px;
+		position: absolute;
+		overflow: visible;
+		width: 385px;
+		white-space: nowrap;
+		text-align: right;
+		font-family: Mitra;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 46px;
+		color: rgba(255,234,177,1);
+	}
+
+	#Line_5 {
+		fill: transparent;
+		stroke: rgba(216,216,216,1);
+		stroke-width: 2px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Line_5 {
+		display: none;
+		overflow: visible;
+		position: absolute;
+		width: 498px;
+		height: 2px;
+		left: -39px;
+		top: 18px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Group_1 {
+		position: absolute;
+		width: 418px;
+		height: 114px;
+		left: 0px;
+		top: 0px;
+		overflow: visible;
+	}
+	#Rectangle_9 {
+		fill: rgba(255,139,143,1);
+		stroke: rgba(255,223,223,1);
+		stroke-width: 2px;
+		stroke-linejoin: round;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectangle_9 {
+		filter: drop-shadow(0px 0px 7px rgba(255, 0, 119, 0.702));
+		position: absolute;
+		overflow: visible;
+		width: 439px;
+		height: 135px;
+		left: 0px;
+		top: 0px;
+	}
+	#n___ {
+		left: 19px;
+		top: 14px;
+		position: absolute;
+		overflow: visible;
+		width: 381px;
+		white-space: nowrap;
+		text-align: right;
+		font-family: VazirBold;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 51px;
+		color: rgba(255,255,255,1);
+	}
+	#sec3 {
+		position: relative;
+		margin-top: 150px;
+		display: flex;
+		width: 80%;
+		margin-left: auto;
+		margin-right: auto;
+		flex-direction: column;
+		align-items: center;
+		transform: scale(.22);
+	}
+	#Group_2 {
+		position: relative;
+		width: 1012px;
+		height: 110px;
+		overflow: visible;
+	}
+	#ordercreate {
+		filter: drop-shadow(20px 15px 35px rgba(0, 0, 0, 0.161));
+		position: relative;
+		width: 1737px;
+		overflow: visible;
+	}
+	#Rectangle_11 {
+		fill: transparent;
+		stroke: rgba(255,133,79,1);
+		stroke-width: 3px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectangle_11 {
+		position: absolute;
+		overflow: visible;
+		width: 996px;
+		height: 100px;
+		left: 16px;
+		top: 0px;
+	}
+	#n_____ {
+		left: 0px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 983px;
+		white-space: nowrap;
+		text-align: right;
+		font-family: Two;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 70px;
+		color: rgba(255,130,74,1);
+	}
+	#sec4 {
+		position: relative;
+		margin-top: 150px;
+		display: flex;
+		width: 80%;
+		margin-left: auto;
+		margin-right: auto;
+		flex-direction: column;
+		align-items: center;
+		transform: scale(.22);
+	}
+	#management {
+		filter: drop-shadow(0px 0px 40px rgba(0, 0, 0, 0.161));
+		position: relative;
+		width: 1554px;
+		overflow: visible;
+	}
+	#Group_3 {
+		position: relative;
+		width: 1027px;
+		height: 110px;
+		overflow: visible;
+	}
+	#Rectangle_11_be {
+		fill: transparent;
+		stroke: rgba(68,101,151,1);
+		stroke-width: 3px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectangle_11_be {
+		position: absolute;
+		overflow: visible;
+		width: 996px;
+		height: 100px;
+		left: 31px;
+		top: 0px;
+	}
+	#n______bf {
+		left: 0px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 998px;
+		white-space: nowrap;
+		text-align: right;
+		font-family: Two;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 70px;
+		color: rgba(68,101,151,1);
+	}
+	#sec5 {
+		position: relative;
+		margin-top: 150px;
+		display: flex;
+		width: 80%;
+		margin-left: auto;
+		margin-right: auto;
+		flex-direction: column;
+		align-items: center;
+		transform: scale(.22);
+	}
+	#Group_4 {
+		position: relative;
+		width: 1169px;
+		height: 110px;
+		overflow: visible;
+	}
+	#Rectangle_11_bh {
+		fill: transparent;
+		stroke: rgba(193,71,88,1);
+		stroke-width: 3px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectangle_11_bh {
+		position: absolute;
+		overflow: visible;
+		width: 996px;
+		height: 100px;
+		left: 173px;
+		top: 0px;
+	}
+	#n_Qr_code_______ {
+		left: 0px;
+		top: 0px;
+		position: absolute;
+		overflow: visible;
+		width: 1140px;
+		white-space: nowrap;
+		text-align: right;
+		font-family: Two;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 70px;
+		color: rgba(193,71,88,1);
+	}
+	#menucreate {
+		filter: drop-shadow(20px 15px 40px rgba(0, 0, 0, 0.161));
+		position: relative;
+		width: 1736px;
+		overflow: visible;
+	}
+	#Rectangle_12 {
+		fill: rgba(41,41,41,1);
+		stroke: rgba(112,112,112,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectangle_12 {
+		position: absolute;
+		overflow: visible;
+		width: 1920px;
+		height: 395px;
+		left: 0px;
+		top: 5498px;
+	}
+</style>
+<body>
+<div id="Home">
+	<div id="HeadSec">
+		<div id="sec1">
+			<div id="Text">
+				<span>باریســــــــــکا</span>
+			</div>
+			<div id="headTitle">
+				<span>کافه داری به سبک نوین</span>
+			</div>
+			<div id="headText">
+				<span>پلتفرم کافه داری دیجیـــتال<br/>سفارش گیری بدون کاغذ<br/>منــوی الکترونیک<br/>رزرو آنـلاین</span>
+			</div>
+			<div id="readMore">
+				<svg class="Rectangle_8">
+					<rect id="Rectangle_8" rx="12" ry="12" x="0" y="0" width="174.844" height="51.593">
+					</rect>
+				</svg>
+				<div id="n__">
+					<span>ورود به پنل</span>
+				</div>
+			</div>
+		</div>
+		<img id="headPic" src="{% static "landing/n_0134715_6242778.png" %}">
+	</div>
+	<div id="sec2">
+		<img id="sec2Pic" src="{% static "landing/sec2Pic.png" %}">
+		<div id="sec2Text">
+			<div id="n________">
+				<span>حذف هزینه چاپ مجدد منو<br/>هنگام تغییر قیــمت ها</span>
+			</div>
+			<svg class="Line_3" viewBox="0 0 600.772 0.699999988079071">
+				<path id="Line_3" d="M 0 0 L 600.7716674804688 0">
+				</path>
+			</svg>
+			<svg class="Line_4" viewBox="0 0 410.498 0.699999988079071">
+				<path id="Line_4" d="M 0 0 L 410.4979553222656 0">
+				</path>
+			</svg>
+			<div id="n_________">
+				<span>ساخت و بروزرسانی منو <br/>به همراه قالب های متنوع</span>
+			</div>
+			<div id="n___z">
+				<span>سفارش گیری الکترونیک</span>
+			</div>
+		</div>
+		<div id="sec2Topic">
+			<span>چرا</span>
+		</div>
+		<div id="joinUs">
+			<svg class="Line_5" viewBox="0 0 496 2">
+				<path id="Line_5" d="M 496 0 L 0 0">
+				</path>
+			</svg>
+			<div id="Group_1">
+				<svg class="Rectangle_9">
+					<rect id="Rectangle_9" rx="20" ry="20" x="0" y="0" width="418" height="114">
+					</rect>
+				</svg>
+				<div id="n___">
+					<span>!کافه تُ مدرن کن</span>
+				</div>
+			</div>
+		</div>
+		<div id="Text_">
+			<span>باریسکا</span>
+		</div>
+		<div id="sec2Topic_">
+			<span>؟!</span>
+		</div>
+	</div>
+	<div id="sec3">
+		<div id="Group_2">
+			<svg class="Rectangle_11">
+				<rect id="Rectangle_11" rx="20" ry="20" x="0" y="0" width="996" height="100">
+				</rect>
+			</svg>
+			<div id="n_____">
+				<span>ثبت و مدیریت سفارش به راحتی</span>
+			</div>
+		</div>
+		<img id="ordercreate" src="{% static "landing/ordercreate.png" %}">
+	</div>
+	<div id="sec4">
+		<div id="Group_3">
+			<svg class="Rectangle_11_be">
+				<rect id="Rectangle_11_be" rx="20" ry="20" x="0" y="0" width="996" height="100">
+				</rect>
+			</svg>
+			<div id="n______bf">
+				<span>مشاهده آمار مالی کافه و درآمد</span>
+			</div>
+		</div>
+		<img id="management" src="{% static "landing/management.png" %}">
+	</div>
+	<div id="sec5">
+		<div id="Group_4">
+			<svg class="Rectangle_11_bh">
+				<rect id="Rectangle_11_bh" rx="20" ry="20" x="0" y="0" width="996" height="100">
+				</rect>
+			</svg>
+			<div id="n_Qr_code_______">
+				<span> Qr code ساخت منو جدید و دریافت  </span>
+			</div>
+		</div>
+		<img id="menucreate" src="{% static "landing/menucreate.png" %}">
+	</div>
+	<div id="loginButton">
+		<svg class="Rectangle_7">
+			<rect id="Rectangle_7" rx="17" ry="17" x="0" y="0" width="120" height="42">
+			</rect>
+		</svg>
+		<div id="n___bn">
+			<span>ورود با گوگل</span>
+		</div>
+	</div>
+</div>
+</body>
+</html>
