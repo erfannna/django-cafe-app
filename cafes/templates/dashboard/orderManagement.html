@@ -578,7 +578,7 @@ let oPrice = 0;
 const chatSocket = new WebSocket(
     'wss://'
     + window.location.host
-    + '/ws/chat/'
+    + ':8001/ws/chat/'
     + roomName
     + '/'
 );
@@ -624,9 +624,9 @@ chatSocket.onclose = function(e) {
 
 $(" #retry ").click(function(e) {
     const chatSocket = new WebSocket(
-        'ws://'
+        'wss://'
         + window.location.host
-        + '/ws/chat/'
+        + ':8001/ws/chat/'
         + roomName
         + '/'
     );
