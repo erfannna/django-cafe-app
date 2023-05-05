@@ -3,6 +3,7 @@
 set -o errexit
 
 poetry install
+poetry lock
 
 pip install requirements.txt
 python manage.py collectstatic --no-input
