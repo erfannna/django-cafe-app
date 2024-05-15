@@ -1,2 +1,3 @@
-**Digital menu creator website with Django**\n
+**Digital menu creator website with Django**
+
 online ordering by channels
