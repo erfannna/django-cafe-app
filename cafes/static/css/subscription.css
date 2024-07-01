@@ -1,0 +1,200 @@
+#pageContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+#activeText {
+    position: relative;
+    float: right;
+    display: flex;
+    max-width: 100%;
+    width: 67vmax;
+    padding: 15px 15px 15px 15px;
+    border-radius: 10px;
+    background-color: #d8bfd840;
+    margin-top: 30px;
+    margin-right: 10px;
+    color: black;
+    font-size: 17px;
+    font-weight: 500;
+    font-family: shabnam;
+    gap: 5px;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+.activeTime {
+    font-weight: 600;
+    font-size: 19px;
+}
+.plans {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.TempsList {
+    position: relative;
+    display: flex;
+    float: right;
+    width: 500px;
+    height: 65px;
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #dbb38587;
+    border: solid #c08a4d87;
+    border-radius: 10px;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    transition: .2s;
+}
+.TempsList:hover {
+    background-color: #db8585;
+    border: solid #e9cbcb;
+    scale: 1.05;
+}
+.TempsList:hover .price {
+    color: white;
+}
+.TempsListActive {
+    background-color: #db8585;
+    border: solid #e9cbcb;
+    scale: 1.05;
+}
+.TempsListActive .price {
+    color: white;
+}
+.temp2 {
+    width: 550px;
+}
+.temp3 {
+    width: 600px;
+}
+.temp4 {
+    width: 650px;
+}
+.cProsCat {
+    font-family: vazir;
+    font-weight: 600;
+    color: white;
+    background-color: #ffffff24;
+    border-radius: 50%;
+    padding: 50px;
+    direction: rtl;
+}
+.label {
+    color: black;
+}
+.price {
+    font-size: 22px;
+    font-family: shabnam;
+    color: #e28542;
+    text-shadow: 2px 1px 1px black;
+}
+.oTempsList {
+    position: relative;
+    overflow: auto;
+    /*width: 100%;*/
+    float: right;
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #d8bfd887;
+    border-radius: 10px;
+    border-bottom: 3px solid;
+    border-right: 3px solid;
+}
+#todayReserved {
+    background-color: mediumpurple;
+    padding: 5px;
+    border-radius: 0 0 20px 20px;
+    font-weight: 600;
+    font-size: 17px;
+}
+.oDateGroup {
+    position: relative;
+    width: 98%;
+    margin-left: auto;
+    margin-right: auto;
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 2px 5px;
+    background-color: sienna;
+    border-radius: 10px 0 10px 10px;
+    color: white;
+    font-family: Shabnam;
+    cursor: default;
+}
+.oProsCat {
+    position: relative;
+    margin-right: 10px;
+    padding: 1.5px 10px;
+    float: right;
+    font-family: Shabnam;
+    font-weight: 500;
+    color: white;
+    opacity: 70%;
+    background-color: chocolate;
+    border-radius: 5px;
+    cursor: default;
+    direction: rtl;
+}
+.reserveDetail {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 32vmax;
+    height: 5vmax;
+    margin: 0 5px 0 5px;
+    padding: 1.5px 5px;
+    float: right;
+    font-family: Shabnam;
+    font-size: 20px;
+    font-weight: 600;
+    color: maroon;
+    background-color: white;
+    filter: drop-shadow(0px 0px 5px #cfcfcf);
+    border-radius: 9px;
+    cursor: default;
+}
+.resDetail {
+    margin-bottom: 12px;
+    direction: rtl;
+    font-size: 16px;
+    font-weight: 400;
+    color: black;
+}
+
+@media only screen and (max-width: 430px) {
+    #activeText {
+        margin-right: 0;
+        font-size: 12px;
+    }
+    .activeTime {
+        font-size: 14px;
+    }
+    .plans {
+        display: block;
+    }
+    .TempsList {
+        width: 230px;
+    }
+    .temp2 {
+        width: 250px;
+    }
+    .temp3 {
+        width: 270px;
+    }
+    .temp4 {
+        width: 290px;
+    }
+    .reserveDetail {
+        width: 40vmax;
+        height: 10vmax;
+        margin: 5px;
+    }
+}

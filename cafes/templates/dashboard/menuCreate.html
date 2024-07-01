@@ -1,199 +1,8 @@
 {% extends "dashboard/base.html" %}
-
-<style>
-    {% block style %}
-
-    .cPros {
-        margin-left: 5px;
-        padding: 2px 12px;
-        font-family: vazir;
-        font-weight: 100;
-        background-color: white;
-        border-style: solid;
-        border-width: 2px;
-        border-color: white;
-        border-radius: 15px;
-        cursor: pointer;
-        transition: .2s;
-    }
-    .cPros:hover {
-        border-style: solid;
-        border-width: 2px;
-        border-color: thistle;
-    }
-    .cPros:active {
-        border-style: solid;
-        border-width: 2px;
-        border-color: #b58fb5;
-        background-color: thistle !important;
-        font-weight: 400 !important;
-    }
-    .cProsSelected {
-        border-style: solid;
-        border-width: 2px;
-        border-color: #b58fb5;
-        background-color: thistle !important;
-        font-weight: 400 !important;
-    }
-    #cProsList {
-        display: flex;
-        margin-top: 10px;
-        flex-direction: row-reverse;
-        flex-wrap: wrap;
-        align-content: space-around;
-        min-height: 75px;
-        align-items: center;
-        row-gap: 10px;
-    }
-    #TempsList {
-        display: flex;
-        overflow: auto;
-        width: 100%;
-        margin-top: 15px;
-        flex-direction: row-reverse;
-    }
-    .tPreview {
-        position: relative;
-        overflow: hidden;
-        height: 220px;
-        margin-left: 8px;
-        border-radius: 10px;
-    }
-    .tThumbnail {
-        height: 220px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: .2s;
-    }
-    .tThumbnail:hover {
-        /*scale: 1.05;*/
-        margin-left: 13px;
-        border-style: solid;
-        border-width: 3px;
-        border-color: #ffd50f;
-    }
-    .tThumbnailSelected {
-        /*scale: 1.05;*/
-        margin-left: 13px;
-        border-style: solid;
-        border-width: 3px;
-        border-color: #ff8c77;
-        filter: none !important;
-    }
-    .tCategories {
-        position: absolute;
-        display: none;
-        width: 100%;
-        height: 100%;
-        left: 0;
-        top: 0;
-        background-color: white;
-        font-family: vazir;
-        font-size: 13px;
-        gap: 5px;
-        flex-direction: column;
-        align-items: center;
-        opacity: 0.8;
-        justify-content: center;
-        cursor: help;
-        z-index: 1;
-    }
-    .tPreview:hover .tCategories {
-        display: flex;
-    }
-    .cProsCat {
-        margin-left: 5px;
-        padding: 1.5px 5px;
-        font-family: vazir;
-        font-weight: 500;
-        color: white;
-        background-color: black;
-        border-radius: 4px;
-        cursor: default;
-    }
-    .popUpBg {
-        position: absolute;
-        display: none;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        backdrop-filter: grayscale(.5) blur(1px);
-    }
-    #success {
-        position: absolute;
-        display: none;
-        width: 260px;
-        text-align: center;
-        left: 35%;
-        top: 25%;
-        background-color: white;
-        font-weight: bold;
-        padding: 20px;
-        border-radius: 15px;
-        filter: drop-shadow(0px 0px 8px #41414161);
-        font-family: vazir;
-        cursor: default;
-    }
-    #nMenuQr {
-        position: relative;
-        width: 200px;
-        height: 200px;
-    }
-    .menuLinks {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        margin-bottom: 10px;
-    }
-    .menuUrlBox {
-        background-color: #ff0f45;
-        border-radius: 7px;
-        padding: 2px;
-        height: 28px;
-    }
-    #menuUrl {
-        overflow: hidden;
-        cursor: text;
-        background-color: white;
-        border-radius: 7px;
-        padding: 1px 5px;
-        font-weight: 100;
-        font-size: 14px;
-    }
-    .downBtn {
-        background-color: #ff0f45;
-        color: white;
-        border: #ffffff7a 2px solid;
-        border-radius: 9px;
-        padding: 1px 9px;
-        font-size: 14px;
-        cursor: pointer;
-        transition: .2s;
-    }
-    .delBtn:hover {
-        background-color: mediumpurple !important;
-        border-style: solid;
-        border-width: 2px;
-        border-color: #dcdcdc;
-    }
-    #aClose {
-        margin-left: 15px;
-        float: unset;
-        width: auto;
-        padding: 1px 12px;
-        font-weight: 100;
-        text-align: center;
-        color: white;
-        background-color: grey;
-        font-family: vazir;
-        border-radius: 15px;
-        cursor: pointer;
-        transition: .2s;
-    }
-
-    {% endblock %}
-</style>
+{% load static %}
+{% block include %}
+<link href="{% static "css/new-menu.css" %}" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
 
@@ -205,10 +14,12 @@
         <div id="TempsList">
         {% for temp in templates %}
             <div class="tPreview" data-id="{{ temp.id }}">
-                <img src="{{ temp.thumbnail.url }}" class="tThumbnail">
+                <img src="{% url 'cafes:download' 'menu_thumb' temp.id %}" class="tThumbnail">
                 <span class="tCategories">
                     {% for pt in temp.pTypes.all %}
                     <strong>{{ pt.name }}</strong>
+                    {% empty %}
+                    <strong>بدون محدودیت</strong>
                     {% endfor %}
                 </span>
             </div>
@@ -227,9 +38,10 @@
         </div>
         {% csrf_token %}
         <input id="submit" class="nForm" type="submit" value="ذخیره">
+        <span id="loading" class="custom-loader"></span>
     </form>
     <div class="popUpBg">
-        <div id="success">
+        <div id="success" class="success">
             <span>! منوی جدید با موفقیت ساخته شد</span>
             <img id="nMenuQr" src="http://127.0.0.1:8000/media/qrcode/2022/12/07/%D8%A7%D8%B5%D8%BA%D8%B1%D8%A2%D9%82%D8%A7-21.png" alt="">
             <div class="menuLinks">
@@ -241,7 +53,7 @@
                 </div>
                 <a href="http://127.0.0.1:8000/media/qrcode/2022/12/07/%D8%A7%D8%B5%D8%BA%D8%B1%D8%A2%D9%82%D8%A7-21.png" download="Bariska-menu" id="qrDown" class="downBtn delBtn" style="background-color: cadetblue;text-decoration: none;">دانلود Qrcode</a>
             </div>
-            <span id="aClose" class="delBtn">بستن</span>
+            <span id="aClose" class="Btn closeBtn">بستن</span>
         </div>
     </div>
 </div>
@@ -249,51 +61,5 @@
 {% endblock %}
 
 {% block domready %}
-
-$(" .cPros ").click(function(e) {
-    e.preventDefault();
-    $(this).toggleClass(" cProsSelected ");
-});
-$(" .tPreview ").click(function(e) {
-    e.preventDefault();
-    $(" .tPreview ").removeClass(" tThumbnailSelected ");
-    $(" .tPreview ").css('filter', 'grayscale(.5)');
-    $(this).toggleClass(" tThumbnailSelected ");
-});
-$(" #submit ").click(function(e) {
-    e.preventDefault();
-    let pros = [];
-    $(" .cProsSelected ").each(function() {
-        pros.push( $(this).data('id') );
-    });
-    $.post('{% url "cafes:mCreate" %}',
-      {
-        'templateId': $(" .tThumbnailSelected ").data('id'),
-        'prosList[]': pros
-      },
-      function(data){
-        if (data['status'] == 'ok')
-        {
-            $(" #qrDown ").attr("href", data['qr']);
-            $(" #nMenuQr ").attr("src", data['qr']);
-            let url = 'https://barisca.ir'+ data["url"] +'';
-            $(" #menuUrl ").text(url);
-            $(" .popUpBg ").fadeIn(130);
-            $(" #success ").fadeIn(200);
-        }
-      }
-    );
-});
-$(" #urlCopy ").click(function(e) {
-    e.preventDefault();
-    let url = $(" #menuUrl ").text();
-    navigator.clipboard.writeText(url);
-    alert("لینک منو کپی شد !");
-});
-$(" #aClose ").click(function(e) {
-    e.preventDefault();
-    $(" .popUpBg ").fadeOut(150);
-    $(" #success ").fadeOut(200);
-});
-
+<script src="{% static "js/new-menu.js" %}"></script>
 {% endblock %}

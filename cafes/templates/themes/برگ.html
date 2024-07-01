@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fa">
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>کافه {{ title }}</title>
+<link href="{% static "css/menu-loading.css" %}" rel="stylesheet">
+<link href="{% static "css/barg-m.css" %}" rel="stylesheet">
+</head>
+<body>
+<div id="Caf_Menu_free_1">
+	<img id="backGround" src="{% static "themes/Barg.png" %}">
+	<div id="proL1" class="proL">
+	{% for pro in products %}
+		{% if pro.cate.name == "نوشیدنی گرم" %}
+		<div class="prod">
+			<svg class="Line_1" viewBox="0 0 178 1">
+				<path class="Line" d="M 178 0 L 0 0">
+				</path>
+			</svg>
+			<span class="pName">{{ pro.name }}</span>
+			<span class="pPrice">{{ pro.price }} ت</span>
+		</div>
+		{% endif %}
+	{% endfor %}
+	</div>
+	<div id="proL2" class="proL">
+	{% for pro in products %}
+		{% if pro.cate.name == "نوشیدنی سرد" %}
+		<div class="prod">
+			<svg class="Line_1" viewBox="0 0 178 1">
+				<path class="Line" d="M 178 0 L 0 0">
+				</path>
+			</svg>
+			<span class="pName">{{ pro.name }}</span>
+			<span class="pPrice">{{ pro.price }} ت</span>
+		</div>
+		{% endif %}
+	{% endfor %}
+	</div>
+	<div id="proL3" class="proL">
+	{% for pro in products %}
+		{% if pro.cate.name == "کیک" %}
+		<div class="prod">
+			<svg class="Line_1" viewBox="0 0 178 1">
+				<path class="Line" d="M 178 0 L 0 0">
+				</path>
+			</svg>
+			<span class="pName">{{ pro.name }}</span>
+			<span class="pPrice">{{ pro.price }} ت</span>
+		</div>
+		{% endif %}
+	{% endfor %}
+	</div>
+	<span id="cafeName">{{ title }}<span class="cafePreName">کافه </span></span>
+	<a id="instaPage" href="{{ menu.cafe.social.first.url }}">
+		اینستاگرام کافه
+		<img class="contactItem socialItem" height="100%" src="{% static "svg/Instagram.svg" %}">
+	</a>
+	<div id="loading">
+        <span id="spinner" class="custom-loader"></span>
+		{% if menu.cafe.pPhoto %}
+        <img src="{% url 'cafes:download' 'profile' menu.cafe.id %}" class="cPhoto">
+        {% else %}
+        <span class="cPhotoBox">{{ title }}<small>کافه </small></span>
+        {% endif %}
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js"></script>
+<script>
+$(document).ready(function(){
+	$(' #backGround ').on("load", function() {
+		$(' #loading ').fadeOut(50);
+	});
+});
+</script>
+</body>
+</html>

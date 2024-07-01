@@ -67,7 +67,7 @@
         {% else %}
         <span class="oProsCat" style="background-color: orangered;">نوع : هزینه</span>
         {% endif %}
-        <a href="{{ x.file.url }}"><span class="oProsCat" style="background-color: sienna;cursor: pointer;">دانلود اکسل</span></a>
+        <a href="{% url 'cafes:download' 'report' x.id %}" download="{{ x.file.name }}"><span class="oProsCat" style="background-color: sienna;cursor: pointer;">دانلود اکسل</span></a>
         <br><br>
         <span class="reserveDetail" style="width: 48%"><span class="resDetail">از تاریخ :</span>{{ x.dateFrom }}</span>
         <span class="reserveDetail" style="width: 48%"><span class="resDetail">تا تاریخ :</span>{{ x.dateTo }}</span>

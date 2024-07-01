@@ -1,5 +1,4 @@
-{% for r in reservations %}
-{% if r.date.day == today.day %}
+{% for r in reserved %}
     {% ifchanged r.date.date %}
     {% if first_page == True %}
     <span id="todayReserved" class="oDateGroup">رزروی های امروز</span>
@@ -14,12 +13,10 @@
         <span class="reserveDetail resEnd"><span class="resDetail">ساعت پایان :</span>{{ r.endTime }}</span>
         <span data-id="{{ r.id }}" class="downBtn fi fi-rr-delete-document"><span class="changeBtn">حذف</span></span>
     </div>
-    {% endif %}
 {% endfor %}
-{% for r in reservations %}
-{% if r.date.day != today.day %}
+{% for r in reserved_other_days %}
     {% ifchanged r.date.date %}
-    <span class="oDateGroup" style="background-color: sienna;">{{ r.date.date }}</span>
+    <span class="oDateGroup">{{ r.date.date }}</span>
     {% endifchanged %}
     <div class="oTempsList" data-id="{{ r.id }}">
         <span class="oProsCat">میز {{ r.tNumber }}</span>
@@ -30,5 +27,4 @@
         <span class="reserveDetail resEnd"><span class="resDetail">ساعت پایان :</span>{{ r.endTime }}</span>
         <span data-id="{{ r.id }}" class="downBtn fi fi-rr-delete-document"><span class="changeBtn">حذف</span></span>
     </div>
-{% endif %}
 {% endfor %}

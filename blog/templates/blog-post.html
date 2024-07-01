@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ post.short }}">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link href="{% static "css/blog-post.css" %}" rel="stylesheet">
+    <title>{{ post.title }}</title>
+</head>
+<body>
+<nav id="navigation">
+    <a href="/" class="logo-text navItem">پلتفرم کافه <span id="logo">باریسکا</span></a>
+    <a href="/" class="navItem">صفحه اصلی</a>
+    <a class="navItem navCurrent">بلاگ</a>
+    <span class="menuBtn fi-rr-menu-burger"></span>
+</nav>
+<article>
+    <header id="post-head">
+        <img id="post-img" src="{% url 'blog:download' 'blogImage' post.id %}" alt="{{ post.title }}">
+        <div id="post-detail">
+            <span id="post-title">{{ post.title }}</span>
+            <span id="post-created">{{ post.created }}</span>
+            <span class="post-detail fi-rr-time-forward">{{ post.duration }} دقیقه</span>
+            <div>
+                <svg onclick="share()" class="post-link" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0,0,256,256"
+                    style="fill:#000000;">
+                    <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(0.5,0.5)"><path d="M7.9,256c0,-137 111.1,-248.1 248.1,-248.1c137,0 248.1,111.1 248.1,248.1c0,137 -111.1,248.1 -248.1,248.1c-137,0 -248.1,-111.1 -248.1,-248.1z" fill="#ff3d7c"></path><path d="M154.4,203.1c-29.71292,0 -53.8,24.08708 -53.8,53.8c0,29.71292 24.08708,53.8 53.8,53.8c29.71292,0 53.8,-24.08708 53.8,-53.8c0,-29.71292 -24.08708,-53.8 -53.8,-53.8zM318.7,107.4c-29.71292,0 -53.8,24.08708 -53.8,53.8c0,29.71292 24.08708,53.8 53.8,53.8c29.71292,0 53.8,-24.08708 53.8,-53.8c0,-29.71292 -24.08708,-53.8 -53.8,-53.8zM318.7,297c-29.71292,0 -53.8,24.08708 -53.8,53.8c0,29.71292 24.08708,53.8 53.8,53.8c29.71292,0 53.8,-24.08708 53.8,-53.8c0,-29.71292 -24.08708,-53.8 -53.8,-53.8z" fill="#ffffff"></path><g fill="#ffffff"><path transform="translate(296.62616,-101.45057) rotate(59.786)" d="M222.1,112.2h28.9v190.1h-28.9z"></path></g><g fill="#ffffff"><path transform="translate(184.59982,-77.89517) rotate(30.214)" d="M141.5,288.5h190.1v28.9h-190.1z"></path></g></g></g>
+                </svg>
+                <svg onclick="telegram()" class="post-link" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0,0,256,256"
+                    style="fill:#000000;">
+                    <g fill="#339af0" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.12,5.12)"><path d="M25,2c12.703,0 23,10.297 23,23c0,12.703 -10.297,23 -23,23c-12.703,0 -23,-10.297 -23,-23c0,-12.703 10.297,-23 23,-23zM32.934,34.375c0.423,-1.298 2.405,-14.234 2.65,-16.783c0.074,-0.772 -0.17,-1.285 -0.648,-1.514c-0.578,-0.278 -1.434,-0.139 -2.427,0.219c-1.362,0.491 -18.774,7.884 -19.78,8.312c-0.954,0.405 -1.856,0.847 -1.856,1.487c0,0.45 0.267,0.703 1.003,0.966c0.766,0.273 2.695,0.858 3.834,1.172c1.097,0.303 2.346,0.04 3.046,-0.395c0.742,-0.461 9.305,-6.191 9.92,-6.693c0.614,-0.502 1.104,0.141 0.602,0.644c-0.502,0.502 -6.38,6.207 -7.155,6.997c-0.941,0.959 -0.273,1.953 0.358,2.351c0.721,0.454 5.906,3.932 6.687,4.49c0.781,0.558 1.573,0.811 2.298,0.811c0.725,0 1.107,-0.955 1.468,-2.064z"></path></g></g>
+                </svg>
+                <svg onclick="whatsapp()" class="post-link" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0,0,256,256"
+                    style="fill:#000000;">
+                    <g fill="#20c965" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.12,5.12)"><path d="M25,2c-12.682,0 -23,10.318 -23,23c0,3.96 1.023,7.854 2.963,11.29l-2.926,10.44c-0.096,0.343 -0.003,0.711 0.245,0.966c0.191,0.197 0.451,0.304 0.718,0.304c0.08,0 0.161,-0.01 0.24,-0.029l10.896,-2.699c3.327,1.786 7.074,2.728 10.864,2.728c12.682,0 23,-10.318 23,-23c0,-12.682 -10.318,-23 -23,-23zM36.57,33.116c-0.492,1.362 -2.852,2.605 -3.986,2.772c-1.018,0.149 -2.306,0.213 -3.72,-0.231c-0.857,-0.27 -1.957,-0.628 -3.366,-1.229c-5.923,-2.526 -9.791,-8.415 -10.087,-8.804c-0.295,-0.389 -2.411,-3.161 -2.411,-6.03c0,-2.869 1.525,-4.28 2.067,-4.864c0.542,-0.584 1.181,-0.73 1.575,-0.73c0.394,0 0.787,0.005 1.132,0.021c0.363,0.018 0.85,-0.137 1.329,1.001c0.492,1.168 1.673,4.037 1.819,4.33c0.148,0.292 0.246,0.633 0.05,1.022c-0.196,0.389 -0.294,0.632 -0.59,0.973c-0.296,0.341 -0.62,0.76 -0.886,1.022c-0.296,0.291 -0.603,0.606 -0.259,1.19c0.344,0.584 1.529,2.493 3.285,4.039c2.255,1.986 4.158,2.602 4.748,2.894c0.59,0.292 0.935,0.243 1.279,-0.146c0.344,-0.39 1.476,-1.703 1.869,-2.286c0.393,-0.583 0.787,-0.487 1.329,-0.292c0.542,0.194 3.445,1.604 4.035,1.896c0.59,0.292 0.984,0.438 1.132,0.681c0.148,0.242 0.148,1.41 -0.344,2.771z"></path></g></g>
+                </svg>
+            </div>
+        </div>
+    </header>
+    <div id="post-content">
+        {{ post.content|safe }}
+    </div>
+</article>
+<footer>
+    <div id="recommended-posts">
+        <span id="recommended-label">مطالب پیشنهادی</span>
+        {% for r in recommended %}
+        <div class="recommended">
+            <img class="recommended-img" src="{% url 'blog:download' 'blogsRecommended' r.id %}" alt="{{ r.title }}">
+            <span class="recommended-title">{{ r.title }}</span>
+            <span class="recommended-short">{{ r.short|truncatechars:100 }}</span>
+            <a href="{{ r.get_absolute_url }}" class="recommended-btn">بیشتر بخوانید</a>
+        </div>
+        {% endfor %}
+    </div>
+    <span id="copyright">©️ انتشار با ذکر نام منبع مجاز میباشد.</span>
+</footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js"></script>
+<script type="text/javascript">
+    function telegram() {
+        window.open('https://t.me/share/url?url=https://barisca.ir{{ post.get_absolute_url }}&text=در باریسکا بخوانید !');
+    }
+    function whatsapp() {
+        window.open('whatsapp://send?text=https://barisca.ir{{ post.get_absolute_url }}در باریسکا بخوانید !');
+    }
+    async function share(){
+      if(typeof navigator.share==='undefined' || !navigator.share){
+        alert('Your browser does not support Android Native Share');
+      } else {
+        const TitleConst = '{{ post.title }}';
+        const URLConst = '{{ post.get_absolute_url }}';
+        const DescriptionConst = '{{ post.short }}';
+
+        try{
+          await navigator.share({title:TitleConst, text:DescriptionConst, url:URLConst});
+        } catch (error) {
+        console.log('Error sharing: ' + error);
+        return;
+        }
+      }
+    }
+    $(' .menuBtn ').click(function() {
+        if ($(' #navigation ').height() == 50) {
+            $(' #navigation ').animate({"height": "+=158"}, "fast");
+            $(this).addClass(" fi-rr-cross ");
+            $(this).removeClass(" fi-rr-menu-burger ");
+        } else {
+            $(' #navigation ').animate({"height": "-=158"}, "fast");
+            $(this).removeClass(" fi-rr-cross ");
+            $(this).addClass(" fi-rr-menu-burger ");
+        }
+    })
+</script>
+</body>
+</html>

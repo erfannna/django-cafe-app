@@ -35,6 +35,7 @@ class ChatConsumer(WebsocketConsumer):
         if action == 'submit':
             pros = text_data_json['pros']
             table_id = text_data_json['table_id']
+
             async_to_sync(self.channel_layer.group_send)(
                 self.room_group_name,
                 {
@@ -52,6 +53,7 @@ class ChatConsumer(WebsocketConsumer):
                     'type': 'chat_message',
                     'action': action,
                     'cNum': text_data_json['cNum'],
+                    'cafe': cafe.id
                 }
             )
         else:
@@ -70,59 +72,66 @@ class ChatConsumer(WebsocketConsumer):
         action = event['action']
 
         if action == 'submit':
-            cafe = Cafe.objects.get(id=event['cafe'])
             pros = event['pros']
             table_id = event['table_id']
-            products = []
+            cafe = Cafe.objects.get(id=event['cafe'])
+            prods = []
+            add_price = 0
+
+            try:
+                new_order = Order.objects.get(cafe=cafe, table=table_id, closed=False)
+            except:
+                new_order = Order.objects.create(cafe=cafe, table=table_id, closed=False)
+
             for p in pros:
-                pro = Products.objects.get(id=p)
-                products.append(pro)
-
-            if products:
-                new_order = Order.objects.create(cafe=cafe, table=table_id)
-                for prod in products:
-                    status = False
-                    for pr in new_order.prods.all():
-                        if pr.prod.id == prod.id:
-                            status = True
-                    if status == 0:
-                        n_order_p = OrderProd.objects.create(prod=prod, number=1)
+                prod = Products.objects.get(id=p)
+                if prod not in prods:
+                    prd = new_order.prods.filter(prod=prod).first()
+                    if not prd:
+                        n_order_p = OrderProd.objects.create(prod=prod, number=pros.count(prod.id))
+                        add_price += pros.count(prod.id) * prod.price
                         new_order.prods.add(n_order_p)
+                        prods.append(prod)
                     else:
-                        for p in new_order.prods.all():
-                            if prod.id == p.prod.id:
-                                p.number += 1
-                                p.save()
+                        prd.number += pros.count(prod.id)
+                        add_price += pros.count(prod.id) * prod.price
+                        prd.save()
+                        prods.append(prod)
 
-                    new_order.price += prod.price
-
+                new_order.price += prod.price
                 new_order.save()
-                price = new_order.price
 
-                # Send message to WebSocket
+            # Send message to WebSocket
+            self.send(text_data=json.dumps({
+                'action': 'addOrder',
+                'order': new_order.id,
+                'oTable': new_order.table,
+                'time': f'{new_order.created.time().strftime("%I:%M %p")}',
+                'price': add_price,
+            }))
+
+            for pro in prods:
                 self.send(text_data=json.dumps({
-                    'action': 'addOrder',
+                    'action': 'addProducts',
                     'order': new_order.id,
-                    'oTable': new_order.table,
-                    'time': f'{new_order.created.time().strftime("%I:%M %p")}',
-                    'price': price,
+                    'pName': pro.name,
+                    'pNumber': pros.count(pro.id),
+                    'pPrice': pro.price
                 }))
-                for pro in new_order.prods.all():
-                    self.send(text_data=json.dumps({
-                        'action': 'addProducts',
-                        'order': new_order.id,
-                        'pName': pro.prod.name,
-                        'pNumber': pro.number,
-                        'pPrice': pro.prod.price
-                    }))
-                self.send(text_data=json.dumps({
-                    'action': 'loaded',
-                }))
+            self.send(text_data=json.dumps({
+                'action': 'loaded',
+            }))
+
         elif action == 'closeCart':
+            cafe = Cafe.objects.get(id=event['cafe'])
+            cart = Order.objects.get(cafe=cafe, table=event['cNum'], closed=False)
+            cart.closed = True
+            cart.save()
             self.send(text_data=json.dumps({
                 'action': action,
                 'cNum': event['cNum']
             }))
+
         else:
             o_id = event['o_id']
             Order.objects.filter(id=o_id).delete()

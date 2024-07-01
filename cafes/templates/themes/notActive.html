@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fa">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>کافه {{ menu.cafe.name }}</title>
+    <style>
+        @font-face {
+            font-family: Shabnam;
+            src: url(/static/webfonts/Shabnam-Bold-FD.ttf);
+        }
+        #loading {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: beige;
+        }
+        .cPhoto {
+            position: fixed;
+            scale: 3;
+            filter: none;
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            border-radius: 50%;
+        }
+        .proPhotoDefault {
+            filter: grayscale(1) opacity(0.5);
+        }
+        .cPhotoBox {
+            display: flex;
+            width: 170px;
+            height: 170px;
+            font-size: 30px;
+            font-family: shabnam;
+            background-color: brown;
+            border-radius: 50%;
+            color: white;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column-reverse;
+            filter: drop-shadow(1px 2px 2px #41414161);
+        }
+        .custom-loader {
+            scale: 6.5;
+            width:25px;
+            height:25px;
+            position: absolute;
+            border-radius: 40%;
+            border: 4px solid;
+            border-color: wheat;
+        }
+        .notActive {
+            direction: rtl;
+            margin-top: 350px;
+            font-family: Shabnam;
+        }
+    </style>
+</head>
+<body>
+<div id="Caf_Menu_free_1">
+	<div id="loading">
+        <span id="spinner" class="custom-loader"></span>
+		{% if menu.cafe.pPhoto %}
+        <img src="{% url 'cafes:download' 'profile' menu.cafe.id %}" class="cPhoto">
+        {% else %}
+        <span class="cPhotoBox">{{ title }}<small>کافه </small></span>
+        {% endif %}
+        <span class="notActive">منو کافه غیرفعال است !</span>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+{% load static %}
+{% load thumbnail %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="بلاگ باریسکا">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <title>بلاگ باریسکا</title>
+    <style>
+        @font-face {
+            font-family: Shabnam;
+            src: url(/static/webfonts/Shabnam-FD.ttf);
+        }
+        @font-face {
+            font-family: ShabnamLight;
+            src: url(/static/webfonts/Shabnam-Light-FD.ttf);
+        }
+        @font-face {
+            font-family: ShabnamMedium;
+            src: url(/static/webfonts/Shabnam-Medium-FD.ttf);
+        }
+        @font-face {
+            font-family: ShabnamBold;
+            src: url(/static/webfonts/Shabnam-Bold-FD.ttf);
+        }
+        @font-face {
+            font-family: Lalezar;
+            src: url(/static/webfonts/Lalezar-Regular.ttf);
+        }
+        @font-face {
+            font-family: Two;
+            src: url(/static/webfonts/MjTwoBold.ttf);
+        }
+        @font-face {
+            font-family: Gandom;
+            src: url(/static/webfonts/Gandom-FD.ttf);
+        }
+        @font-face {
+            font-family: Mitra;
+            src: url(/static/webfonts/Smitrabd.TTF);
+        }
+        @font-face {
+            font-family: Vazir;
+            src: url(/static/webfonts/Vazir.ttf);
+        }
+        @font-face {
+            font-family: VazirBold;
+            src: url(/static/webfonts/VazirBold.ttf);
+        }
+        @font-face {
+            font-family: Shiraz;
+            src: url(/static/webfonts/Shiraz.TTF);
+        }
+        @font-face {
+            font-family: BANAFSHE;
+            src: url(/static/webfonts/banafshe.ttf);
+        }
+        * {
+            margin: 0;
+        }
+        #navigation {
+            position: sticky;
+            display: flex;
+            direction: rtl;
+            width: auto;
+            height: 50px;
+            background-color: tan;
+            top: 0;
+            gap: 15px;
+            padding: 0 15px;
+            z-index: 1;
+            align-items: center;
+        }
+        .menuBtn {
+            display: none;
+            position: absolute;
+            top: 7px;
+            right: 7px;
+            padding: 10px;
+            border-radius: 10px;
+            line-height: 0;
+            text-align: center;
+            background-color: beige;
+        }
+        .navItem {
+            padding: 14px;
+            font-family: shabnam;
+            font-weight: bold;
+            background-color: tan;
+            border-left: solid 2px white;
+            border-right: solid 2px white;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+            transition: .2s;
+        }
+        .navItem:hover {
+            background-color: darkorange;
+        }
+        .navCurrent {
+            background-color: darkslateblue !important;
+            border: solid 2px white;
+            scale: 1.1;
+            cursor: default;
+        }
+        .logo-text {
+            position: absolute;
+            left: 10px;
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: none;
+            background-color: orangered;
+            cursor: default;
+        }
+        #logo {
+            font-family: banafshe;
+            font-size: 10px;
+        }
+        h2 {
+            text-align: center;
+            font-family: lalezar;
+            border-bottom: dotted 5px;
+            line-height: 70px;
+        }
+        #recommended-posts {
+            display: flex;
+            overflow: auto;
+            width: -webkit-fill-available;
+            direction: rtl;
+            padding: 10px;
+            background-color: white;
+            gap: 20px;
+        }
+        #recommended-label {
+            margin: auto 0;
+            font-size: 16px;
+            font-family: shabnam;
+            font-weight: bold;
+            background-color: beige;
+            color: white;
+            padding: 13px 10px;
+            border-radius: 8px;
+            cursor: default;
+        }
+        .recommended {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 5px;
+            align-items: center;
+            background-color: whitesmoke;
+            border-radius: 8px;
+            padding: 10px;
+            transition: .3s;
+        }
+        .recommended:hover {
+            scale: 1.03;
+        }
+        .recommended-img {
+            width: 200px;
+            height: 150px;
+            border-radius: 8px;
+        }
+        .recommended-title {
+            font-family: vazir;
+        }
+        .recommended-short {
+            width: 200px;
+            font-family: 'Gandom';
+            font-size: 12px;
+        }
+        .recommended-btn {
+            font-size: 13px;
+            font-family: vazir;
+            font-weight: bold;
+            width: auto;
+            padding: 5px;
+            text-decoration: none;
+            background-color: darkslateblue;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        #copyright {
+            display: block;
+            width: inherit;
+            text-align: center;
+            padding: 10px;
+            background-color: lightgray;
+            font-family: shabnam;
+            font-size: 14px;
+            direction: rtl;
+        }
+        @media only screen and (max-width: 425px) {
+            #navigation {
+                overflow: hidden;
+                align-items: center;
+                height: 50px;
+                flex-direction: column;
+                padding: 0;
+                gap: 0;
+            }
+            .menuBtn {
+                display: inline;
+            }
+            .navigation {
+                height: max-content !important;
+            }
+            .logo-text {
+                position: relative;
+                width: auto !important;
+                left: unset;
+                border: none !important;
+                margin: 10px auto;
+            }
+            .navItem {
+                position: relative;
+                width: -webkit-fill-available;
+                border: none;
+                border-top: solid 2px white;
+                border-bottom: solid 2px white;
+            }
+            .navItem.navCurrent {
+                scale: 1;
+                border: none;
+            }
+            #post-head {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+<nav id="navigation">
+    <span class="logo-text navItem">پلتفرم کافه <span id="logo">باریسکا</span></span>
+    <a href="/" class="navItem">صفحه اصلی</a>
+    <a href="/blog" class="navItem">بلاگ</a>
+    <a class="navItem navCurrent">سوالات متداول</a>
+    <span class="menuBtn fi-rr-menu-burger"></span>
+</nav>
+    <h2>سوالات متداول</h2>
+    <div id="recommended-posts">
+        {% for r in posts %}
+        <div class="recommended">
+            <img class="recommended-img" src="{% thumbnail r.image 200x150 crop %}" alt="{{ r.title }}">
+            <span class="recommended-title">{{ r.title }}</span>
+            <span class="recommended-short">{{ r.short }}</span>
+            <a href="{{ r.get_absolute_url }}" class="recommended-btn">بیشتر بخوانید</a>
+        </div>
+        {% endfor %}
+    </div>
+
+    <span id="copyright">©️ انتشار با ذکر نام منبع مجاز میباشد.</span>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js"></script>
+<script type="text/javascript">
+    $(' .menuBtn ').click(function() {
+        if ($(' #navigation ').height() == 50) {
+            $(' #navigation ').animate({"height": "+=158"}, "fast");
+            $(this).addClass(" fi-rr-cross ");
+            $(this).removeClass(" fi-rr-menu-burger ");
+        } else {
+            $(' #navigation ').animate({"height": "-=158"}, "fast");
+            $(this).removeClass(" fi-rr-cross ");
+            $(this).addClass(" fi-rr-menu-burger ");
+        }
+    })
+</script>
+</body>
+</html>

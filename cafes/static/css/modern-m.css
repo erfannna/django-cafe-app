@@ -1,0 +1,253 @@
+@font-face {
+    font-family: Shabnam;
+    src: url(/static/webfonts/Shabnam-FD.ttf);
+}
+@font-face {
+    font-family: ShabnamLight;
+    src: url(/static/webfonts/Shabnam-Light-FD.ttf);
+}
+@font-face {
+    font-family: ShabnamMedium;
+    src: url(/static/webfonts/Shabnam-Medium-FD.ttf);
+}
+@font-face {
+    font-family: ShabnamBold;
+    src: url(/static/webfonts/Shabnam-Bold-FD.ttf);
+}
+@font-face {
+    font-family: Vazir;
+    src: url(/static/webfonts/Vazir.ttf);
+}
+@font-face {
+    font-family: VazirBold;
+    src: url(/static/webfonts/VazirBold.ttf);
+}
+@keyframes loaded {
+    to {
+        position: relative;
+        scale: 1;
+        right: 0;
+        top: 0;
+        filter: drop-shadow(1px 1px 1px #41414161);
+    }
+}
+@keyframes hider {
+    to {
+        display: none;
+    }
+}
+body {
+    margin: 0;
+}
+#pTitle {
+    position: fixed;
+    display: flex;
+    width: -webkit-fill-available;
+    height: 70px;
+    gap: 10px;
+    padding: 0 10px;
+    background-color: white;
+    color: black;
+    font-size: 20px;
+    font-family: 'Shabnam';
+    font-weight: bold;
+    filter: drop-shadow(0px 0px 3px #41414161);
+    cursor: default;
+    user-select: none;
+    flex-direction: row;
+    direction: rtl;
+    align-items: center;
+    text-decoration: none;
+    z-index: 1;
+}
+#instaPage {
+    position: absolute;
+    top: 20px;
+    left: 12px;
+    display: flex;
+    width: max-content;
+    white-space: nowrap;
+    height: 30px;
+    padding-left: 7px;
+    gap: 3px;
+    border-radius: 8px;
+    background-color: deeppink;
+    color: white;
+    font-family: shabnam;
+    font-size: 12px;
+    z-index: 1;
+    align-items: center;
+    text-decoration: none;
+    justify-content: center;
+    transition: .3s;
+}
+#instaPage:hover {
+    background: linear-gradient(159deg, #8951c7, #ff0065, #fff30f);
+}
+.cPhoto {
+    position: fixed;
+    scale: 3;
+    top: 45vh;
+    right: 42%;
+    filter: none;
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    border-radius: 50%;
+}
+.proPhotoDefault {
+    filter: grayscale(1) opacity(0.5);
+}
+.cPhotoBox {
+    margin-right: 7px;
+    font-size: 25px;
+    padding: 16px;
+    line-height: 0;
+    background-color: wheat;
+    border-radius: 50%;
+    filter: drop-shadow(1px 2px 2px #41414161);
+}
+#MenuBox {
+    position: fixed;
+    overflow: scroll;
+    width: 100%;
+    height: -webkit-fill-available;
+    padding: 70px 0 0 0;
+    background-color: beige;
+}
+#cats {
+    position: fixed;
+    display: flex;
+    overflow: auto;
+    direction: rtl;
+    width: 100%;
+    margin-bottom: 10px;
+    background-color: darksalmon;
+    z-index: 1;
+}
+.cat {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-width: fit-content;
+    gap: 10px;
+    padding: 10px 15px;
+    background-color: darksalmon;
+    color: white;
+    font-size: 16px;
+    font-family: 'vazirbold';
+    border-left: solid 2px;
+    border-bottom: solid 2px;
+    border-color: white;
+    cursor: default;
+}
+.catPic {
+    font-size: 20px;
+    line-height: 1;
+}
+.catSelected {
+    background-color: beige;
+    color: black;
+    border-bottom: none;
+}
+.cProsList {
+    display: grid;
+    direction: rtl;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    align-content: space-around;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    margin-top: 50px;
+}
+.cPros {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 10px;
+    font-family: shabnam;
+    font-weight: 500;
+    direction: rtl;
+    text-align: center;
+    background-color: white;
+    border-style: solid;
+    border-width: 2px;
+    border-color: white;
+    border-radius: 15px;
+    cursor: pointer;
+    user-select: none;
+    transition: .2s;
+}
+.cPros:hover {
+    border-style: solid;
+    border-width: 2px;
+    border-color: thistle;
+}
+.cPros:active {
+    border-style: solid;
+    border-width: 2px;
+    border-color: #b58fb5;
+    background-color: thistle !important;
+}
+.cProsSelected {
+    /*margin-left: 10px;
+    margin-right: 10px;*/
+    border-style: solid;
+    border-width: 2px;
+    border-color: #b58fb5;
+    background-color: thistle !important;
+    font-weight: 600 !important;
+}
+.cPro {
+    font-size: 16px;
+    font-weight: bold;
+}
+.proPhoto {
+    width: 100%;
+    height: 176px;
+}
+.proPhotoBox {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 176px;
+    margin-bottom: 10px;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    opacity: 0.5;
+    color: black;
+    background-color: bisque;
+}
+#loading {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: beige;
+    animation: hider 1s 1000ms forwards cubic-bezier(0.04, 1.12, 0.72, 1.06);
+}
+.cPhotoLoaded {
+    animation: loaded 1s 1500ms forwards cubic-bezier(0.04, 1.12, 0.72, 1.06);
+}
+.custom-loader {
+    scale: 6;
+    width:25px;
+    height:25px;
+    margin-top: 30px;
+    border-radius: 40%;
+    border: 4px solid;
+    border-color: wheat;
+    /*border-right-color: #C36328;*/
+    animation:s2 1s infinite linear;
+}
+@keyframes s2 {to{transform: rotate(1turn)}}
+@media only screen and (min-width: 1024px) {
+    div::-webkit-scrollbar {
+        display: none;
+    }
+    div {
+        -ms-overflow-style: none;
+    }
+}

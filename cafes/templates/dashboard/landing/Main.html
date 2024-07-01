@@ -4,595 +4,102 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="description" content="منو دیجیتال، سفارش الکترونیک، رزرو آنلاین، صفحه اختصاصی">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
-    <title>باریسکا|کافه داری دیجیتال</title>
-    <style id="applicationStylesheet" type="text/css">
-	@font-face {
-		font-family: Shabnam;
-		src: url(/static/webfonts/Shabnam-FD.ttf);
-	}
-	@font-face {
-		font-family: ShabnamLight;
-		src: url(/static/webfonts/Shabnam-Light-FD.ttf);
-	}
-	@font-face {
-		font-family: ShabnamMedium;
-		src: url(/static/webfonts/Shabnam-Medium-FD.ttf);
-	}
-	@font-face {
-		font-family: ShabnamBold;
-		src: url(/static/webfonts/Shabnam-Bold-FD.ttf);
-	}
-	@font-face {
-		font-family: Vazir;
-		src: url(/static/webfonts/Vazir.ttf);
-	}
-	@font-face {
-		font-family: VazirBold;
-		src: url(/static/webfonts/VazirBold.ttf);
-	}
-	@font-face {
-		font-family: Shiraz;
-		src: url(/static/webfonts/Shiraz.TTF);
-	}
-	@font-face {
-		font-family: BANAFSHE;
-		src: url(/static/webfonts/banafshe.ttf);
-	}
-	@font-face {
-		font-family: Dastnevis;
-		src: url(/static/webfonts/DastNevis.otf);
-	}
-	@font-face {
-		font-family: Two;
-		src: url(/static/webfonts/MjTwoBold.ttf);
-	}
-	@font-face {
-		font-family: Mitra;
-		src: url(/static/webfonts/Smitrabd.TTF);
-	}
-	@font-face {
-		font-family: Ordibehesht;
-		src: url(/static/webfonts/Ordibehesht.TTF);
-	}
-	.mediaViewInfo {
-		--web-view-name: Home;
-		--web-view-id: Home;
-		--web-scale-to-fit: true;
-		--web-scale-to-fit-type: width;
-		--web-enable-deep-linking: true;
-	}
-	:root {
-		--web-view-ids: Home;
-	}
-	* {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-		border: none;
-	}
-	#loginBtn {
-		position: absolute;
-		display: flex;
-		width: 150px;
-		top: 20px;
-		left: 20px;
-		font-family: 'ShabnamLight';
-		font-size: 14px;
-		color: white;
-		text-decoration: none;
-		padding: 5px 10px;
-		border-radius: 12px;
-		background-color: rgba(255,170,170,1);
-		border: solid 2px wheat;
-		justify-content: space-around;
-		cursor: pointer;
-		transition: .3s;
-	}
-	#loginBtn:hover {
-		background-color: rgb(250 136 136);
-		border-color: white;
-		filter: drop-shadow(2px 2px 5px rgb(228 228 228));
-	}
-	.loginIcon {
-		background-color: white;
-		border-radius: 50%;
-		padding: 1.5px;
-	}
-	#head {
-		position: relative;
-		width: 96.5%;
-		display: flex;
-		margin-top: 5em;
-		margin-left: 20px;
-		margin-right: 20px;
-		padding: 3.5em 0 2em 0;
-		border-radius: 25px;
-		right: 0;
-		flex-direction: row-reverse;
-		align-items: center;
-		justify-content: center;
-		flex-wrap: wrap;
-		gap: 50px;
-		background-image: linear-gradient(to bottom right, rgb(248 244 255), #ffecca);
-		filter: drop-shadow(2px 2px 10px rgb(228 228 228));
-	}
-	.hDetail {
-		position: relative;
-		display: flex;
-		flex-direction: column;
-		align-items: flex-end;
-		cursor: default;
-	}
-	#Text {
-		position: relative;
-		text-align: right;
-		font-family: BANAFSHE;
-		font-style: normal;
-		font-weight: normal;
-		font-size: 1.8em;
-		color: rgba(255,130,74,1);
-		cursor: default;
-	}
-	#headTitle {
-		margin-top: 15px;
-		position: relative;
-		text-align: right;
-		font-family: Ordibehesht;
-		font-style: normal;
-		font-weight: bold;
-		font-size: 3em;
-		color: rgba(255,187,0,1);
-		text-shadow: 0 0 0 rgba(255,187,0,1);
-		cursor: default;
-		animation: pulse 1.5s infinite;
-	}
-	#headText {
-		position: relative;
-		white-space: nowrap;
-		text-align: right;
-		font-family: Mitra;
-		font-style: normal;
-		font-weight: bold;
-		font-size: 1.5em;
-		color: rgba(70,70,70,1);
-		cursor: default;
-	}
-	.button {
-		position: relative;
-		margin-top: 20px;
-		background-color: rgba(255,229,168,1);
-		border-radius: 12px;
-		padding: 2px 10px;
-		font-size: 1.3em;
-		font-family: 'Mitra';
-		color: black;
-		text-decoration: none;
-		cursor: pointer;
-	}
-	#headPic {
-		width: 50%;
-		border-radius: 15px;
-	}
-	#detail {
-		position: relative;
-		overflow: hidden;
-		margin-top: 10em;
-		margin-bottom: 5em;
-		width: 70%;
-		max-height: 550px;
-		margin-left: auto;
-		margin-right: auto;
-		background-color: #100e0f;
-		border-radius: 0 50px 0 50px;
-		filter: drop-shadow(2px 4px 6px black);
-	}
-	#sec2Pic {
-		width: 100%;
-	}
-	#sec2Text {
-		position: absolute;
-		top: 11.8em;
-		right: 4em;
-		display: flex;
-		gap: 1em;
-		flex-direction: column;
-	}
-	.deText {
-		color: wheat;
-		font-family: 'Mitra';
-		text-align: right;
-		font-size: 1.5em;
-		cursor: default;
-	}
-	#sec2Topic1 {
-		position: absolute;
-		top: 1em;
-		right: 1.2em;
-		color: white;
-		font-size: 3em;
-		font-family: Dastnevis;
-		cursor: default;
-	}
-	#sec2TopicText {
-		position: absolute;
-		top: 4.5em;
-		right: 6em;
-		color: rgba(255,130,74,1);
-		font-size: 1.2em;
-		font-family: 'BANAFSHE';
-		cursor: default;
-	}
-	#sec2Topic2 {
-		position: absolute;
-		top: 0.6em;
-		right: 4.4em;
-		font-size: 4em;
-		font-family: 'Dastnevis';
-		color: white;
-		cursor: default;
-	}
-	.Line_3 {
-		overflow: visible;
-		position: absolute;
-		width: 350px;
-		height: 0.7px;
-		right: 15px;
-		top: 83px;
-		transform: matrix(1,0,0,1,0,0);
-	}
-	#Line_3 {
-		fill: transparent;
-		stroke: rgba(225,225,225,1);
-		stroke-width: 0.7px;
-	}
-	.Line_4 {
-		overflow: visible;
-		position: absolute;
-		width: 280px;
-		height: 0.7px;
-		right: -35px;
-		top: 170px;
-	}
-	#Line_4 {
-		fill: transparent;
-		stroke: rgba(225,225,225,1);
-		stroke-width: 0.7px;
-	}
-	#joinUs {
-		position: absolute;
-		bottom: 40px;
-		right: 168px;
-		color: white;
-		font-size: 16px;
-		font-family: VazirBold;
-		padding: 5px 15px;
-		border-radius: 8px;
-		box-shadow: 0 0 0 0 rgba(255, 255, 255, 1);
-		background-color: rgba(255,139,143,1);
-		border: solid 2px;
-		cursor: default;
-		animation: box-pulse 2s infinite;
-	}
-	#demoBox {
-		position: relative;
-		width: 96.5%;
-		height: 500px;
-		display: flex;
-		margin-top: 5em;
-		margin-bottom: 5em;
-		margin-left: 20px;
-		margin-right: 20px;
-		padding: 3.5em 0 2em 0;
-		border-radius: 25px;
-		right: 0;
-		flex-direction: row-reverse;
-		align-items: center;
-		background-image: linear-gradient(to bottom right, rgb(227 238 255), #ffedad);
-		filter: drop-shadow(2px 2px 10px rgb(228 228 228));
-	}
-	#demoSide {
-		position: absolute;
-		display: flex;
-		width: 15%;
-		height: 300px;
-		right: 10px;
-		justify-content: center;
-		flex-direction: column;
-		background-color: wheat;
-		align-items: center;
-		border-radius: 0 15PX 15px 0;
-		gap: 5px;
-		filter: drop-shadow(2px 2px 1px gray);
-	}
-	.demo {
-		position: absolute;
-		display: none;
-		width: 85%;
-		left: 0;
-	}
-	.dSideText {
-		position: relative;
-		font-size: 18px;
-		font-family: 'Vazir';
-		border-bottom: solid 2px burlywood;
-		border-top: solid 2px burlywood;
-		width: 100%;
-		padding: 5px;
-		text-align: center;
-		cursor: pointer;
-		user-select: none;
-	}
-	.dSideTextSelected {
-		background-color: burlywood;
-		font-family: VazirBold;
-		cursor: default;
-	}
-	.demoImage {
-		width: 100%;
-		border-radius: 20px;
-		filter: drop-shadow(0px 0px 8px #2626263d);
-	}
-	.demoTitle {
-		position: absolute;
-		left: 50px;
-		top: -25px;
-		font-size: 18px;
-		font-family: two;
-		direction: rtl;
-		background: linear-gradient(-45deg, gold, #ffb6ad);
-		background-size: 400% 400%;
-		padding: 8px 40px;
-		border-radius: 2px 15px;
-		filter: drop-shadow(2px 2px 10px rgb(228 228 228));
-		cursor: default;
-		animation: gradiant 2s ease infinite;
-	}
-	#foot {
-		position: relative;
-		width: 100%;
-		height: 150px;
-		background-color: #181818;
-		display: flex;
-		gap: 50px;
-		justify-content: center;
-		align-items: center;
-	}
-	#contact {
-		display: flex;
-		gap: 10px;
-		flex-direction: column;
-		align-items: flex-end;
-	}
-	.contact {
-		font-size: 18px;
-		font-family: ShabnamBold;
-		color: white;
-		background: linear-gradient(to right, rgb(255 255 255 / 0%), #ffedad36);
-		border-radius: 8px;
-		padding: 0px 5px;
-		cursor: default;
-	}
-	.contactDetail {
-		display: flex;
-		gap: 8px;
-		font-family: ShabnamLight;
-		color: lightcoral;
-		flex-direction: row-reverse;
-		align-items: center;
-		background-color: #2f4f4f5e;
-		padding: 1px 5px;
-		border-radius: 10px;
-	}
-	@keyframes box-pulse {
-		0% {
-			transform: scale(0.95);
-			box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
-		}
-		70% {
-			transform: scale(1);
-			box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
-		}
-		100% {
-			transform: scale(0.95);
-			box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
-		}
-	}
-	@keyframes pulse {
-		0% {
-			transform: scale(0.95);
-			text-shadow: 0 0 0 rgba(255, 187, 0, 0.7);
-		}
-		70% {
-			transform: scale(1);
-			text-shadow: 0 0 10px rgba(255, 187, 0, 0);
-		}
-		100% {
-			transform: scale(0.95);
-			text-shadow: 0 0 0  rgba(255, 187, 0, 0);
-		}
-	}
-	@keyframes gradiant {
-		0% {
-			background-position: 0% 30%;
-		}
-		50% {
-			background-position: 100% 30%;
-		}
-		100% {
-			background-position: 0% 30%;
-		}
-	}
-	@media only screen and (max-width: 425px) {
-		#loginBtn {
-			left: 35%;
-		}
-		#head {
-			width: 90%;
-			margin-top: 6em;
-		}
-		#headPic {
-			width: 80%;
-		}
-		#detail {
-			width: 85%;
-			margin-top: 5.5em;
-		}
-		#sec2Text {
-			position: absolute;
-			top: 1.2em;
-			right: -1.5em;
-			display: flex;
-			gap: 1em;
-			flex-direction: column;
-			transform: scale(.5);
-		}
-		#sec2Topic1 {
-			position: absolute;
-			top: 0.1em;
-			right: 0.5em;
-			color: white;
-			font-size: 3em;
-			font-family: Dastnevis;
-			cursor: default;
-			transform: scale(.5);
-		}
-		#joinUs {
-			position: absolute;
-			bottom: -5px;
-			right: 25%;
-			color: white;
-			font-size: 14px;
-			font-family: VazirBold;
-			padding: 5px 15px;
-			border-radius: 8px;
-			background-color: rgba(255,139,143,1);
-			border: solid 2px;
-			cursor: default;
-			transform: scale(.5);
-		}
-		#sec2TopicText {
-			position: absolute;
-			top: 1.8em;
-			right: 1.5em;
-			color: rgba(255,130,74,1);
-			font-size: 1.2em;
-			font-family: 'BANAFSHE';
-			cursor: default;
-			transform: scale(.5);
-		}
-		#sec2Topic2 {
-			position: absolute;
-			top: -7px;
-			right: 2.2em;
-			font-size: 4em;
-			font-family: 'Dastnevis';
-			color: white;
-			cursor: default;
-			transform: scale(.5);
-		}
-		#demoBox {
-			width: 90%;
-			height: 270px;
-			flex-direction: column;
-		}
-		#demoSide {
-			overflow: hidden;
-			width: 100%;
-			height: 50px;
-			top: 15px;
-			right: unset;
-			flex-direction: row-reverse;
-			border-radius: 15px 15px 0 0;
-			scale: .9;
-		}
-		.dSideText {
-			font-size: 14px;
-			border-right: solid 2px burlywood;
-		}
-		.demoTitle {
-			width: 100%;
-			left: 0;
-			top: -45px;
-			border-radius: 0 0 15px 15px;
-			scale: .9;
-			font-size: 16px;
-			text-align: center;
-			filter: drop-shadow(2px 2px 1px gray);
-		}
-		.demo {
-			width: 100%;
-			left: unset;
-			top: 105px;
-		}
-	}
-</style>
+    <link href="{% static "css/landing.css" %}" rel="stylesheet">
+	<title>باریسکا | منوی دیجیتال کافه</title>
 </head>
 <body>
-	<a id="loginBtn" href="{% url "social:begin" "google-oauth2" %}">
-		<img class="loginIcon" width="20px" height="20px" src="{% static "svg/Google-icon.svg" %}"></img>
-		<span>ورود/ ثبت نام با</span>
-	</a>
+	<div id="navBar">
+		<a href="/blog" class="navItem">بلاگ</a>
+		<a id="loginBtn" class="navItem" href="{% url "social:begin" "google-oauth2" %}">
+			<img class="loginIcon" width="20px" height="20px" src="{% static "svg/Google-icon.svg" %}"></img>
+			<span>ورود/ ثبت نام با</span>
+		</a>
+	</div>
     <div id="head">
         <div class="hDetail">
-            <span id="Text">باریســــــــــکا</span>
-			<span id="headTitle">! کافه داری به سبک نوین</span>
-			<span id="headText">پلتفرم کافه داری دیجیـــتال<br/>سفارش گیری بدون کاغذ<br/>منــوی الکترونیک<br/>رزرو آنـلاین</span>
-            <a class="button" href="#detail">بیشتر بخوانید</a>
+            <span id="Text">باریســــکا</span>
+			<span id="headTitle">! کافه داری دیجیتال</span>
+			<p id="headText">
+				<span class="headText fi-rr-interactive">سفارش الکترونیک</span>
+                <span class="headText fi-rr-interactive">منوی دیجیتال</span>
+				<span class="headText fi-rr-interactive">رزرو آنلاین</span>
+            </p>
+            <a class="button" href="/dashboard">ورود به داشبورد</a>
         </div>
-		<img id="headPic" src="{% static "landing/n_0134715_6242778.png" %}">
+		<img id="headPic" src="{% static "landing/head-image.png" %}">
     </div>
     <div id="detail">
-        <img id="sec2Pic" src="{% static "landing/sec2Pic.png" %}">
+		<div id="sec2Topic">
+			<span id="sec2Topic1">چرا</span>
+			<span id="sec2TopicText">باریسکا</span>
+			<span id="sec2Topic2">؟!</span>
+		</div>
 		<div id="sec2Text">
-			<span class="deText">حذف هزینه چاپ مجدد منو<br/>هنگام تغییر قیــمت ها</span>
-			<svg class="Line_3" viewBox="0 0 600.772 0.699999988079071">
-				<path id="Line_3" d="M 0 0 L 600.7716674804688 0">
-				</path>
-			</svg>
-			<svg class="Line_4" viewBox="0 0 410.498 0.699999988079071">
-				<path id="Line_4" d="M 0 0 L 410.4979553222656 0">
-				</path>
-			</svg>
-			<div class="deText">
-				<span>ساخت و بروزرسانی منو <br/>به همراه قالب های متنوع</span>
+			<div class="sec2Item">
+				<img class="sec2ItemImg" id="sec2Item1Img" src="{% static "landing/sec2Item1.png" %}" alt="منوی دیجیتال">
+				<span class="deText">حذف هزینه چاپ مجدد منو<br/>هنگام تغییر قیــمت ها</span>
+				<svg class="Line Line_3" viewBox="0 0 600.772 0.699999988079071">
+					<path id="Line_3" d="M 0 0 L 600.7716674804688 0"></path>
+				</svg>
 			</div>
-			<div class="deText">
-				<span>سفارش گیری الکترونیک</span>
+			<div class="sec2Item">
+				<img class="sec2ItemImg" id="sec2Item2Img" src="{% static "landing/sec2Item2.png" %}" alt="منوی دیجیتال">
+				<span class="deText">ساخت و بروزرسانی منو<br/>به همراه قالب های متنوع</span>
+				<svg class="Line Line_4" viewBox="0 0 410.498 0.699999988079071">
+					<path id="Line_4" d="M 0 0 L 410.4979553222656 0">
+					</path>
+				</svg>
+			</div>
+			<div class="sec2Item">
+				<img class="sec2ItemImg" id="sec2Item3Img" src="{% static "landing/sec2Item3.png" %}" alt="منوی دیجیتال">
+				<span class="deText">سفارش گیری الکترونیک</span>
 			</div>
 		</div>
-		<span id="sec2Topic1">چرا</span>
 		<div id="joinUs">
 			<div id="joinBtn">!کافه تُ مدرن کن</div>
 		</div>
-		<span id="sec2TopicText">باریسکا</span>
-		<span id="sec2Topic2">؟!</span>
     </div>
+	<div id="profileDemo">
+		<div id="profile-phone">
+			<img class="profile-demo" src="{% static "landing/profile-demo.png" %}" alt="">
+			<span class="demo-phone-detail"></span>
+		</div>
+		<div class="profile-explain">
+			<span class="profile-explain-topic">کافه تون رو با پروفایل اختصاصی معرفی کنید!</span>
+			<p class="profile-explain-text">
+				✔️ منوی دیجیتالی کافه رو اضافه کنید
+				✔️ راه های ارتباطی رو شخصی سازی کنید
+				✔️ لوکیشن دقیق کافه رو با مپ به مشتری نشون بدین
+				✔️ لینک تمام صفحات مجازی کافه رو یکجا به اشتراک بگذارید
+			</p>
+		</div>
+	</div>
+	<div class="plansTopic">
+		<span class="plansTopicText">محیط پنل مدیریت</span>
+	</div>
 	<div id="demoBox">
 		<div id="demoSide">
-			<span id="orderSub" class="dSideText dSideTextSelected" data-id="1">ثبت سفارش</span>
-			<span id="MenuBuild" class="dSideText" data-id="2">ساخت منو</span>
+			<span id="orderSub" class="dSideText" data-id="1">ثبت سفارش</span>
+			<span id="MenuBuild" class="dSideText dSideTextSelected" data-id="2">ساخت منو</span>
 			<span id="Finance" class="dSideText" data-id="3">حسابداری</span>
 			<span id="Report" class="dSideText" data-id="4">گزارش گیری</span>
 			<span id="Dashboard" class="dSideText" data-id="5">داشبورد</span>
 			<span id="Reserve" class="dSideText" data-id="6">رزرو میز</span>
 		</div>
-		<div id="demo1" class="demo" data-id="1" style="display: block">
+		<div id="demo1" class="demo" data-id="1">
 			<img id="ordercreate" class="demoImage" src="{% static "landing/orderManagement.png" %}">
 			<span class="demoTitle">ثبت و مدیریت سفارش به راحتی !</span>
+		</div>
+		<div id="demo2" class="demo" data-id="2"  style="display: block">
+			<img id="menucreate" class="demoImage" src="{% static "landing/newMenu.png" %}">
+			<span class="demoTitle"> ساخت منو جدید و دریافت Qr code  </span>
 		</div>
 		<div id="demo3" class="demo" data-id="3">
 			<img id="management" class="demoImage" src="{% static "landing/financeManagement.png" %}">
 			<span class="demoTitle">مشاهده جزئیات آمار مالی کافه</span>
-		</div>
-		<div id="demo2" class="demo" data-id="2">
-			<img id="menucreate" class="demoImage" src="{% static "landing/newMenu.png" %}">
-			<span class="demoTitle"> ساخت منو جدید و دریافت Qr code  </span>
-		</div>
-		<div id="demo4" class="demo" data-id="6">
-			<img id="reservation" class="demoImage" src="{% static "landing/Reservation.png" %}">
-			<span class="demoTitle">مشاهده و مدیریت میزهای رزرو شده</span>
 		</div>
 		<div id="demo5" class="demo" data-id="4">
 			<img id="reports" class="demoImage" src="{% static "landing/buildReport.png" %}">
@@ -601,6 +108,84 @@
 		<div id="demo6" class="demo" data-id="5">
 			<img id="overview" class="demoImage" src="{% static "landing/Dashboard.png" %}">
 			<span class="demoTitle">مشاهده آمار فروش روز روی نمودار</span>
+		</div>
+		<div id="demo4" class="demo" data-id="6">
+			<img id="reservation" class="demoImage" src="{% static "landing/Reservation.png" %}">
+			<span class="demoTitle">مشاهده و مدیریت میزهای رزرو شده</span>
+		</div>
+
+	</div>
+	<div class="plansTopic">
+		<span class="plansTopicText">لیست قیمت ها</span>
+	</div>
+	<div id="plans">
+		<div class="planBox">
+			<span class="planTitle">اشتراک یک ماهه</span>
+			<div class="planDetail">
+				<div class="planBase">
+					<span class="planPeriod">ماهانه/</span>
+					<span class="planBasePrice">120<span class="ppLabel">هزار تومان</span></span>
+				</div>
+				<span class="planPrice">
+					<span class="ptLabel">پرداختی :</span>
+					<span>120,000</span>
+					<span class="ptLabel">تومان</span>
+				</span>
+				<div class="planFeatures">
+					<span>* دسترسی به تمامی امکانات</span>
+				</div>
+			</div>
+		</div>
+		<div class="planBox">
+			<span class="planTitle">اشتراک سه ماهه</span>
+			<div class="planDetail">
+				<div class="planBase">
+					<span class="planPeriod">ماهانه/</span>
+					<span class="planBasePrice">115<span class="ppLabel">هزار تومان</span></span><br>
+				</div>
+				<span class="planPrice">
+					<span class="ptLabel">پرداختی :</span>
+					<span>345,000</span>
+					<span class="ptLabel">تومان</span>
+				</span>
+				<div class="planFeatures">
+					<span>*  دسترسی به تمامی امکانات</span>
+				</div>
+			</div>
+		</div>
+		<div class="planBox">
+			<span class="planTitle">اشتراک شش ماهه</span>
+			<div class="planDetail">
+				<div class="planBase">
+					<span class="planPeriod">ماهانه/</span>
+					<span class="planBasePrice">110<span class="ppLabel">هزار تومان</span></span>
+				</div>
+				<span class="planPrice">
+					<span class="ptLabel">پرداختی :</span>
+					<span>660,000</span>
+					<span class="ptLabel">تومان</span>
+				</span>
+				<div class="planFeatures">
+					<span>* دسترسی به تمامی امکانات</span>
+				</div>
+			</div>
+		</div>
+		<div class="planBox">
+			<span class="planTitle">اشتراک یک ساله</span>
+			<div class="planDetail">
+				<div class="planBase">
+					<span class="planPeriod">ماهانه/</span>
+					<span class="planBasePrice">100<span class="ppLabel">هزار تومان</span></span>
+				</div>
+				<span class="planPrice">
+					<span class="ptLabel">پرداختی :</span>
+					<span>1,200,000</span>
+					<span class="ptLabel">تومان</span>
+				</span>
+				<div class="planFeatures">
+					<span>* دسترسی به تمامی امکانات</span>
+				</div>
+			</div>
 		</div>
 	</div>
     <div id="foot">
@@ -612,7 +197,7 @@
 			<span class="contact">ارتباط با ما ؛</span>
 			<div class="contactDetail" style="color: lightblue;">
 				<span class="fi-rr-calendar-clock" style="height: 18px;"></span>
-				<span>هر روز از 8:00 تا 19:00</span>
+				<span>هر روز از 8:00 تا 17:00</span>
 			</div>
 			<div class="contactDetail">
 				<span class="fi-rr-circle-phone-flip" style="height: 18px;"></span>
@@ -622,16 +207,6 @@
     </div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js"></script>
-	<script>
-		$(document).ready(function(){
-			$(" .dSideText ").click(function(){
-				var id = $(this).data("id");
-				$(" .dSideText ").removeClass(" dSideTextSelected ");
-				$(this).addClass(" dSideTextSelected ");
-				$(" .demo ").fadeOut(250);
-				$(" .demo[data-id="+ id +"] ").fadeIn(250);
-			});
-	  	});
-	</script>
+	<script src="{% static "js/landing.js" %}"></script>
 </body>
 </html>

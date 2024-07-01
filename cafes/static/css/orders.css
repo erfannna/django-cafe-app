@@ -1,0 +1,516 @@
+#mForm {
+    margin-bottom: 15px;
+    margin-left: 50%;
+}
+#submit {
+    font-size: 14px;
+}
+.cPros {
+    position: relative;
+    margin-left: 10px;
+    padding: 2px 12px;
+    font-family: vazir;
+    font-weight: 100;
+    background-color: white;
+    border-style: solid;
+    border-width: 2px;
+    border-color: white;
+    border-radius: 15px;
+    cursor: pointer;
+    user-select: none;
+    transition: .2s;
+}
+.cPros:hover {
+    border-style: solid;
+    border-width: 2px;
+    border-color: thistle;
+}
+.cPros:active {
+    border-style: solid;
+    border-width: 2px;
+    border-color: #b58fb5;
+    background-color: thistle !important;
+    font-weight: 400 !important;
+}
+.cProsSelected {
+    margin-left: 10px;
+    margin-right: 10px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #b58fb5;
+    background-color: thistle !important;
+    font-weight: 400 !important;
+}
+.pNum {
+    position: absolute;
+    display: none;
+    width: 20px;
+    height: 20px;
+    left: -10px;
+    top: -10px;
+    color: white;
+    background-color: green;
+    border-radius: 50%;
+    font-family: Shabnam;
+    font-weight: 400;
+    text-align: center;
+}
+.pNumMin {
+    position: absolute;
+    display: none;
+    width: 20px;
+    height: 20px;
+    right: -10px;
+    top: -10px;
+    color: white;
+    background-color: red;
+    border-radius: 50%;
+    font-family: Shabnam;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+}
+#cProsList {
+    display: flex;
+    overflow: auto;
+    max-height: 150px;
+    margin-top: 10px;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    min-height: 75px;
+    align-items: center;
+    row-gap: 10px;
+}
+.cProsCat {
+    margin-left: 5px;
+    padding: 1.5px 5px;
+    font-family: vazir;
+    font-weight: 500;
+    color: white;
+    background-color: black;
+    border-radius: 4px;
+    cursor: default;
+}
+.oPros {
+    position: relative;
+    margin-left: 15px;
+    margin-top: 10px;
+    float: right;
+    padding: 2px 12px;
+    font-family: vazir;
+    font-size: 14px;
+    font-weight: 100;
+    background-color: thistle;
+    border-radius: 15px;
+    cursor: default;
+    transition: .2s;
+}
+.oTempsList {
+    position: relative;
+    overflow: auto;
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #d8bfd887;
+    border-radius: 10px;
+    /*border-bottom: 3px solid;*/
+    border-right: 3px solid;
+    border-color: #cab1ca;
+}
+#todayOrders {
+    background-color: mediumpurple;
+    padding: 5px;
+    border-radius: 0 0 20px 20px;
+    font-weight: 600;
+    font-size: 17px;
+}
+.oDateGroup {
+    position: relative;
+    width: 98%;
+    margin-left: auto;
+    margin-right: auto;
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 2px 5px;
+    background-color: indianred;
+    border-radius: 10px 0 10px 10px;
+    color: white;
+    font-family: shabnam;
+    cursor: default;
+}
+.oProsCat {
+    position: relative;
+    margin-left: 5px;
+    padding: 1.5px 5px;
+    float: right;
+    font-family: shabnam;
+    font-weight: 500;
+    color: white;
+    opacity: 70%;
+    background-color: chocolate;
+    border-radius: 9px;
+    cursor: default;
+}
+.popUpBg {
+    z-index: 0;
+}
+#cartsBox {
+    position: fixed;
+    display: none;
+    overflow: hidden;
+    width: 500px;
+    height: 500px;
+    background-color: white;
+    border-radius: 20px;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    filter: drop-shadow(0px 0px 6px #41414161);
+}
+#cartsTab {
+    display: flex;
+    width: 80px;
+    padding: 15px 1px;
+    flex-direction: column;
+    background-color: beige;
+    align-items: center;
+    z-index: 1;
+}
+.cartNum {
+    width: 101%;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 10px;
+    font-size: 16px;
+    font-family: 'Shabnam';
+    cursor: pointer;
+    border-bottom: solid 1px wheat;
+}
+.cartNumSelected {
+    width: 105%;
+    font-family: 'ShabnamBold';
+    background-color: #efe9b8;
+    border-radius: 5px 0 0 5px;
+    border-left: solid 2px;
+    opacity: .2;
+    cursor: default;
+    animation: opacity 1.5s forwards;
+}
+@keyframes opacity {to{opacity: 1;}}
+.cartDetail {
+    position: relative;
+    display: none;
+    overflow: auto;
+    flex-direction: column;
+    width: inherit;
+    padding: 15px 15px 50px 15px;
+    background-color: white;
+    /*margin: 0 auto;*/
+}
+.cartTitle {
+    position: relative;
+    height: max-content;
+    margin: 0 auto 3px;
+    font-size: 18px;
+    font-family: 'ShabnamBold';
+}
+.prodsTable {
+    position: relative;
+    width: -webkit-fill-available;
+    height: max-content;
+    margin-top: 5px;
+    padding: 5px;
+    direction: rtl;
+    /*border-style: double;*/
+    border-spacing: 0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: shabnamLight;
+    text-align: center;
+}
+th, td {
+    padding: 5px;
+    border: solid 1px black;
+    border-collapse: collapse;
+}
+th {
+    color: white;
+    background-color: black;
+    border-radius: 5px 5px 0 0;
+    border-color: black white;
+    border-top-color: white;
+    font-family: 'Shabnam';
+}
+td {
+    border-top: none;
+}
+.totalPrice {
+    position: fixed;
+    display: flex;
+    width: -webkit-fill-available;
+    height: 50px;
+    bottom: 0;
+    right: 80px;
+    padding: 0 20px;
+    gap: 5px;
+    direction: rtl;
+    font-family: Shabnam;
+    background-color: white;
+    border-radius: 5px;
+    align-items: center;
+    flex-direction: row;
+    filter: drop-shadow(0px 0px 3px #41414161);
+    cursor: default;
+}
+.cartButton {
+    position: fixed;
+    display: flex;
+    height: 50px;
+    left: 0;
+    bottom: 0;
+    padding: 0 10px;
+    background-color: seagreen;
+    color: white;
+    font-family: VazirBold;
+    font-size: 13px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    transition: .2s;
+}
+.cartButton:hover {
+    background-color: forestgreen;
+}
+.cartButton:active {
+    opacity: .5;
+}
+.fi-rr-print {
+    background-color: #ff8c77;
+    left: 118px;
+    font-size: 15px;
+}
+.fi-rr-print:hover {
+    background-color: #ff6f55;
+}
+#cClose {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: gray;
+    color: white;
+    padding: 2px 10px;
+    font-family: shabnam;
+    font-size: 14px;
+    border-radius: 0 0 5px 0;
+    cursor: pointer;
+    z-index: 1;
+}
+#cClose:hover {
+    background-color: red !important;
+}
+#noCart {
+    position: absolute;
+    display: flex;
+    width: 420px;
+    height: 100%;
+    left: 0;
+    margin: 0 auto;
+    font-family: VazirBold;
+    align-items: center;
+    justify-content: center;
+}
+.success {
+    position: fixed;
+    display: none;
+    width: 260px;
+    z-index: 2;
+    text-align: center;
+    left: 33%;
+    top: 40%;
+    background-color: white;
+    font-weight: bold;
+    padding: 20px;
+    border-radius: 15px;
+    filter: drop-shadow(0px 0px 8px #41414161);
+    font-family: vazir;
+    cursor: default;
+}
+.delBtn:hover {
+    background-color: mediumpurple !important;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #dcdcdc;
+}
+#delY {
+    position: relative;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    align-items: center;
+    background-color: red;
+    width: 33%;
+    text-align: center;
+    float: left;
+    padding: 1px 12px;
+    font-weight: 100;
+    color: white;
+    font-family: vazir;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: .2s;
+}
+#delN {
+    width: 33%;
+    text-align: center;
+    margin-left: 15px;
+    float: right;
+    padding: 1px 12px;
+    font-weight: 100;
+    color: white;
+    background-color: grey;
+    font-family: vazir;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: .2s;
+}
+.downBtn {
+    position: absolute;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 15px;
+    height: 15px;
+    /*color: white;*/
+    background-color: #ff8c77;
+    border-radius: 30px;
+    padding: 5px;
+    text-align: center;
+    font-family: vazir;
+    font-size: 15px;
+    top: 10.5px;
+    left: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: .2s;
+}
+.changeBtn {
+    display: none;
+}
+.downBtn:hover {
+    width: 60px;
+    filter: drop-shadow(0px 0px 6px lightgray);
+}
+.downBtn:hover .changeBtn {
+    display: block;
+}
+.newCart {
+    position: absolute;
+    overflow: hidden;
+    display: flex;
+    gap: 7px;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 15px;
+    height: 15px;
+    color: white;
+    background-color: #9370db;
+    border-radius: 30px;
+    padding: 5px;
+    text-align: center;
+    font-family: vazir;
+    font-size: 15px;
+    top: 10.5px;
+    left: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    filter: drop-shadow(0px 0px 6px lightgray);
+    transition: .2s;
+}
+.newCart:hover {
+    width: 170px;
+    filter: drop-shadow(0px 0px 6px lightgray);
+}
+.newCart:hover .changeBtn {
+    display: block;
+}
+#GoCart {
+    float: unset;
+    width: auto;
+    padding: 1px 12px;
+    font-weight: 100;
+    text-align: center;
+    color: white;
+    background-color: grey;
+    font-family: vazir;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: .1s;
+}
+#ExCart {
+    margin-left: 15px;
+    float: unset;
+    width: auto;
+    padding: 1px 12px;
+    font-weight: 100;
+    text-align: center;
+    color: black;
+    background-color: rgb(255 0 0 / 23%);
+    border: solid 1px palevioletred;
+    font-family: vazir;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: .2s;
+}
+#ExCart:hover {
+    color: white;
+    background-color: red;
+    border-color: white;
+}
+#onClose {
+    position: absolute;
+    display: none;
+    gap: 10px;
+    left: 15px;
+    top: 15px;
+    background-color: crimson;
+    padding: 5px 20px;
+    color: white;
+    font-family: Shabnam;
+    direction: rtl;
+    flex-direction: row-reverse;
+    border-radius: 5px;
+    cursor: default;
+}
+#retry {
+    background-color: indianred;
+    padding: 0 8px;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-right: 10px;
+    float: left;
+}
+#aClose {
+    margin-left: 15px;
+    float: unset;
+    width: auto;
+    padding: 1px 12px;
+    font-weight: 100;
+    text-align: center;
+    color: white;
+    background-color: grey;
+    font-family: vazir;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: .2s;
+}
+@media only screen and (max-width: 430px) {
+    #cartsBox {
+        scale: .7;
+    }
+    .success {
+        left: auto;
+    }
+}

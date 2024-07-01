@@ -1,12 +1,12 @@
 {% for o in orders %}
     {% ifchanged o.created.date %}
     {% if o.created.date.day == today.day %}
-    <span class="oDateGroup" style="background-color: sienna;">امروز</span>
+    <span class="oDateGroup">امروز</span>
     {% else %}
-    <span class="oDateGroup" style="background-color: sienna;">{{ o.created.date }}</span>
+    <span class="oDateGroup">{{ o.created.date }}</span>
     {% endif %}
     {% endifchanged %}
-    <div class="oTempsList" data-id="{{ o.id }}">
+    <div class="oTempsList" data-id="{{ o.id }}" style="filter: grayscale(1);">
         <span class="oProsCat">{{ o.table }} میز</span>
         <span class="oProsCat" style="background-color: sienna;">{{ o.created.time }}</span>
         <span class="oProsCat" style="background-color: orangered;direction: rtl;">مبلغ سفارش : {{ o.price }} ت </span>

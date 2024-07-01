@@ -1,0 +1,117 @@
+.cPros {
+    margin-left: 5px;
+    margin-top: 10px;
+    float: right;
+    padding: 2px 12px;
+    font-family: vazir;
+    font-size: 14px;
+    font-weight: 100;
+    background-color: white;
+    border-radius: 8px;
+    cursor: default;
+    transition: .2s;
+}
+#cProsList {
+    display: flex;
+    margin-top: 10px;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    align-content: space-around;
+    min-height: 75px;
+    align-items: center;
+}
+.TempsList {
+    position: relative;
+    overflow: auto;
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #d8bfd887;
+    border-radius: 10px;
+}
+.tThumbnail {
+    width: 130px;
+    float: right;
+    margin-left: 8px;
+    border-radius: 8px;
+    cursor: default;
+    transition: .2s;
+}
+.cProsCat {
+    margin-left: 5px;
+    padding: 1.5px 5px;
+    font-family: vazir;
+    font-weight: 500;
+    color: white;
+    background-color: black;
+    border-radius: 4px;
+    cursor: default;
+}
+.emptyList {
+    position: relative;
+    display: flex;
+    height: 500px;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    cursor: default;
+}
+.emptyIcon {
+    font-size: 50px;
+    background-color: indianred;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    line-height: 0;
+    border-radius: 45%;
+}
+.alertText {
+    font-size: 18px;
+    font-family: Vazir;
+    direction: rtl;
+}
+.mDel {
+    position: absolute;
+    width: 25px;
+    left: 15px;
+    top: 15px;
+    color: crimson;
+    cursor: pointer;
+}
+.downBtn {
+    position: absolute;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 15px;
+    height: 15px;
+    color: white;
+    background-color: #ff8c77;
+    border-radius: 30px;
+    padding: 5px;
+    text-align: center;
+    font-family: vazir;
+    font-size: 14px;
+    top: 17px;
+    left: 50px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: .2s;
+}
+.changeBtn {
+    display: none;
+}
+.downBtn:hover {
+    width: 150px;
+    filter: drop-shadow(0px 0px 6px lightgray);
+}
+.downBtn:hover .changeBtn {
+    display: block;
+}
+
+@media only screen and (max-width: 430px) {
+    .tThumbnail {
+        width: 80px;
+    }
+}

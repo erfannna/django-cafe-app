@@ -1,0 +1,214 @@
+@font-face {
+    font-family: Shabnam;
+    src: url(/static/webfonts/Shabnam-Bold-FD.ttf);
+}
+@font-face {
+    font-family: Lalezar;
+    src: url(/static/webfonts/Lalezar-Regular.ttf);
+}
+@font-face {
+    font-family: Two;
+    src: url(/static/webfonts/MjTwoBold.ttf);
+}
+@font-face {
+    font-family: Gandom;
+    src: url(/static/webfonts/Gandom-FD.ttf);
+}
+.mediaViewInfo {
+    --web-view-name: Café Menu free 1;
+    --web-view-id: Caf_Menu_free_1;
+    --web-scale-to-fit: true;
+    --web-scale-to-fit-type: fit;
+    --web-enable-scale-up: true;
+    --web-scale-on-resize: true;
+    --web-refresh-for-changes: true;
+    --web-enable-deep-linking: true;
+}
+:root {
+    --web-view-ids: Caf_Menu_free_1;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: none;
+}
+#Caf_Menu_free_1 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    overflow: hidden;
+    --web-view-name: Café Menu free 1;
+    --web-view-id: Caf_Menu_free_1;
+    --web-scale-to-fit: true;
+    --web-scale-to-fit-type: fit;
+    --web-enable-scale-up: true;
+    --web-scale-on-resize: true;
+    --web-refresh-for-changes: true;
+    --web-enable-deep-linking: true;
+}
+#backGround {
+    width: 100%;
+    height: 100%;
+}
+#cafeNameSec {
+    position: absolute;
+    width: 100%;
+    top: 75px;
+    text-align: center;
+}
+#cafeName {
+    position: relative;
+    overflow: visible;
+    white-space: nowrap;
+    text-align: right;
+    font-family: Lalezar;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 45px;
+    color: khaki;
+}
+.cafePreName {
+    font-size: 25px;
+    font-family: Shabnam;
+}
+#instaPage {
+    position: absolute;
+    bottom: 0px;
+    left: 36.5%;
+    display: flex;
+    width: max-content;
+    white-space: nowrap;
+    height: 35px;
+    padding-left: 7px;
+    gap: 3px;
+    border-radius: 8px 8px 0 0;
+    /*border: solid 2px #957b70;*/
+    background-color: #be671a;
+    color: white;
+    font-family: shabnam;
+    font-size: 12px;
+    align-items: center;
+    text-decoration: none;
+    justify-content: center;
+    transition: .3s;
+}
+#instaPage:hover {
+    background: linear-gradient(159deg, #8951c7, #ff0065, #fff30f);
+}
+#allBox {
+    position: absolute;
+    overflow: auto;
+    top: 153px;
+    width: 45%;
+    height: 60%;
+    left: 29%;
+}
+.category {
+    position: relative;
+    width: max-content;
+    display: block;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: Two;
+    margin: 0 auto 10px auto;
+}
+.proL {
+    position: relative;
+    overflow: visible;
+    width: 100%;
+    height: max-content;
+    margin-bottom: 20px;
+}
+.prod {
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin-bottom: 12px;
+    font-family: Gandom;
+}
+.pName {
+    position: relative;
+    overflow: visible;
+    float: right;
+    font-size: 14px;
+    font-weight: 600;
+    color: moccasin;
+    background-color: #6b5341;
+    padding: 0 0 0 8px;
+    cursor: default;
+}
+.pPrice {
+    position: relative;
+    overflow: visible;
+    display: flex;
+    width: max-content;
+    justify-content: flex-end;
+    direction: rtl;
+    white-space: nowrap;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 600;
+    color: moccasin;
+    background-color: #6b5341;
+    padding: 0 8px 0 0;
+    cursor: default;
+}
+.Line_1 {
+    position: absolute;
+    overflow: hidden;
+    width: 80%;
+    right: 35px;
+    top: 12px;
+    transform: matrix(1,0,0,1,0,0);
+}
+.Line {
+    fill: transparent;
+    stroke: moccasin;
+    stroke-width: 1px;
+    stroke-linejoin: miter;
+    stroke-linecap: butt;
+    stroke-dasharray: 2;
+    stroke-dashoffset: 0;
+    stroke-miterlimit: 4;
+    shape-rendering: auto;
+}
+.cPhotoBox {
+    font-size: 35px;
+    font-family: Lalezar;
+    background-color: #6b5341;
+}
+@media only screen and (min-width: 768px){
+    body {
+        overflow: hidden;
+        background-color: #fff8f0;
+    }
+    #Caf_Menu_free_1 {
+        position: relative;
+        width: 60vmax;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #fff8f0;
+    }
+}
+@media only screen and (min-width: 1024px) {
+    body {
+        overflow: hidden;
+        background-color: #fff8f0;
+    }
+    #Caf_Menu_free_1 {
+        position: relative;
+        width: 465px;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #fff8f0;
+    }
+    div::-webkit-scrollbar {
+        display: none;
+    }
+    div {
+        -ms-overflow-style: none;
+    }
+}

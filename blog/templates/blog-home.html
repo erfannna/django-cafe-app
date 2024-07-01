@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="بلاگ باریسکا">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link href="{% static "css/blog-home.css" %}" rel="stylesheet">
+    <title>بلاگ باریسکا</title>
+    <style>
+
+    </style>
+</head>
+<body>
+<nav id="navigation">
+    <span class="logo-text navItem">پلتفرم کافه <span id="logo">باریسکا</span></span>
+    <a href="/" class="navItem">صفحه اصلی</a>
+    <a class="navItem navCurrent">بلاگ</a>
+    <span class="menuBtn fi-rr-menu-burger"></span>
+</nav>
+    <h2>مطالب تازه</h2>
+    <div id="recommended-posts">
+        {% for r in posts %}
+        <div class="recommended">
+            <img class="recommended-img" src="{% url 'blog:download' 'blogs' r.id %}" alt="{{ r.title }}">
+            <span class="recommended-title">{{ r.title }}</span>
+            <span class="recommended-short">{{ r.short|truncatechars:130 }}</span>
+            <a href="{{ r.get_absolute_url }}" class="recommended-btn">بیشتر بخوانید</a>
+        </div>
+        {% endfor %}
+    </div>
+
+    <span id="copyright">©️ انتشار با ذکر نام منبع مجاز میباشد.</span>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js"></script>
+<script type="text/javascript">
+    $(' .menuBtn ').click(function() {
+        if ($(' #navigation ').height() == 50) {
+            $(' #navigation ').animate({"height": "+=158"}, "fast");
+            $(this).addClass(" fi-rr-cross ");
+            $(this).removeClass(" fi-rr-menu-burger ");
+        } else {
+            $(' #navigation ').animate({"height": "-=158"}, "fast");
+            $(this).removeClass(" fi-rr-cross ");
+            $(this).addClass(" fi-rr-menu-burger ");
+        }
+    });
+    var page = 1;
+    var empty_page = false;
+    var block_request = false;
+    $(document).scroll(function() {
+      var margin = $(document).height() - $(window).height() - 10;
+      if  ($(document).scrollTop() > margin && empty_page == false && block_request == false) {
+          block_request = true;
+          page += 1;
+          $.get('?page=' + page, function(data) {
+              if(data == '') {
+                  empty_page = true;
+              }
+              else {
+                  block_request = false;
+                  $('#recommended-posts').append(data);
+              }
+          });
+      }
+    });
+</script>
+</body>
+</html>

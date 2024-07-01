@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link href="{% static "css/modern-m.css" %}" rel="stylesheet">
+    <title>کافه {{ title }}</title>
+</head>
+<body>
+    <a id="pTitle" href="{{ menu.cafe.get_absolute_url }}">
+        {% if menu.cafe.pPhoto %}
+        <img src="{% url 'cafes:download' 'profile' menu.cafe.id %}" class="cPhoto cPhotoLoaded">
+        {% else %}
+        <span class="cPhotoBox fi-rr-shop"></span>
+        {% endif %}
+        <span><small>منو کافه </small>{{ title }}</span>
+        <span>
+            <a id="instaPage" href="{{ menu.cafe.social.first.url }}">
+                اینستاگرام کافه
+                <img class="contactItem socialItem" height="100%" src="{% static "svg/Instagram.svg" %}">
+            </a>
+        </span>
+    </a>
+    <div id="MenuBox">
+        <div id="cats">
+            {% for c in cats %}
+            <div class="cat" data-id="{{ c }}">
+                <span class="catPic fi fi-sr-{% if c == 'نوشیدنی گرم' %}mug-hot-alt{% elif c == 'نوشیدنی سرد' %}glass-citrus{% elif c == 'قهوه' %}coffee{% elif c == 'قهوه دمی' %}coffee-pot{% elif c == 'کیک' %}cheese-alt{% elif c == 'چیزکیک' %}cheese-alt{% elif c == 'پای' %}pie{% elif c == 'کاپ کیک' %}cupcake{% elif c == 'کوکی' %}cookie-alt{% elif c == 'آیس کافی' %}glass-whiskey-rock{% elif c == 'بستنی' %}ice-cream{% elif c == 'چای' %}mug-tea{% elif c == 'استیک' %}steak{% elif c == 'پیتزا' %}pizza-slice{% elif c == 'ساندویچ' %}sandwich{% elif c == 'سالاد' %}salad{% elif c == 'نودل' %}bowl-chopsticks-noodles{% elif c == 'پاستا' %}noodles{% elif c == 'صبحانه' %}egg-fried{% elif c == 'میان وعده' %}stroopwafel{% elif c == 'غذا' %}turkey{% elif c == 'سوشی' %}sushi{% endif %}"></span>
+                <span class="catName">{{ c }}</span>
+            </div>
+            {% endfor %}
+        {% for pro in products %}
+        {% ifchanged pro.cate.name %}
+        </div>
+        <div class="cProsList" data-id="{{ pro.cate.name }}">
+        {% endifchanged %}
+            <span class="cPros" data-id="{{ pro.id }}">
+                {% if pro.photo %}
+                <img src="{% url 'cafes:download' 'product' pro.id %}" class="proPhoto">
+                {% else %}
+                {% with c=pro.cate.name %}
+                <span class="proPhotoBox fi-rr-{% if c == 'نوشیدنی گرم' %}mug-hot-alt{% elif c == 'نوشیدنی سرد' %}glass-citrus{% elif c == 'قهوه' %}coffee{% elif c == 'قهوه دمی' %}coffee-pot{% elif c == 'کیک' %}cheese-alt{% elif c == 'چیزکیک' %}cheese-alt{% elif c == 'پای' %}pie{% elif c == 'کاپ کیک' %}cupcake{% elif c == 'کوکی' %}cookie-alt{% elif c == 'آیس کافی' %}glass-whiskey-rock{% elif c == 'بستنی' %}ice-cream{% elif c == 'چای' %}mug-tea{% elif c == 'استیک' %}steak{% elif c == 'پیتزا' %}pizza-slice{% elif c == 'ساندویچ' %}sandwich{% elif c == 'سالاد' %}salad{% elif c == 'نودل' %}bowl-chopsticks-noodles{% elif c == 'پاستا' %}noodles{% elif c == 'صبحانه' %}egg-fried{% elif c == 'میان وعده' %}stroopwafel{% elif c == 'غذا' %}turkey{% elif c == 'سوشی' %}sushi{% endif %}"></span>
+                {% endwith %}
+                {% endif %}
+                <span class="cPro">{{ pro.name }}<br><small>{{ pro.price }} ت</small></span>
+            </span>
+        {% endfor %}
+        </div>
+    </div>
+    <div id="loading">
+        <span id="spinner" class="custom-loader"></span>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $(' .cProsList ').hide();
+        $(' .cProsList ').first().show();
+        $(' .cat ').first().addClass(" catSelected ");
+        $(' img.proPhoto ').first().on("load", function() {
+            $(' #loading ').fadeOut(50);
+            $(' .cPhoto ').addClass(" cPhotoLoaded ");
+        });
+        $(' .cat ').click(function(e) {
+            e.preventDefault();
+            let id = $(this).data('id');
+            $(' .cProsList ').hide();
+            $(' .cat ').removeClass(" catSelected ");
+            $(this).addClass(" catSelected ");
+            $(" .cProsList[data-id='"+ id +"'] ").show(250);
+        });
+    });
+    </script>
+</body>
+</html>

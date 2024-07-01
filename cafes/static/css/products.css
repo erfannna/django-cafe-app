@@ -1,0 +1,177 @@
+#mForm {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.nForm {
+    background-color: #ffffff45;
+}
+.nForm:focus {
+    background-color: white;
+}
+.formItem {
+    display: flex;
+    flex-direction: column;
+    direction: rtl;
+}
+#pPhotoBox {
+    position: relative;
+    min-width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    margin-top: 10px;
+    font-size: 30px;
+}
+#pPhotoPre {
+    display: none;
+    height: 100%;
+    border-radius: 10px;
+}
+#choosePic {
+    width: max-content;
+    margin: 10px auto 0;
+    padding: 5px 10px;
+    background-color: blueviolet;
+    font-family: 'VazirBold';
+    border-radius: 8px;
+    font-size: 12px;
+    color: white;
+    cursor: pointer;
+}
+.deletePic {
+    position: absolute;
+    padding: 3px;
+    font-size: 17px;
+    font-family: 'Vazir';
+    color: white;
+    left: -8px;
+    top: -8px;
+    line-height: 0;
+    border-radius: 50%;
+    background-color: red;
+    cursor: pointer;
+}
+#pageContent2 {
+    top: 380px;
+}
+#cProsList {
+    display: flex;
+    margin-top: 10px;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    align-content: space-around;
+    min-height: 75px;
+    align-items: center;
+}
+.proInfo {
+    width: 100%;
+    padding: 5px;
+    display: flex;
+    direction: rtl;
+    margin-top: 10px;
+    align-items: center;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-bottom-color: #d8bfd87a;
+    background-color: #d8bfd887;
+    border-radius: 5px;
+}
+.proPhoto {
+    width: 60px;
+    border-radius: 10px;
+}
+.proPhotoIco {
+    min-width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 10px;
+    font-size: 25px;
+}
+.cPros {
+    width: inherit;
+    padding: 2px 12px;
+    font-family: vazir;
+    font-weight: 100;
+    background-color: unset;
+    border-radius: 15px;
+    cursor: default;
+    transition: .2s;
+}
+.proPrice {
+    min-width: max-content;
+    float: left;
+    margin-left: 15px;
+    direction: rtl;
+    font-family: shabnam;
+    cursor: default;
+}
+.cProsCat {
+    margin-left: 5px;
+    margin-top: 25px;
+    padding: 2.5px 10px;
+    font-family: vazir;
+    font-weight: 500;
+    color: white;
+    background-color: black;
+    border-radius: 15px;
+    cursor: default;
+}
+.editBtn {
+    margin-left: 15px;
+    float: left;
+    width: auto;
+    padding: 5px;
+    background-color: indianred;
+    line-height: 0;
+    font-weight: 100;
+    color: white;
+    background-color: grey;
+    font-family: vazir;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: .2s;
+}
+.deleteBtn {
+    background-color: indianred;
+}
+.emptyList {
+    position: relative;
+    display: flex;
+    margin: 20px auto 50px;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    cursor: default;
+}
+.emptyIcon {
+    font-size: 50px;
+    background-color: indianred;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    line-height: 0;
+    border-radius: 45%;
+}
+.alertText {
+    font-size: 18px;
+    font-family: Vazir;
+    direction: rtl;
+}
+@media only screen and (max-width: 430px) {
+    #mForm {
+        flex-direction: column;
+    }
+    #choosePic {
+        margin: 10px 0 0 0;
+    }
+    #pageContent2 {
+        top: 660px;
+    }
+}

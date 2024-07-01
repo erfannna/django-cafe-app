@@ -3,45 +3,45 @@ from .models import Categories, Products, Cafe, Templates, Menu, Order, TableRes
 
 
 @admin.register(Cafe)
-class ImageAdmin(admin.ModelAdmin):
-    list_display = ['name', 'owner', 'pPhoto', 'pBackground']
+class CafeAdmin(admin.ModelAdmin):
+    list_display = ['name', 'owner', 'city', 'premium_exp']
 
 
 @admin.register(Categories)
-class ImageAdmin(admin.ModelAdmin):
+class CategoriesAdmin(admin.ModelAdmin):
     list_display = ['name']
 
 
 @admin.register(Products)
-class ImageAdmin(admin.ModelAdmin):
+class ProductsAdmin(admin.ModelAdmin):
     list_display = ['name', 'cate', 'price']
 
 
 @admin.register(Templates)
-class ImageAdmin(admin.ModelAdmin):
-    list_display = ['name', 'htmlFile', 'thumbnail']
+class TemplatesAdmin(admin.ModelAdmin):
+    list_display = ['name']
 
 
 @admin.register(Menu)
-class ImageAdmin(admin.ModelAdmin):
+class MenuAdmin(admin.ModelAdmin):
     list_display = ['cafe', 'template', 'id']
 
 
 @admin.register(Order)
-class ImageAdmin(admin.ModelAdmin):
+class OrderAdmin(admin.ModelAdmin):
     list_display = ['cafe', 'price', 'created', 'table']
 
 
 @admin.register(TableReserve)
-class ImageAdmin(admin.ModelAdmin):
+class TableReserveAdmin(admin.ModelAdmin):
     list_display = ['cafe', 'tNumber', 'reservedBy', 'date']
 
 
 @admin.register(Report)
-class ImageAdmin(admin.ModelAdmin):
+class ReportAdmin(admin.ModelAdmin):
     list_display = ['cafe', 'created', 'type']
 
 
 @admin.register(Payments)
-class ImageAdmin(admin.ModelAdmin):
+class PaymentsAdmin(admin.ModelAdmin):
     list_display = ['cafe', 'created', 'type', 'price']

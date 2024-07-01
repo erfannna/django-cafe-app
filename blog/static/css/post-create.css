@@ -1,0 +1,185 @@
+@font-face {
+    font-family: Shabnam;
+    src: url(/static/webfonts/Shabnam-FD.ttf);
+}
+@font-face {
+    font-family: ShabnamLight;
+    src: url(/static/webfonts/Shabnam-Light-FD.ttf);
+}
+@font-face {
+    font-family: ShabnamMedium;
+    src: url(/static/webfonts/Shabnam-Medium-FD.ttf);
+}
+@font-face {
+    font-family: ShabnamBold;
+    src: url(/static/webfonts/Shabnam-Bold-FD.ttf);
+}
+@font-face {
+    font-family: Vazir;
+    src: url(/static/webfonts/Vazir.ttf);
+}
+@font-face {
+    font-family: VazirBold;
+    src: url(/static/webfonts/VazirBold.ttf);
+}
+@font-face {
+    font-family: Shiraz;
+    src: url(/static/webfonts/Shiraz.TTF);
+}
+@font-face {
+    font-family: BANAFSHE;
+    src: url(/static/webfonts/banafshe.ttf);
+}
+@font-face {
+    font-family: Dastnevis;
+    src: url(/static/webfonts/DastNevis.otf);
+}
+@font-face {
+    font-family: Two;
+    src: url(/static/webfonts/MjTwoBold.ttf);
+}
+@font-face {
+    font-family: Mitra;
+    src: url(/static/webfonts/Smitrabd.TTF);
+}
+@font-face {
+    font-family: Ordibehesht;
+    src: url(/static/webfonts/Ordibehesht.TTF);
+}
+@font-face {
+    font-family: Gandom;
+    src: url(/static/webfonts/Gandom-FD.ttf);
+}
+form {
+    display: flex;
+    direction: rtl;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 5px;
+    gap: 20px;
+}
+#headBox {
+    display: flex;
+    width: 100%;
+    gap: 20px;
+}
+.post-input {
+    width: 500px;
+    padding: 5px 10px;
+    text-align: right;
+    direction: rtl;
+    font-family: Vazir;
+    border-style: solid;
+    border-width: 2px;
+    border-color: thistle;
+    border-radius: 8px;
+    background-color: white;
+    transition: .2s;
+}
+.post-input:hover {
+    outline: none !important;
+    border-color: #d8bfd88a;
+    border-radius: 5px;
+    font-weight: bold;
+    background-color: #ece2ec40;
+    box-shadow: 0px 0px 0px 5px #d8bfd840;
+}
+.post-input:focus {
+    outline: none !important;
+    border-color: thistle;
+    border-radius: 5px;
+    font-weight: bold;
+    background-color: #ece2ec40;
+    box-shadow: 0px 0px 0px 5px #d8bfd840;
+}
+#post-short {
+    height: 120px;
+    margin-top: 15px;
+}
+#post-content {
+    width: 100%;
+    height: 390px;
+}
+#post-content:focus {
+    background-color: white;
+}
+#post-image {
+    display: none;
+}
+#post-duration {
+    width: -webkit-fill-available;
+    font-family: 'Shabnam';
+}
+.submit-btn {
+    border: none;
+    background-color: tomato;
+    color: white;
+    padding: 5px 20px;
+    width: max-content;
+    font-family: shabnam;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .3s;
+}
+.btn:hover {
+    box-shadow: 0px 0px 0px 4px #ffbdb08f;
+}
+.errorlist {
+    font-family: shabnam;
+    font-size: 14px;
+}
+.label-detail {
+    width: 100%;
+    border-bottom: solid 1px;
+}
+.formItem {
+    display: flex;
+    flex-direction: column;
+    direction: rtl;
+}
+.actionBox {
+    width: 100%;
+    height: 184px;
+    border-right: thistle solid 2px;
+    align-items: flex-end;
+    padding: 0 15px;
+    font-family: shabnam;
+    gap: 10px;
+}
+#pPhotoBox {
+    position: relative;
+    min-width: 250px;
+    max-width: 500px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: solid 2px thistle;
+    border-radius: 10px;
+    font-size: 30px;
+}
+#pPhotoPre {
+    display: none;
+    height: 100%;
+    border-radius: 10px;
+}
+#choosePic {
+    text-align: center;
+    margin: 10px 0 0;
+    padding: 5px 10px;
+    background-color: blueviolet;
+    font-family: 'VazirBold';
+    border-radius: 8px;
+    font-size: 12px;
+    color: white;
+    cursor: pointer;
+    transition: .3s;
+}
+#choosePic:hover {
+    box-shadow: 0px 0px 0px 4px #caabe787;
+}
+.tox.tox-tinymce {
+    width: 100%;
+}

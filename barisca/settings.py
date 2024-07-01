@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 from pathlib import Path
 from django.urls import reverse_lazy
-import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,21 +22,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'RENDER' not in os.environ
+DEBUG = os.environ.get('DEBUG_STATE')
 
 ALLOWED_HOSTS = ['barisca.ir', 'localhost', '*']
 CSRF_TRUSTED_ORIGINS = ['https://*.barisca.ir']
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')if RENDER_EXTERNAL_HOSTNAME:    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'easy_thumbnails',
     'social_django',
     'channels',
+    'blog.apps.BlogConfig',
     'cafes.apps.CafesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -84,7 +84,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("red-cha0fcak728r886fa3j0", 6379)],
+            "hosts": ["redis://:4h8l397YJEvuN3jEDmXQGI4Of9vpiV35@barisca-rd:6379/0"],
         },
     },
 }
@@ -92,10 +92,23 @@ CHANNEL_LAYERS = {
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.config(default='postgresql://postgres:postgres@localhost:5432/mysite', conn_max_age=600)
-    }
+#DATABASES = {
+#    'default': dj_database_url.config(
+#                                    default='postgres://postgres:@barisca-db:5432',
+#                                    conn_max_age=600,
+#                                    conn_health_checks=True,)
+#}
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'yQ0Te7nBW1M6VecsEag4KrQEkVC9Tgyf',
+        'HOST': 'barisca-db',
+        'PORT': '5432',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -146,6 +159,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
+THUMBNAIL_ALIASES = {
+    '': {
+        'avatar': {'size': (64, 64), 'crop': True},
+        'wallpaper': {'size': (390, 200), 'crop': True},
+        'profile': {'size': (180, 180), 'crop': True},
+        'product': {'size': (200, 200), 'crop': True},
+        'blogImage': {'size': (400, 200), 'crop': True},
+        'blogsRecommended': {'size': (200, 150), 'crop': True},
+        'blogs': {'size': (260, 170), 'crop': True},
+    }
+}
+
 LOGIN_URL = 'cafes:login'
 LOGIN_REDIRECT_URL = 'cafes:DashB'
 
@@ -156,13 +181,12 @@ AUTHENTICATION_BACKENDS = [
     'social_core.backends.google.GoogleOAuth2',
 ]
 
+# GOOGLE OAUTH2 congigs
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '552493001722-uh3v8halk5vroilct3aj55dnii4iti7b.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 
-ABSOLUTE_URL_OVERRIDES = {
-    'auth.user': lambda u: reverse_lazy('user_detail', args=[u.username])
-}
-
-REDIS_HOST = 'red-cha0fcak728r886fa3j0'
+# REDIS congigs
+REDIS_HOST = 'barisca-rd'
 REDIS_PORT = 6379
 REDIS_DB = 1

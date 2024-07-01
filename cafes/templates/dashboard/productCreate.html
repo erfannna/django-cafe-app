@@ -45,18 +45,42 @@
 
     {% endblock %}
 </style>
+{% load static %}
+{% block include %}
+<link href="{% static "css/products.css" %}" rel="stylesheet">
+{% endblock %}
+
 
 {% block content %}
 
 <div id="pageContent">
     <h1 id="pTitle">{{ title }}</h1>
     <form id="mForm" method="post" enctype="multipart/form-data">
-        <span class="nCat fLabel">دسته بندی :</span>
-        {{ form.cate }}
-        <span class="nName fLabel">اسم :</span>
-        {{ form.name }}
-        <span class="nPrice fLabel">قیمت : <small>(تومان) </small></span>
-        {{ form.price }}
+        <div class="formItem">
+            <span class="nCat fLabel">دسته بندی :</span>
+            {{ form.cate }}
+            <span class="nName fLabel">اسم :</span>
+            {{ form.name }}
+            <span class="nPrice fLabel">قیمت : <small>(تومان) </small></span>
+            {{ form.price }}
+        </div>
+        <div class="formItem">
+            <span class="nName fLabel">تصویر :</span>
+            <div id="pPhotoBox">
+                {% if form.instance.photo %}
+                <img id="pPhotoPre" src="{{ form.instance.photo.url }}" alt="" style="display: inline;">
+                <span id="pPhotoIco" class="fi-rr-camera" style="display: none;"></span>
+                <span class="deletePic fi-rr-trash"></span>
+                {% else %}
+                <img id="pPhotoPre" src="" alt="" style="display: none;">
+                <span id="pPhotoIco" class="fi-rr-camera"></span>
+                <span class="deletePic fi-rr-trash" style="display: none;"></span>
+                {% endif %}
+            </div>
+            <span id="choosePic">انتخاب عکس</span>
+            {{ form.photo }}
+        </div>
+        <input id="pks" name="photoKeepStatus" type="number" value="1" hidden>
         {% csrf_token %}
         <input id="submit" class="nForm" type="submit" value="ذخیره">
     </form>
@@ -73,11 +97,40 @@
 {% endblock %}
 
 {% block domready %}
+<script>
+    $(" #nProductPhoto ").change(function(input){
+        var file = $(this).get(0).files[0];
 
-$(" #aClose ").click(function(e) {
-    e.preventDefault();
-    $(" .popUpBg ").fadeOut(150);
-    $(" #success ").fadeOut(200);
-});
+        if(file){
+            var reader = new FileReader();
 
+            reader.onload = function(){
+                $("#pPhotoPre").attr("src", reader.result);
+                $("#pPhotoPre").show();
+                $(".deletePic").show();
+                $("#pPhotoIco").hide();
+                $(" #pks ").val(1);
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+    $(document).on('click', '#choosePic', function(event) {
+        event.preventDefault();
+        $(" #nProductPhoto ").click();
+    });
+    $(" .deletePic ").click(function(e) {
+        e.preventDefault();
+        $(" #pPhotoPre ").attr("src", "");
+        $(" #nProductPhoto ").val("");
+        $("#pPhotoIco").show();
+        $("#pPhotoPre").hide();
+        $(" #pks ").val(0);
+        $(this).hide();
+    });
+    $(" #aClose ").click(function(e) {
+        e.preventDefault();
+        $(" .popUpBg ").fadeOut(150);
+        $(" #success ").fadeOut(200);
+    });
+</script>
 {% endblock %}

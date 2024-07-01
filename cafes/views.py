@@ -5,9 +5,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import LoginForm, CafeInfoForm, ProductCreateForm, MenuCreateForm, \
-    OrderForm, ReserveForm, CostCreateForm, ReportCreateForm
+    OrderForm, ReserveForm, CostCreateForm, ReportCreateForm, SocialPageForm
 from django.views.generic import UpdateView, DeleteView, View, CreateView
-from .models import Cafe, Products, Menu, Templates, Order, OrderProd, TableReserve, Cost, Payments
+from .models import Cafe, Products, Menu, Templates, Order, OrderProd,\
+    TableReserve, Cost, Payments, Report, SocialNetworkPage
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
@@ -24,6 +25,7 @@ import qrcode
 import xlsxwriter
 import requests
 import json
+from easy_thumbnails.files import get_thumbnailer
 from django.core.files import File
 from PIL import Image, ImageDraw
 from io import BytesIO
@@ -90,17 +92,17 @@ def configure_cafe(request):
                 cd = form.cleaned_data
                 cafe = form.save(commit=False)
                 cafe.owner = request.user
+                # cafe.premium_exp = datetime.datetime.now() + datetime.timedelta(days=7)
                 cafe.save()
 
                 return JsonResponse({'status': 'ok'}, status=200)
             else:
                 return JsonResponse({'status': 'error'}, status=400)
         else:
+            form = CafeInfoForm(data=request.GET)
 
-                form = CafeInfoForm(data=request.GET)
-
-                return render(request, 'dashboard/cafeConfigure.html',
-                              {'form': form})
+            return render(request, 'dashboard/cafeConfigure.html',
+                          {'form': form})
     else:
         return redirect('cafes:DashB')
 
@@ -111,7 +113,7 @@ def upgrade_account(request):
     sub_exp = request.user.cafe.first().premium_exp.strftime("%y/%b/%d - %H:%M")
     payments = request.user.cafe.first().cafe_payments.all()
     for p in payments:
-        p.price = "{:,}".format(p.price)
+        p.price = "{:,}".format(int(p.price/10))
     if request.user.cafe.first().premium_exp > datetime.datetime.now():
         status = True
     else:
@@ -144,13 +146,13 @@ def upgrade_account(request):
 def pay_send_request(request, plan):
     amount = 0
     if plan == 1:
-        amount = 750000
+        amount = 1_200_000
     elif plan == 2:
-        amount = 2000000
+        amount = 3_450_000
     elif plan == 3:
-        amount = 4100000
+        amount = 6_600_000
     elif plan == 4:
-        amount = 8200000
+        amount = 12_000_000
     req_data = {
         "merchant_id": MERCHANT,
         "amount": amount,
@@ -179,13 +181,13 @@ def pay_verify(request, plan):
                       "content-type": "application/json'"}
         amount = 0
         if plan == 1:
-            amount = 750000
+            amount = 1_200_000
         elif plan == 2:
-            amount = 2000000
+            amount = 3_450_000
         elif plan == 3:
-            amount = 4100000
+            amount = 6_600_000
         elif plan == 4:
-            amount = 8200000
+            amount = 12_000_000
         req_data = {
             "merchant_id": MERCHANT,
             "amount": amount,
@@ -199,14 +201,24 @@ def pay_verify(request, plan):
                     # req.json()['data']['ref_id']
                 # ))
                 cafe = request.user.cafe.first()
-                if plan == 1:
-                    cafe.premium_exp = datetime.datetime.now() + datetime.timedelta(days=30)
-                elif plan == 2:
-                    cafe.premium_exp = datetime.datetime.now() + datetime.timedelta(days=90)
-                elif plan == 3:
-                    cafe.premium_exp = datetime.datetime.now() + datetime.timedelta(days=180)
-                elif plan == 4:
-                    cafe.premium_exp = datetime.datetime.now() + datetime.timedelta(days=365)
+                if cafe.premium_exp > datetime.datetime.now():
+                    if plan == 1:
+                        cafe.premium_exp += datetime.timedelta(days=30)
+                    elif plan == 2:
+                        cafe.premium_exp += datetime.timedelta(days=90)
+                    elif plan == 3:
+                        cafe.premium_exp += datetime.timedelta(days=180)
+                    elif plan == 4:
+                        cafe.premium_exp += datetime.timedelta(days=365)
+                else:
+                    if plan == 1:
+                        cafe.premium_exp = datetime.datetime.now() + datetime.timedelta(days=30)
+                    elif plan == 2:
+                        cafe.premium_exp = datetime.datetime.now() + datetime.timedelta(days=90)
+                    elif plan == 3:
+                        cafe.premium_exp = datetime.datetime.now() + datetime.timedelta(days=180)
+                    elif plan == 4:
+                        cafe.premium_exp = datetime.datetime.now() + datetime.timedelta(days=365)
                 cafe.save()
                 new_pay = Payments.objects.create(cafe=request.user.cafe.first(),
                                                   type="شارژ پنل",
@@ -260,6 +272,16 @@ def pay_verify(request, plan):
 
 def home(request):
     return render(request, 'dashboard/landing/Main.html')
+
+
+def cafe_profile(request, pk):
+    cafe = Cafe.objects.get(slug=pk)
+    try:
+        menu = Menu.objects.get(cafe=cafe, isDefault=True)
+    except:
+        menu = Menu.objects.filter(cafe=cafe).last()
+    return render(request, 'themes/cafeProfile.html',
+                  {'cafe': cafe, 'menu': menu})
 
 
 @login_required()
@@ -333,6 +355,14 @@ def dashboard(request):
     chart_days.reverse()
     daily_income = "{:,}".format(daily_income)
 
+    if cafe.premium_exp > datetime.datetime.now():
+        if cafe.premium_exp <= datetime.datetime.now() + datetime.timedelta(days=7):
+            sub_exp = 1
+        else:
+            sub_exp = 0
+    else:
+        sub_exp = 2
+
     return render(request, 'dashboard/Dashboard.html',
                   {'title': 'داشبورد', 'section': 'DashB',
                    'ordersNUM': orders_num,
@@ -340,27 +370,58 @@ def dashboard(request):
                    'daily_income': daily_income,
                    'chart_income': chart_o_income,
                    'chart_r_income': chart_r_income,
-                   'chart_days': chart_days})
+                   'chart_days': chart_days,
+                   'sub_exp': sub_exp})
 
 
 @login_required
 def cafe_edit(request):
     cafe = request.user.cafe.first()
+    sn = cafe.social.first()
     if request.method == 'POST':
         form = CafeInfoForm(data=request.POST, instance=cafe, files=request.FILES)
-        if form.is_valid():
+        if sn:
+            sn_form = SocialPageForm(data=request.POST, instance=sn)
+        else:
+            sn_form = SocialPageForm(data=request.POST)
+        if form.is_valid() and sn_form.is_valid():
             cd = form.cleaned_data
             cafe = form.save(commit=False)
+            nsn = sn_form.save()
+            if nsn not in cafe.social.all():
+                cafe.social.add(nsn)
+            if form.data["photoKeepStatus"] == '0':
+                cafe.pPhoto.delete()
+            if form.data["backgroundKeepStatus"] == '0':
+                cafe.pBackground.delete()
+
+            # if cd["slug"] != cafe.slug:
+            qr_t = f'https://barisca.ir/{cafe.slug}'
+            qr_n = f'{cafe.name}.png'
+            qr_image = qrcode.make(qr_t)
+            qr_offset = Image.new('RGB', (330, 330), 'white')
+            draw_img = ImageDraw.Draw(qr_offset)
+            qr_offset.paste(qr_image)
+            stream = BytesIO()
+            qr_offset.save(stream, 'PNG')
+            cafe.qr.save(qr_n, File(stream), save=False)
+            qr_offset.close()
 
             cafe.save()
 
             # messages.success(request, '!محصول جدید با موفقیت ساخته شد')
             return render(request, 'dashboard/cafeEdit.html',
-                          {'title': 'ویرایش مشخصات', 'section': 'cEdit', 'form': form, 'confirmAlert': 'Y'})
+                          {'title': 'ویرایش مشخصات', 'section': 'cEdit',
+                           'form': form, 'cafe': cafe, 'sn_form': sn_form, 'confirmAlert': 'Y'})
     else:
         form = CafeInfoForm(instance=cafe)
+        if sn:
+            sn_form = SocialPageForm(instance=sn)
+        else:
+            sn_form = SocialPageForm(data=request.GET)
         return render(request, 'dashboard/cafeEdit.html',
-                      {'title': 'ویرایش مشخصات', 'section': 'cEdit', 'form': form, 'confirmAlert': 'N'})
+                      {'title': 'ویرایش مشخصات', 'section': 'cEdit',
+                       'form': form, 'cafe': cafe, 'confirmAlert': 'N', 'sn_form': sn_form})
 
 
 @login_required
@@ -386,7 +447,7 @@ def cafe_location_edit(request):
 @sub_check
 def product_create(request):
     if request.method == 'POST':
-        form = ProductCreateForm(data=request.POST)
+        form = ProductCreateForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             cd = form.cleaned_data
             new_pro = form.save(commit=False)
@@ -394,9 +455,14 @@ def product_create(request):
             new_pro.save()
 
             form = ProductCreateForm(data=request.GET)
+            pro_img = f'/download/product_icon/{new_pro.id}' if new_pro.photo else ''
             # messages.success(request, '!محصول جدید با موفقیت ساخته شد')
-            return render(request, 'dashboard/productCreate.html',
-                          {'title': 'محصول جدید', 'section': 'nProduct', 'form': form, 'confirmAlert': 'Y'})
+            return JsonResponse({'name': new_pro.name, 'id': new_pro.id, 'price': new_pro.price,
+                                 'cat': new_pro.cate.name, 'img': pro_img}, status=200)
+        else:
+            return JsonResponse({'status': 'error'}, status=400)
+            # return render(request, 'dashboard/productCreate.html',
+            # {'title': 'محصول جدید', 'section': 'nProduct', 'form': form, 'confirmAlert': 'Y'})
     else:
         form = ProductCreateForm(data=request.GET)
         return render(request, 'dashboard/productCreate.html',
@@ -415,6 +481,9 @@ def products_list(request):
 
             form = ProductCreateForm(data=request.GET)
             products = Products.objects.filter(cafe=request.user.cafe.first()).order_by("cate")
+            for p in products:
+                p.price = "{:,}".format(p.price)
+
             # messages.success(request, '!محصول جدید با موفقیت ساخته شد')
             return render(request, 'dashboard/productsList.html',
                           {'title': 'محصولات کافه', 'section': 'lProducts',
@@ -434,10 +503,12 @@ def products_list(request):
 def product_update(request, pk):
     if request.method == 'POST':
         pro = Products.objects.get(id=pk)
-        form = ProductCreateForm(data=request.POST, instance=pro)
+        form = ProductCreateForm(data=request.POST, files=request.FILES, instance=pro)
         if form.is_valid():
             cd = form.cleaned_data
             new_pro = form.save(commit=False)
+            if form.data["photoKeepStatus"] == '0':
+                new_pro.photo.delete()
             new_pro.save()
             return redirect('cafes:lProducts')
 
@@ -472,7 +543,7 @@ def menu_create(request):
         products = []
         for p in p_ids:
             pro = Products.objects.get(id=p)
-            if pro.cate in template.pTypes:
+            if pro.cate in template.pTypes.all() or template.pTypes.count() == 0:
                 products.append(pro)
 
         if template and products:
@@ -481,9 +552,9 @@ def menu_create(request):
                                                template=template)
                 for prod in products:
                     new_menu.products.add(prod)
-                qr_t = f'http://127.0.0.1:8000/m/{new_menu.id}'
+                qr_t = f'https://barisca.ir/m/{new_menu.id}'
                 qr_n = f'{new_menu.cafe.name}-{new_menu.id}.png'
-                qr_image = qrcode.make(new_menu.get_absolute_url())
+                qr_image = qrcode.make(qr_t)
                 qr_offset = Image.new('RGB', (330, 330), 'white')
                 draw_img = ImageDraw.Draw(qr_offset)
                 qr_offset.paste(qr_image)
@@ -492,7 +563,8 @@ def menu_create(request):
                 new_menu.qr.save(qr_n, File(stream), save=False)
                 qr_offset.close()
                 new_menu.save()
-                return JsonResponse({'status': 'ok', 'qr': new_menu.qr.url, 'url': new_menu.get_absolute_url()})
+                return JsonResponse({'status': 'ok', 'qr': f'/download/menu/{new_menu.id}',
+                                     'url': new_menu.get_absolute_url()})
 
             except:
                 pass
@@ -509,13 +581,43 @@ def menu_create(request):
 
 
 def menu_show(request, pk):
-    menu = Menu.objects.get(id=pk)
-    products = menu.products.all()
-    for p in products:
-        p.price = "{:,}".format(p.price)
+    menu = get_object_or_404(Menu, pk=pk)
 
-    return render(request, f'themes/{menu.template.name}.html',
-                  {'title': menu.cafe.name, 'menu': menu, 'products': products})
+    if menu.cafe.premium_exp > datetime.datetime.now():
+        products = menu.products.all().order_by("cate")
+        cats = []
+        for p in products:
+            p.price = "{:,}".format(p.price)
+            if p.cate.name not in cats:
+                cats.append(p.cate.name)
+
+        return render(request, f'themes/{menu.template.name}.html',
+                      {'title': menu.cafe.name, 'menu': menu, 'products': products, 'cats': cats})
+    else:
+        return render(request, f'themes/notActive.html',
+                      {'menu': menu})
+
+
+def default_menu_show(request, pk):
+    cafe = get_object_or_404(Cafe, slug=pk)
+    try:
+        menu = Menu.objects.get(cafe=cafe, isDefault=True)
+    except:
+        menu = Menu.objects.filter(cafe=cafe).last()
+
+    if cafe.premium_exp > datetime.datetime.now():
+        products = menu.products.all().order_by("cate")
+        cats = []
+        for p in products:
+            p.price = "{:,}".format(p.price)
+            if p.cate.name not in cats:
+                cats.append(p.cate.name)
+
+        return render(request, f'themes/{menu.template.name}.html',
+                      {'title': menu.cafe.name, 'menu': menu, 'products': products, 'cats': cats})
+    else:
+        return render(request, f'themes/notActive.html',
+                      {'menu': menu})
 
 
 @login_required()
@@ -532,13 +634,14 @@ def menu_default(request):
     try:
         m_id = request.POST.get('id')
         try:
-            default = Menu.objects.get(isDefault=True)
-            default.isDefault = False
-            default.save()
+            default = request.user.cafe.first().cafe_menus.filter(isDefault=True)
+            for d in default:
+                d.isDefault = False
+                d.save()
         except:
             pass
 
-        menu = Menu.objects.get(id=m_id)
+        menu = request.user.cafe.first().cafe_menus.get(id=m_id)
         menu.isDefault = True
         menu.save()
         return JsonResponse({'status': 'ok'})
@@ -618,10 +721,21 @@ def orders(request):
             return render(request, 'dashboard/ordersAJAX.html',
                           {'orders': orders_list})
 
-        return render(request, 'dashboard/orderManagement.html',
+        carts = Order.objects.filter(cafe=request.user.cafe.first(), closed=False)
+
+        return render(request, 'dashboard/orderManager.html',
                       {'title': 'مدیریت سفارشات', 'section': 'lOrders', 'form': form,
                        'products': products, 'orders': orders_list, 'cafeId': request.user.cafe.first().id,
-                       'today': datetime.date.today()})
+                       'today': datetime.date.today(),
+                       'carts': carts})
+
+
+@login_required()
+def orders_screen(request):
+    return render(request, 'dashboard/ordersBarista.html',
+                  {'title': 'مانیتور باریستا', 'section': 'lOrders',
+                   'cafeId': request.user.cafe.first().id,
+                   'today': datetime.date.today()})
 
 
 @login_required()
@@ -650,13 +764,12 @@ def table_reserve(request):
     reserved_other_days = []
     for re in reservations:
         re.cost = "{:,}".format(re.cost)
-        if re.date.day == datetime.date.today().day:
+        if re.date.year == datetime.date.today().year\
+                and re.date.month == datetime.date.today().month\
+                and re.date.day == datetime.date.today().day:
             reserved.append(re)
         else:
             reserved_other_days.append(re)
-
-    for r in reserved_other_days:
-        reserved.append(r)
 
     if request.method == 'POST':
         form = ReserveForm(data=request.POST)
@@ -666,46 +779,34 @@ def table_reserve(request):
             new_pro.cafe = Cafe.objects.get(owner=request.user)
             new_pro.save()
 
-            form = ReserveForm(data=request.GET)
-            reservation = [new_pro]
-            reservation[0].cost = "{:,}".format(reservation[0].cost)
-            for res in reserved:
-                reservation.append(res)
-            paginator = Paginator(reservation, 5)
-            reserved = paginator.page(1)
-
             # messages.success(request, '!محصول جدید با موفقیت ساخته شد')
-            return render(request, 'dashboard/reservation.html',
-                          {'title': 'مدیریت رزرو میزها',
-                           'section': 'lReservations', 'form': form,
-                           'reservations': reserved, 'confirmAlert': 'Y',
-                           'today': datetime.date.today(),
-                           'first_page': True})
+            return redirect('/reservations')
     else:
         form = ReserveForm(data=request.GET)
 
-        paginator = Paginator(reserved, 5)
+        paginator = Paginator(reserved_other_days, 5)
         page = request.GET.get("page")
         try:
-            reserved = paginator.page(page)
+            reserved_other_days = paginator.page(page)
         except PageNotAnInteger:
-            reserved = paginator.page(1)
+            reserved_other_days = paginator.page(1)
         except EmptyPage:
             if request.headers.get('x-requested-with') == 'XMLHttpRequest':
                 return HttpResponse('')
-            reserved = paginator.page(paginator.num_pages)
+            reserved_other_days = paginator.page(paginator.num_pages)
 
         if request.headers.get('x-requested-with') == 'XMLHttpRequest':
             return render(request, 'dashboard/reservedAJAX.html',
-                          {'reservations': reserved,
-                           'today': datetime.date.today(),
+                          {'reserved': reserved,
+                           'reserved_other_days': reserved_other_days,
                            'first_page': False})
 
         return render(request, 'dashboard/reservation.html',
                       {'title': 'مدیریت رزرو میزها',
                        'section': 'lReservations', 'form': form,
-                       'reservations': reserved, 'confirmAlert': 'N',
-                       'today': datetime.date.today(),
+                       'reserved': reserved,
+                       'reserved_other_days': reserved_other_days,
+                       'confirmAlert': 'N',
                        'first_page': True})
 
 
@@ -1170,6 +1271,48 @@ def xlsx_reports(request):
             report.save()
             ser_report = serializers.serialize('json', [report])
 
-            return JsonResponse({'reportFile': report.file.url}, status=200)
+            return JsonResponse({'reportFile': f'/download/report/{report.id}'}, status=200)
         else:
             return JsonResponse({'status': 'error'}, status=400)
+
+
+def download(request, f_type, pk):
+    if f_type == 'default_menu':
+        document = get_object_or_404(Cafe, pk=pk)
+        response = HttpResponse(document.qr, content_type='image/png+jpeg')
+        response['Content-Disposition'] = f'attachment; filename="{document.qr.name}"'
+    elif f_type == 'menu':
+        document = get_object_or_404(Menu, pk=pk)
+        response = HttpResponse(document.qr, content_type='image/png+jpeg')
+        response['Content-Disposition'] = f'attachment; filename="{document.qr.name}"'
+    elif f_type == 'menu_thumb':
+        document = get_object_or_404(Templates, pk=pk)
+        response = HttpResponse(document.thumbnail, content_type='image/png+jpeg')
+        response['Content-Disposition'] = f'attachment; filename="{document.thumbnail.name}"'
+    elif f_type == 'product':
+        document = get_object_or_404(Products, pk=pk)
+        thumb = get_thumbnailer(document.photo)['product']
+        response = HttpResponse(thumb, content_type='image/png+jpeg')
+        response['Content-Disposition'] = f'attachment; filename="{document.name}"'
+    elif f_type == 'product_icon':
+        document = get_object_or_404(Products, pk=pk)
+        thumb = get_thumbnailer(document.photo)['avatar']
+        response = HttpResponse(thumb, content_type='image/png+jpeg')
+        response['Content-Disposition'] = f'attachment; filename="{document.name}"'
+    elif f_type == 'report':
+        document = get_object_or_404(Report, pk=pk)
+        response = HttpResponse(document.file,
+                                content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = f'attachment; filename="{document.file.name}"'
+    elif f_type == 'profile':
+        document = get_object_or_404(Cafe, pk=pk)
+        thumb = get_thumbnailer(document.pPhoto)['profile']
+        response = HttpResponse(thumb, content_type='image/png+jpeg')
+        response['Content-Disposition'] = f'attachment; filename="{document.name}"'
+    else:
+        document = get_object_or_404(Cafe, pk=pk)
+        thumb = get_thumbnailer(document.pBackground)['wallpaper']
+        response = HttpResponse(thumb, content_type='image/png+jpeg')
+        response['Content-Disposition'] = f'attachment; filename="{document.name}"'
+
+    return response

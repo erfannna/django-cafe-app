@@ -1,7 +1,7 @@
 from django import forms
-from .models import Cafe, Products, Menu, Order, TableReserve, Cost, Report
+from .models import Cafe, Products, Menu, Order, TableReserve, Cost, Report, SocialNetworkPage
 from django.forms import TextInput, Textarea, NumberInput, FileInput, Select, SelectMultiple,\
-    DateTimeInput, DateInput, TimeInput, ChoiceField
+    DateTimeInput, DateInput, TimeInput, URLInput, ChoiceField
 from django.utils.text import slugify
 from urllib import request
 from django.core.files.base import ContentFile
@@ -22,17 +22,43 @@ class LoginForm(forms.Form):
     )
 
 
+class SocialPageForm(forms.ModelForm):
+
+    class Meta:
+        model = SocialNetworkPage
+        fields = ('sn_name', 'url',)
+        widgets = {
+            'sn_name': Select(attrs={
+                'class': "nForm fSelect",
+                'id': "snName",
+                'placeholder': "نام شبکه اجتماعی",
+                'maxlength': "50",
+            }, choices=[("اینستاگرام", "اینستاگرام"), ("یوتیوب", "یوتیوب"), ("تلگرام", "تلگرام")]),
+            'url': URLInput(attrs={
+                'class': "nForm fText2",
+                'id': "snUrl",
+                'placeholder': "آدرس صفحه شما",
+            }),
+        }
+
+
 class CafeInfoForm(forms.ModelForm):
 
     class Meta:
         model = Cafe
-        fields = ('name', 'bio', 'pPhoto', 'pBackground', 'map_link')
+        fields = ('name', 'slug', 'bio', 'city', 'phoneNum', 'pPhoto', 'pBackground', 'map_link')
         widgets = {
             'name': TextInput(attrs={
                 'class': "nForm fText",
                 'id': "cafeName",
                 'placeholder': "نام کافه",
                 'maxlength': "50",
+            }),
+            'slug': TextInput(attrs={
+                'class': "nForm fText",
+                'id': "cafeSlug",
+                'placeholder': "نامک کافه",
+                'maxlength': "20",
             }),
             'bio': Textarea(attrs={
                 'class': "nForm fText",
@@ -57,10 +83,21 @@ class CafeInfoForm(forms.ModelForm):
                 'hidden': 'true'
             }),
             'map_link': TextInput(attrs={
-                'class': "nForm fText",
+                'class': "nForm fText fTextEng",
                 'id': "cafeLocation",
-                'placeholder': "مختصات جغرافیایی کافه",
+                'placeholder': "طول و عرض جغرافیایی کافه",
                 'maxlength': "50",
+            }),
+            'city': TextInput(attrs={
+                'class': "nForm fText",
+                'id': "cafeCity",
+                'placeholder': "شهر - خیابان",
+                'maxlength': "50",
+            }),
+            'phoneNum': TextInput(attrs={
+                'class': "nForm fText",
+                'id': "cafePhone",
+                'placeholder': "شماره تلفن کافه",
             })
         }
 
@@ -70,7 +107,7 @@ class ProductCreateForm(forms.ModelForm):
 
     class Meta:
         model = Products
-        fields = ('cate', 'name', 'price')
+        fields = ('cate', 'name', 'price', 'photo')
         widgets = {
             'name': TextInput(attrs={
                 'class': "nForm fText",
@@ -88,6 +125,12 @@ class ProductCreateForm(forms.ModelForm):
                 'class': "nForm fSelect",
                 'id': "nProductCat",
                 'placeholder': "دسته بندی",
+            }),
+            'photo': FileInput(attrs={
+                'class': "nForm",
+                'id': "nProductPhoto",
+                'placeholder': "تصویر",
+                'hidden': 'true'
             }),
         }
 
@@ -109,6 +152,12 @@ class ProductEditForm(forms.ModelForm):
                 'id': "nProductPrice",
                 'placeholder': "قیمت محصول جدید کافه",
                 'maxlength': "50",
+            }),
+            'photo': FileInput(attrs={
+                'class': "nForm",
+                'id': "nProductPhoto",
+                'placeholder': "تصویر",
+                'hidden': 'true'
             }),
         }
 

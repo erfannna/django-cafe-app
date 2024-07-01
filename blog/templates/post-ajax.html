@@ -1,0 +1,8 @@
+{% for r in posts %}
+<div class="recommended">
+    <img class="recommended-img" src="{% thumbnail r.image 200x150 crop %}" alt="{{ r.title }}">
+    <span class="recommended-title">{{ r.title }}</span>
+    <span class="recommended-short">{{ r.short }}</span>
+    <a href="{{ r.get_absolute_url }}" class="recommended-btn">بیشتر بخوانید</a>
+</div>
+{% endfor %}

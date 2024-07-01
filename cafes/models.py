@@ -14,24 +14,43 @@ class Categories(models.Model):
         return str(self.name)
 
 
+class SocialNetworkPage(models.Model):
+    sn_name = models.CharField(max_length=25)
+    url = models.URLField(blank=True)
+
+    def __str__(self):
+        return str(self.sn_name)
+
+
 class Cafe(models.Model):
     name = models.CharField(max_length=50)
+    slug = models.SlugField(max_length=20, unique=True, null=True)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL,
                               related_name='cafe',
                               on_delete=models.CASCADE)
     bio = models.TextField(max_length=150,
                            blank=True)
+    phoneNum = models.CharField(max_length=20, blank=True)
     pPhoto = models.ImageField(upload_to='profiles/pic/%Y/%m/%d/',
                                blank=True)
     pBackground = models.ImageField(upload_to='profiles/bg/%Y/%m/%d/',
                                     blank=True)
+    social = models.ManyToManyField(SocialNetworkPage,
+                                    related_name='cafe',
+                                    blank=True)
+    qr = models.ImageField(upload_to='qrcode/%Y/%m/%d/',
+                           blank=True)
+    map_link = models.CharField(max_length=50, blank=True)
+    city = models.CharField(max_length=50, blank=True)
     rate = models.PositiveIntegerField(default=0)
     premium = models.BooleanField(default=False)
     premium_exp = models.DateTimeField(default=timezone.now)
-    map_link = models.CharField(max_length=50, blank=True)
 
     def __str__(self):
         return str(self.name)
+
+    def get_absolute_url(self):
+        return reverse('cafes:cProfile', kwargs={'pk': self.slug})
 
 
 class Products(models.Model):
@@ -42,6 +61,8 @@ class Products(models.Model):
                              null=True)
     name = models.CharField(max_length=50)
     price = models.PositiveIntegerField(default=0)
+    photo = models.ImageField(upload_to='products/pic/%Y/%m/%d/',
+                              blank=True)
 
     def __str__(self):
         return str(self.name)
@@ -86,6 +107,11 @@ class OrderProd(models.Model):
     prod = models.ForeignKey(Products,
                              on_delete=models.CASCADE)
     number = models.PositiveIntegerField(default=1)
+    price = models.PositiveIntegerField(default=0)
+
+    def save(self, *args, **kwargs):
+        self.price = self.prod.price * self.number
+        super().save(*args, **kwargs)
 
 
 class Order(models.Model):
@@ -98,6 +124,7 @@ class Order(models.Model):
     price = models.PositiveIntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
     table = models.PositiveSmallIntegerField(blank=False, default=00)
+    closed = models.BooleanField(default=True)
 
 
 class TableReserve(models.Model):

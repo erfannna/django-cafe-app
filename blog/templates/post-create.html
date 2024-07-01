@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static "css/post-create.css" %}" rel="stylesheet">
+    <title>{{ title }}</title>
+    <script src="/static/tinymce/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            height: 400,
+            selector: 'textarea#post-content',
+            plugins: [
+                'advlist','autolink','lists','link','image','charmap','preview','anchor','searchreplace','visualblocks',
+                'visualchars','fullscreen','insertdatetime','media','table','help','wordcount','code', 'emoticons'
+            ],
+            toolbar: 'undo redo | casechange blocks | bold italic backcolor | ' +
+                'alignleft aligncenter alignright alignjustify | ' +
+                'bullist numlist outdent indent | removeformat | code table help',
+        });
+    </script>
+</head>
+<body>
+<form method="post" enctype="multipart/form-data">{% csrf_token %}
+    <div id="headBox">
+        <div class="formItem">
+            {{ form.title }}
+            {{ form.short }}
+        </div>
+        <div class="formItem">
+            <div id="pPhotoBox">
+                {% if form.instance.image %}
+                <img id="pPhotoPre" src="{{ form.instance.image.url }}" alt="" style="display: inline;">
+                <span id="pPhotoIco" class="fi-rr-camera" style="display: none;"></span>
+                <span class="deletePic fi-rr-trash"></span>
+                {% else %}
+                <img id="pPhotoPre" src="" alt="" style="display: none;">
+                <span id="pPhotoIco" class="fi-rr-camera"></span>
+                <span class="deletePic fi-rr-trash" style="display: none;"></span>
+                {% endif %}
+            </div>
+            <span id="choosePic">انتخاب تصویر</span>
+            {{ form.image }}
+        </div>
+        <div class="formItem actionBox">
+            <input class="submit-btn btn" type="submit" value="انتشار">
+            {{ form.duration }}
+            <span class="label-detail">خطاها</span>
+            {{ form.errors }}
+        </div>
+    </div>
+    {{ form.content }}
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js"></script>
+<script>
+    $(" #post-image ").change(function(input){
+        var file = $(this).get(0).files[0];
+
+        if(file){
+            var reader = new FileReader();
+
+            reader.onload = function(){
+                $("#pPhotoPre").attr("src", reader.result);
+                $("#pPhotoPre").show();
+                $("#pPhotoIco").hide();
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+    $(document).on('click', '#choosePic', function(event) {
+        event.preventDefault();
+        $(" #post-image ").click();
+    });
+</script>
+</body>
+</html>

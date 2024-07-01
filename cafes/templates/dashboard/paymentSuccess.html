@@ -1,81 +1,12 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="fa">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link href="{% static "css/payment.css" %}" rel="stylesheet">
     <title>پرداخت {{ pStatus }}</title>
-    <style>
-        #pageContent {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        #activeText {
-            position: relative;
-            float: right;
-            display: flex;
-            align-items: center;
-            max-width: 100%;
-            width: 67vmax;
-            padding: 15px 15px 15px 15px;
-            border-radius: 10px;
-            direction: rtl;
-            background-color: #d8bfd840;
-            margin-top: 10px;
-            margin-right: 10px;
-            color: black;
-            font-size: 20px;
-            font-weight: 500;
-            font-family: shabnam;
-            gap: 5px;
-            flex-direction: column;
-            justify-content: center;
-            direction: rtl;
-        }
-        #pTitle {
-            margin-top: 50px;
-            font-family: shabnam;
-            font-weight: bold;
-            cursor: default;
-            user-select: none;
-        }
-        .icon {
-            display: flex;
-            font-size: 50px;
-            background-color: darksalmon;
-            border-radius: 50%;
-            width: 100px;
-            height: 100px;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 10px;
-            color: white;
-        }
-        #aClose {
-            margin-top: 15px;
-            float: unset;
-            text-decoration: none;
-            width: auto;
-            padding: 1px 12px;
-            font-size: 14px;
-            font-weight: 100;
-            text-align: center;
-            color: white;
-            background-color: grey;
-            font-family: vazir;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: .1s;
-        }
-        .delBtn:hover {
-            background-color: mediumpurple !important;
-            border-style: solid;
-            border-width: 2px;
-            border-color: #dcdcdc;
-        }
-
-    </style>
 </head>
 <body>
     <div id="pageContent">

@@ -1,0 +1,24 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block include %}
+<link href="{% static "css/orders.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div id="pageContent">
+    <h1 id="pTitle">سفارشات جاری</h1>
+    <div id="orderList">
+        <span id="todayOrders" class="oDateGroup">سفارشات جدید</span>
+    </div>
+    <span id="onClose"><span id="retry">تلاش مجدد</span>اتصال با سرور قطع شد ! </span>
+</div>
+
+{% endblock %}
+
+{% block domready %}
+<script>
+    const roomName = {{ cafeId }};
+</script>
+<script src="{% static "js/ordersBarista.js" %}"></script>
+{% endblock %}

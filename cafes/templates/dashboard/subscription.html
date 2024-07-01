@@ -1,259 +1,8 @@
 {% extends "dashboard/base.html" %}
-
-<style>
-    {% block style %}
-
-    #pageContent {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-    }
-    #activeText {
-        position: relative;
-        float: right;
-        display: flex;
-        max-width: 100%;
-        width: 67vmax;
-        padding: 15px 15px 15px 15px;
-        border-radius: 10px;
-        background-color: #d8bfd840;
-        margin-top: 30px;
-        margin-right: 10px;
-        color: black;
-        font-size: 18px;
-        font-weight: 500;
-        font-family: shabnam;
-        gap: 5px;
-        flex-direction: row-reverse;
-    }
-    .TempsList {
-        position: relative;
-        display: flex;
-        float: right;
-        width: 500px;
-        height: 65px;
-        margin-top: 15px;
-        padding: 10px;
-        background-color: #dbb38587;
-        border: solid #c08a4d87;
-        border-radius: 10px;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-        cursor: pointer;
-        user-select: none;
-        transition: .2s;
-    }
-    .TempsList:hover {
-        background-color: #db8585;
-        border: solid #e9cbcb;
-        scale: 1.05;
-    }
-    .TempsList:hover .price {
-        color: white;
-    }
-    .TempsListActive {
-        background-color: #db8585;
-        border: solid #e9cbcb;
-        scale: 1.05;
-    }
-    .TempsListActive .price {
-        color: white;
-    }
-    .cProsCat {
-        font-family: vazir;
-        font-weight: 600;
-        color: white;
-        background-color: #ffffff24;
-        border-radius: 50%;
-        padding: 50px;
-        direction: rtl;
-    }
-    .label {
-        color: black;
-    }
-    .price {
-        font-size: 22px;
-        font-family: shabnam;
-        color: #e28542;
-        text-shadow: 2px 1px 1px black;
-    }
-    .popUpBg {
-        position: fixed;
-        display: none;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        backdrop-filter: grayscale(.5) blur(1px);
-    }
-    .success {
-        position: relative;
-        display: none;
-        width: 35%;
-        height: max-content;
-        margin-left: auto;
-        margin-right: auto;
-        top: 30%;
-        background-color: white;
-        text-align: center;
-        padding: 20px;
-        padding-bottom: 50px;
-        border-radius: 15px;
-        filter: drop-shadow(0px 0px 8px #41414161);
-        font-family: vazir;
-        cursor: default;
-    }
-    .mDel {
-        position: absolute;
-        width: 25px;
-        left: 15px;
-        top: 15px;
-        color: crimson;
-        cursor: pointer;
-    }
-    .downBtn {
-        position: absolute;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        width: 15px;
-        height: 15px;
-        color: white;
-        background-color: #ff8c77;
-        border-radius: 30px;
-        padding: 5px;
-        text-align: center;
-        font-family: vazir;
-        font-size: 14px;
-        top: 17px;
-        left: 50px;
-        cursor: pointer;
-        text-decoration: none;
-        transition: .2s;
-    }
-    .changeBtn {
-        display: none;
-    }
-    .downBtn:hover {
-        width: 100px;
-        filter: drop-shadow(0px 0px 6px lightgray);
-    }
-    .downBtn:hover .changeBtn {
-        display: block;
-    }
-    .editBtn {
-        margin-left: 15px;
-        float: left;
-        width: auto;
-        padding: 1px 12px;
-        font-weight: 100;
-        color: white;
-        background-color: grey;
-        font-family: vazir;
-        border-radius: 15px;
-        cursor: pointer;
-        transition: .2s;
-    }
-    #aClose {
-        margin-left: 15px;
-        float: unset;
-        width: auto;
-        padding: 1px 12px;
-        font-weight: 100;
-        text-align: center;
-        color: white;
-        background-color: grey;
-        font-family: vazir;
-        border-radius: 15px;
-        cursor: pointer;
-        transition: .2s;
-    }
-    .delBtn:hover {
-        opacity: 70%;
-        border-style: solid;
-        border-width: 2px;
-        border-color: #fcc23b;
-    }
-    .oTempsList {
-        position: relative;
-        overflow: auto;
-        /*width: 100%;*/
-        float: right;
-        margin-top: 15px;
-        padding: 10px;
-        background-color: #d8bfd887;
-        border-radius: 10px;
-        border-bottom: 3px solid;
-        border-right: 3px solid;
-    }
-    #todayReserved {
-        background-color: mediumpurple;
-        padding: 5px;
-        border-radius: 0 0 20px 20px;
-        font-weight: 600;
-        font-size: 17px;
-    }
-    .oDateGroup {
-        position: relative;
-        width: 98%;
-        margin-left: auto;
-        margin-right: auto;
-        float: right;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        text-align: center;
-        padding: 2px 5px;
-        background-color: sienna;
-        border-radius: 10px 0 10px 10px;
-        color: white;
-        font-family: Shabnam;
-        cursor: default;
-    }
-    .oProsCat {
-        position: relative;
-        margin-right: 10px;
-        padding: 1.5px 10px;
-        float: right;
-        font-family: Shabnam;
-        font-weight: 500;
-        color: white;
-        opacity: 70%;
-        background-color: chocolate;
-        border-radius: 5px;
-        cursor: default;
-        direction: rtl;
-    }
-    .reserveDetail {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        width: 32vmax;
-        height: 5vmax;
-        margin: 0 5px 0 5px;
-        padding: 1.5px 5px;
-        float: right;
-        font-family: Shabnam;
-        font-size: 20px;
-        font-weight: 600;
-        color: maroon;
-        background-color: white;
-        filter: drop-shadow(0px 0px 5px #cfcfcf);
-        border-radius: 9px;
-        cursor: default;
-    }
-    .resDetail {
-        margin-bottom: 12px;
-        direction: rtl;
-        font-size: 16px;
-        font-weight: 400;
-        color: black;
-    }
-    {% endblock %}
-</style>
+{% load static %}
+{% block include %}
+<link href="{% static "css/subscription.css" %}" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
 
@@ -262,46 +11,36 @@
     <h1 id="pTitle" style="direction: rtl;">حساب پریمیوم </h1>
     <div id="activeText">
         <span>: حساب کافه شما تا تاریخ</span><br>
-        <span style="font-weight: 600;font-size: 19px;">{{ subExp }}</span><br>
+        <span class="activeTime">{{ subExp }}</span><br>
         <span style="color: green"> فعال </span>
         <span>. میباشد</span>
     </div>
     {% else %}
     <h1 id="pTitle" style="direction: rtl;">حساب پریمیوم <small style="color: red;font-size:16px;">(غیرفعال)</small></h1>
     <br>
-    <span class="fLabel">یکی از پلن های زیر را انتخاب کنید :</span>
-    <div class="TempsList" data-id="1">
-        <div class="cProsCat"><span class="label">پلن یک ماهه</span><br><span class="price"><span style="font-size: 28px;">75</span> هزار تومان</span></div>
-    </div>
-    <div class="TempsList" style="width: 550px;" data-id="2">
-        <div class="cProsCat"><span class="label">پلن سه ماهه</span><br><span class="price"><span style="font-size: 28px;">200</span> هزار تومان</span></div>
-    </div>
-    <div class="TempsList" style="width: 600px;" data-id="3">
-        <div class="cProsCat"><span class="label">پلن شش ماهه</span><br><span class="price"><span style="font-size: 28px;">420</span> هزار تومان</span></div>
-    </div>
-    <div class="TempsList" style="width: 650px;" data-id="4">
-        <div class="cProsCat"><span class="label">پلن یک ساله</span><br><span class="price"><span style="font-size: 28px;">820</span> هزار تومان</span></div>
-    </div>
-    <input id="submit" class="nForm" type="submit" value="پرداخت" style="display: none;">
     {% endif %}
+    <span class="fLabel">یکی از پلن های زیر را انتخاب کنید :</span>
+    <div class="plans">
+        <div class="TempsList" data-id="1">
+            <div class="cProsCat"><span class="label">پلن یک ماهه</span><br><span class="price"><span style="font-size: 28px;">120</span> هزار تومان</span></div>
+        </div>
+        <div class="TempsList temp2" data-id="2">
+            <div class="cProsCat"><span class="label">پلن سه ماهه</span><br><span class="price"><span style="font-size: 28px;">345</span> هزار تومان</span></div>
+        </div>
+        <div class="TempsList temp3" data-id="3">
+            <div class="cProsCat"><span class="label">پلن شش ماهه</span><br><span class="price"><span style="font-size: 28px;">660</span> هزار تومان</span></div>
+        </div>
+        <div class="TempsList temp4" data-id="4">
+            <div class="cProsCat"><span class="label">پلن یک ساله</span><br><span class="price"><span style="font-size: 28px;">1.2</span> میلیون تومان</span></div>
+        </div>
+        <input id="submit" class="nForm" type="submit" value="پرداخت" style="display: none;">
+    </div>
     {% include "dashboard/paymentsAJAX.html" %}
+    <div class="popUpBg"></div>
 </div>
 
 {% endblock %}
 
 {% block domready %}
-
-var pId;
-$(" .TempsList ").click(function(e) {
-    e.preventDefault();
-    $(" .TempsList ").removeClass(" TempsListActive ");
-    $(this).toggleClass(" TempsListActive ");
-    pId = $(this).data('id');
-    $(" #submit ").show(150);
-});
-$(" #submit ").click(function(e) {
-    e.preventDefault();
-    window.location.replace('/pay/request/subscription/'+ pId);
-});
-
+<script src="{% static "js/subscription.js" %}"></script>
 {% endblock %}

@@ -1,0 +1,211 @@
+#proEdit {
+    display: flex;
+    margin-top: 20px;
+    border-radius: 10px;
+    background-color: #d8bfd840;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+}
+#mForm {
+    width: 330px;
+    margin-bottom: 20px;
+    background-color: unset;
+}
+.picsName {
+    font-family: Vazir;
+    font-weight: 600;
+    margin-bottom: 10px;
+    cursor: default;
+}
+#photoEdit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px;
+}
+.pPBox {
+    position: relative;
+    margin-bottom: 20px;
+}
+.pEdit {
+    position: absolute;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 15px;
+    height: 15px;
+    color: white;
+    background-color: #ff8c77;
+    border-radius: 30px;
+    padding: 5px;
+    text-align: center;
+    font-family: Vazir;
+    font-size: 14px;
+    bottom: 33px;
+    right: 0px;
+    cursor: pointer;
+    transition: .2s;
+}
+.changeBtn {
+    display: none;
+}
+.pEdit:hover {
+    width: 100px;
+    filter: drop-shadow(0px 0px 6px lightgray);
+}
+.pEdit:hover .changeBtn {
+    display: block;
+}
+#pPhotoPre {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 30px;
+    background-color: white;
+    border-radius: 50%;
+}
+#pBackPre {
+    width: 320px;
+    height: 180px;
+    background-color: white;
+    border-radius: 5px;
+}
+#proBox {
+    position: relative;
+    display: block;
+    width: unset;
+    height: unset;
+    font-size: 40px;
+    line-height: 0;
+    padding: 30px;
+    margin-bottom: 30px;
+    background-color: tan;
+    border-radius: 50%;
+}
+#pBackBox {
+    position: relative;
+    display: block;
+    width: unset;
+    height: unset;
+    font-size: 50px;
+    line-height: 0;
+    padding: 65px 135px;
+    background-color: tan;
+    border-radius: 5px;
+}
+.deletePic {
+    position: absolute;
+    padding: 3px;
+    font-size: 17px;
+    font-family: 'Vazir';
+    color: white;
+    left: -8px;
+    top: -8px;
+    line-height: 0;
+    border-radius: 50%;
+    background-color: red;
+    cursor: pointer;
+}
+#cafeProfileLink {
+    gap: 8px;
+    display: inherit;
+    padding: 5px 10px 5px 0;
+    border-radius: 8px;
+    background-color: #d8bfd840;
+    font-family: monospace;
+    font-weight: 500;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.fi-rr-link {
+    background-color: thistle;
+    line-height: 0;
+    width: 25px;
+    padding: 5px;
+    height: 100%;
+    display: inherit;
+    justify-content: center;
+    border-radius: 8px;
+    align-items: center;
+    cursor: pointer;
+}
+.notAlert {
+    font-size: 14px;
+    font-family: Vazir;
+    font-weight: 600;
+    color: red;
+    direction: rtl;
+    margin-bottom: 10px;
+    cursor: default;
+}
+#nMenuQr {
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+.menuLinks {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.downBtn {
+    background-color: #ff0f45;
+    color: white;
+    border: #ffffff7a 2px solid;
+    border-radius: 9px;
+    padding: 1px 9px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: .2s;
+}
+.popUpBg {
+    position: fixed;
+    display: block;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: grayscale(.5) blur(1px);
+}
+#success {
+    position: absolute;
+    left: 35%;
+    top: 50%;
+    background-color: white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 15px;
+    filter: drop-shadow(0px 0px 8px #41414161);
+    font-family: Vazir;
+    cursor: default;
+}
+#aClose {
+    margin-left: 15px;
+    float: unset;
+    width: auto;
+    padding: 1px 12px;
+    font-weight: 100;
+    text-align: center;
+    color: white;
+    background-color: grey;
+    font-family: Vazir;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: .2s;
+}
+.delBtn:hover {
+    opacity: 70%;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #fcc23b;
+}
+
+@media only screen and (max-width: 430px) {
+    #pageContent {
+        width: 95%;
+    }
+    #proEdit {
+        flex-direction: column;
+    }
+}

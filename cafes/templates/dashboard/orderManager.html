@@ -1,0 +1,122 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block include %}
+<link href="{% static "css/ordersManager.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div id="pageContent">
+    <h1 id="pTitle">مدیریت سفارشات</h1>
+    <form id="mForm" class="margin-bottom: 15px;" method="post" enctype="multipart/form-data">
+        <span class="fLabel" style="font-size: 18px;margin-left: auto;margin-right: auto;text-decoration: underline;">سفارش جدید</span>
+        <span class="nPrice fLabel">محصولات: <small>(برای افزودن روی هر مورد کلیک کنید) </small></span>
+        {{ form.products }}
+        <div id="cProsList">
+            <input id="prodSearch" type="text" placeholder="نام محصول را وارد کنید ...">
+        {% for pro in products %}
+            {% ifchanged pro.cate.name %}
+            <span class="cProsCat">{{ pro.cate.name }}</span>
+            {% endifchanged %}
+            <span class="cPros" data-id="{{ pro.id }}" data-num="0"><span class="cPro">{{ pro.name }}</span><span class="pNum" data-id="{{ pro.id }}"></span><span class="pNumMin" data-id="{{ pro.id }}">-</span></span>
+        {% endfor %}
+        </div>
+        <span class="nPrice fLabel">شماره میز : </span>
+        {{ form.table }}
+        {% csrf_token %}
+        <span id="submit" class="nForm">ثبت سفارش</span>
+        <span id="loading" class="custom-loader"></span>
+    </form>
+    <a href="/orders/barista">
+        <span id="baristaMonitor" class="newCart fi fi-rr-arrow-up-right-from-square">
+            <span class="changeBtn">نمایشگر باریستا</span>
+        </span>
+    </a>
+    <span id="allCarts" class="newCart fi fi-rr-shopping-cart-check">
+        <span class="changeBtn">صورتحساب میزها</span>
+    </span>
+    <span id="newCart" class="newCart fi fi-rr-shopping-cart-add">
+        <span class="changeBtn">درگاه جدید ثبت سفارش</span>
+    </span>
+    <div id="orderList">
+        <span id="todayOrders" class="oDateGroup">سفارشات جاری</span>
+        {% include "dashboard/ordersAJAX.html" %}
+    </div>
+    <div class="popUpBg">
+        <div id="cartsBox">
+            <div id="cartsTab">
+            {% for cart in carts %}
+                <span class="cartNum " data-id="{{ cart.table }}"> {{ cart.table }} <small>میز</small></span>
+            {% endfor %}
+            </div>
+            <span id="noCart">! هیچ صورتحسابی جهت نمایش وجود ندارد</span>
+            {% for cart in carts %}
+            <div class="cartDetail" data-id="{{ cart.table }}">
+                <table class="prodsTable" data-id="{{ cart.table }}">
+                    <caption class="cartTitle">صورتحساب</caption>
+                    <tr>
+                        <th colspan="4">کافه {{ request.user.cafe.first.name }}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2">میز شماره {{ cart.table }}</th>
+                        <th colspan="2" style="direction: ltr;">{{ cart.created }}</th>
+                    </tr>
+                    <tr>
+                        <th>محصول</th>
+                        <th>تعداد</th>
+                        <th>قیمت واحد</th>
+                        <th>قیمت کل</th>
+                    </tr>
+                    {% for pr in cart.prods.all %}
+                    <tr>
+                        <td>{{ pr.prod.name }}</td>
+                        <td>{{ pr.number }}</td>
+                        <td>{{ pr.prod.price }} ت</td>
+                        <td>{{ pr.price }} ت</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <div class="totalPrice">
+                    <span>قیمت کل : </span>
+                    <strong><span class="priceNum" data-id="{{ cart.table }}" data-num="{{ cart.price }}">{{ cart.price }}</span> تومان</strong>
+                </div>
+                <span data-id="{{ cart.table }}" class="closeCart cartButton">بستن صورتحساب</span>
+                <span data-id="{{ cart.table }}" class="cartButton printCart fi-rr-print"></span>
+            </div>
+            {% endfor %}
+            <span id="cClose" class="delBtn">بستن</span>
+        </div>
+    </div>
+    <div id="newCartRedirect" class="success">
+        <span class="nPrice fLabel">شماره میز : </span>
+        <input id="newCartNo" type="number" placeholder="شماره میز را وارد کنید ..." class="nForm fText" style="width: 230px;margin-bottom: 20px;">
+        <span id="ExCart">بستن</span>
+        <span id="GoCart" class="delBtn">ورود به درگاه</span>
+    </div>
+    <span id="onClose"><span id="retry">تلاش مجدد</span>اتصال با سرور قطع شد ! </span>
+    <div id="confirm" class="success">
+        <strong id="delPro" style="width: 100%; margin-left: auto; margin-right: auto;"></strong><br><br>
+        <span>این سفارش را حذف می کنید؟ </span>
+        <br><br>
+        <div style="margin-left: auto;margin-right: auto;">
+            <span id="delN" class="delBtn">خیر</span>
+            <span id="delY" class="delBtn">بله<span id="loading" style="width: 15px;height: 15px;margin-top: unset;" class="custom-loader"></span></span>
+        </div>
+    </div>
+    <div id="success" class="success">
+        <span>! سفارش جدید با موفقیت ایجاد شد</span>
+        <br><br>
+        <span id="aClose" class="delBtn">بستن</span>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block domready %}
+<script>
+    const roomName = {{ cafeId }};
+    const cafeName = '{{ request.user.cafe.first.name }}';
+</script>
+<script src="{% static "js/jQuery.print.js" %}"></script>
+<script src="{% static "js/orders.js" %}"></script>
+{% endblock %}
