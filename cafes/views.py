@@ -315,24 +315,6 @@ def dashboard(request):
                 chart_o_income[i] += o.price
             i += 1
 
-        # if weekday <= 7 and o.created.strftime("%b/%d") not in chart_days:
-            # chart_days.append(o.created.strftime("%b/%d"))
-            # weekday += 1
-
-        # if weekday <= 8:
-            # if o.created.year == current.year \
-                    # and o.created.month == current.month \
-                    # and o.created.day == current.day:
-                # current_in += o.price
-            # else:
-                # current = o.created
-                # chart_income.append(current_in)
-                # current_in = 0
-                # current_in += o.price
-    # chart_income.append(current_in)
-    # chart_income.reverse()
-    # chart_days.reverse()
-
     reservations = TableReserve.objects.filter(cafe=request.user.cafe.first()).order_by("-date")
     for r in reservations:
         if r.date.year == today.year \
